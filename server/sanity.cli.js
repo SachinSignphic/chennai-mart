@@ -1,8 +1,8 @@
-import {defineCliConfig} from 'sanity/cli'
+import {defineCliConfig} from 'sanity/cli';
 
 export default defineCliConfig({
-  api: {
-    projectId: 'wgdjs7xs',
-    dataset: 'production'
-  }
-})
+    api: {
+        projectId: 'wgdjs7xs',
+        dataset: 'production',
+    },
+});

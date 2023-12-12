@@ -20,10 +20,10 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'author',
-      title: 'Author',
+      name: 'products',
+      title: 'Products',
       type: 'reference',
-      to: {type: 'author'},
+      to: {type: 'products'},
     }),
     defineField({
       name: 'mainImage',
@@ -43,6 +43,9 @@ export default defineType({
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
+      options: {
+        default: Date.now
+      }
     }),
     defineField({
       name: 'body',
