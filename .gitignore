@@ -18,6 +18,10 @@ app/logs
 server/*.log
 app/*.log
 
+app/.expo/
+app/dist/
+app/web-build/
+
 # Coverage directory used by testing tools
 server/coverage
 
