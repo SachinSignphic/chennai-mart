@@ -6,10 +6,11 @@ export default function App() {
     return (
         <View className='flex-1 justify-center items-center'>
             <Text className='text-xl text-red-500'>
-                Open up App.js to start working on your app!
+                The onboarding screen
             </Text>
-            <Link href={'/home'}>Go to home!</Link>
+            <Link href={'/home'}>Go to home! After user logs in</Link>
             <StatusBar style='auto' />
+            {/* once checking if signed in or used multiple times, use <Redirect /> component to take users */}
         </View>
     );
 }
