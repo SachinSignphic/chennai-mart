@@ -6,7 +6,19 @@ module.exports = {
         "./components/**/*.{js,jsx,ts,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                primary: "#2F2E41",
+                secondary: "#999999",
+                teal: "#F2F5FD",
+                badge: "#383749",
+                "tint-black": "#100F18",
+            },
+            fontFamily: {
+                primary: ["Arial", "sans-serif"],
+                secondary: ["Times New Roman", "serif"],
+            },
+        },
     },
     plugins: [],
 };
