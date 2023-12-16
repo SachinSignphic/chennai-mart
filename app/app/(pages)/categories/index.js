@@ -1,13 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
-import DummyComponent from "@components/";
+import { SafeArea } from "@components";
 
 const index = () => {
     return (
-        <View>
+        <SafeArea>
             <Text>Categories</Text>
-            <DummyComponent />
-        </View>
+        </SafeArea>
     );
 };
 

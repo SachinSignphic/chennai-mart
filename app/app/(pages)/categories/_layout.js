@@ -1,11 +1,11 @@
-import { Stack } from "expo-router/stack";
+import { Stack } from "expo-router";
 
 export default Layout = () => {
     return (
         <Stack>
             <Stack.Screen
                 name='index'
-                options={{ title: "Categories" }}
+                options={{ title: "Categories", headerShown: false }}
             />
         </Stack>
     );

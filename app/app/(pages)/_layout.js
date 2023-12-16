@@ -21,10 +21,11 @@ export default function Layout() {
             screenOptions={{
                 tabBarActiveTintColor: "#fefefe",
                 tabBarStyle: {
-                    position: "absolute",
-                    bottom: 30,
-                    left: "50%",
-                    transform: [{ translateX: -270 }],
+                    // position: "absolute",
+                    bottom: "2%",
+                    // left: "50%",
+                    // transform: [{ translateX: -270 }],
+                    alignSelf: "center",
                     height: 90,
                     borderWidth: 1,
                     borderRadius: 10,
@@ -44,8 +45,10 @@ export default function Layout() {
                         <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                             <FeatherIcon
                                 name='shopping-bag'
-                                size={34}
+                                size={30}
                                 color={"#fff"}
+                                // maxFontSizeMultiplier={0.3}
+                                adjustsFontSizeToFit
                             />
                         </TabIconWrapper>
                     ),
@@ -61,7 +64,7 @@ export default function Layout() {
                         <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                             <FeatherIcon
                                 name='tag'
-                                size={34}
+                                size={30}
                                 color='#fff'
                             />
                         </TabIconWrapper>
@@ -78,7 +81,7 @@ export default function Layout() {
                         <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                             <MaterialIcons
                                 name='category'
-                                size={34}
+                                size={30}
                                 color='#fff'
                             />
                         </TabIconWrapper>
@@ -95,7 +98,7 @@ export default function Layout() {
                         <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                             <IonIcon
                                 name='home-outline'
-                                size={34}
+                                size={30}
                                 color={"#fff"}
                             />
                         </TabIconWrapper>

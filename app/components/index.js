@@ -1,12 +1,4 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import SafeArea from './SafeArea'
 
-const DummyComponent = () => {
-  return (
-    <View>
-      <Text>DummyComponent</Text>
-    </View>
-  )
-}
 
-export default DummyComponent
+export { SafeArea };
