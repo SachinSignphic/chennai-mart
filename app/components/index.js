@@ -1,4 +1,7 @@
-import SafeArea from './SafeArea'
+import HomeHeader from "./HomeHeader";
+import SafeArea from "./SafeArea";
 
-
-export { SafeArea };
+export { 
+    SafeArea,
+    HomeHeader 
+};
