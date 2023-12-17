@@ -51,7 +51,7 @@ const CategoryButton = ({ title, name }) => {
             <Text
                 className={`${
                     category == name ? "text-white" : "text-primary"
-                } text-xl font-bold`}>
+                } text-md modern:text-xl font-bold`}>
                 {title}
             </Text>
         </Pressable>
@@ -62,7 +62,7 @@ const CategoryList = () => {
     return (
         <FlatList
             data={CATEGORIES_BUTTONS}
-            className='flex-grow-0 mt-5'
+            className='flex-grow-0 mt-2 modern:mt-5'
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{

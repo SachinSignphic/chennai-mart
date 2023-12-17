@@ -18,13 +18,13 @@ const DEALS_BANNER_DATA = [
 
 const BannerCard = ({ id, imageURL }) => {
     return (
-        <View className='w-[90vw] h-56 bg-teal rounded-xl relative shadow-lg shadow-black/40'>
+        <View className='w-[90vw] h-[22vh] bg-teal rounded-xl relative shadow-lg shadow-black/40'>
             <ImageBackground
                 resizeMode='cover'
                 source={imageURL}
                 className='flex-1 w-full h-full object-fill'
             />
-            <Text className='absolute bottom-3 text-primary text-xl right-4'>
+            <Text className='absolute bottom-3 text-primary text-lg modern:text-xl right-4'>
                 {id + " " + imageURL}
             </Text>
         </View>

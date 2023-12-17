@@ -19,6 +19,9 @@ module.exports = {
                 secondary: ["Times New Roman", "serif"],
             },
         },
+        screens: {
+            modern: '540px',
+        }
     },
     plugins: [],
 };

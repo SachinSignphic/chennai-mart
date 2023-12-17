@@ -17,7 +17,7 @@ const HomeSearch = () => {
             />
             <TextInput
                 placeholder='What are you looking for?'
-                className='border-b border-b-slate-300 py-2 text-xl w-[80%]'
+                className='border-b border-b-slate-300 py-2 text-lg modern:text-xl w-[80%]'
                 value={searchKey}
                 onChangeText={(e) => dispatch(inputText(e))}
             />

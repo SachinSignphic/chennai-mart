@@ -27,7 +27,7 @@ const HomeHeader = () => {
             onLayout={onLayoutRootView}>
             <View>
                 <Text
-                    className='text-secondary text-3xl w-min'
+                    className='text-secondary text-xl modern:text-3xl w-min'
                     style={{
                         // fontFamily: "serif",
                         fontFamily: "Nunito-ExtraBold",
@@ -36,7 +36,7 @@ const HomeHeader = () => {
                     Welcome Back,
                 </Text>
                 <Text
-                    className='text-primary text-4xl w-fit'
+                    className='text-primary text-3xl modern:text-4xl w-fit'
                     style={{
                         fontFamily: "Nunito-ExtraBold",
                         fontWeight: 800,
@@ -57,7 +57,7 @@ const HomeHeader = () => {
                 <TouchableOpacity
                     onLongPress={() => router.push("/home/user/1")}
                     onPress={() => router.push("/home/user/1")}>
-                    <View className='border w-20 h-20 rounded-full flex items-center justify-center'>
+                    <View className='border-2 modern:border h-16 w-16 modern:w-20 modern:h-20 rounded-full flex items-center justify-center'>
                         <View className='w-[85%] h-[85%] rounded-full bg-secondary'></View>
                     </View>
                 </TouchableOpacity>
