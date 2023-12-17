@@ -43,8 +43,10 @@ const CategoryButton = ({ title, name }) => {
             //     shadowRadius: 3,
             // }}
             className={`${
-                category == name ? "bg-primary" : "bg-teal"
-            } w-[25vw] space-x-2 px-2 py-2 rounded-xl flex justify-center items-center shadow-md shadow-black/30`}
+                category == name
+                    ? "bg-primary shadow-lg shadow-black/80"
+                    : "bg-teal"
+            } w-[25vw] space-x-2 px-2 py-2 rounded-xl flex justify-center items-center`}
             onPress={() => dispatch(selectCategory(name))}>
             <Text
                 className={`${

@@ -4,15 +4,15 @@ import React from "react";
 const DEALS_BANNER_DATA = [
     {
         id: 1,
-        image: "../assets/banner-test.png",
+        image: require("../assets/banner-test.png"),
     },
     {
         id: 2,
-        image: "../assets/banner-test.png",
+        image: require("../assets/banner-test.png"),
     },
     {
         id: 3,
-        image: "../assets/banner-test.png",
+        image: require("../assets/banner-test.png"),
     },
 ];
 
@@ -21,7 +21,7 @@ const BannerCard = ({ id, imageURL }) => {
         <View className='w-[90vw] h-56 bg-teal rounded-xl relative shadow-lg shadow-black/40'>
             <ImageBackground
                 resizeMode='cover'
-                source={require("../assets/banner-test.png")}
+                source={imageURL}
                 className='flex-1 w-full h-full object-fill'
             />
             <Text className='absolute bottom-3 text-primary text-xl right-4'>

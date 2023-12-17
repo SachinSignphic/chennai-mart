@@ -17,15 +17,15 @@ export default Layout = () => {
                 />
                 <Stack.Screen
                     name='product'
-                    options={{ title: "Products" }} // later make this a dynamic name with reference to expo docs
+                    options={{ title: "Products" }} // later make this dynamic by showing product name maybe
                 />
                 <Stack.Screen
                     name='settings'
-                    options={{ title: "Settings" }} // later make this a dynamic name with reference to expo docs
+                    options={{ title: "Settings" }} 
                 />
                 <Stack.Screen
                     name='user'
-                    options={{ title: "User" }} // later make this a dynamic name with reference to expo docs
+                    options={{ title: "User" }} 
                 />
             </Stack>
         </Provider>
