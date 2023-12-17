@@ -1,4 +1,4 @@
-import { FlatList, Text, Pressable, ScrollView } from "react-native";
+import { FlatList, Text, Pressable } from "react-native";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCategory } from "@context/homeCategory";
@@ -36,18 +36,15 @@ const CategoryButton = ({ title, name }) => {
     // console.log(category)
     return (
         <Pressable
+            // style={{
+            //     shadowColor: "#171717",
+            //     shadowOffset: { width: -2, height: 4 },
+            //     shadowOpacity: 0.2,
+            //     shadowRadius: 3,
+            // }}
             className={`${
                 category == name ? "bg-primary" : "bg-teal"
-            } w-[120] space-x-2 px-5 py-3 rounded-2xl flex justify-center items-center`}
-            style={{
-                shadowOffset: {
-                    width: 20,
-                    height: 20,
-                },
-                shadowColor: "black",
-                shadowOpacity: 10,
-                shadowRadius: 10,
-            }}
+            } w-[25vw] space-x-2 px-2 py-2 rounded-xl flex justify-center items-center shadow-md shadow-black/30`}
             onPress={() => dispatch(selectCategory(name))}>
             <Text
                 className={`${
@@ -61,30 +58,26 @@ const CategoryButton = ({ title, name }) => {
 
 const CategoryList = () => {
     return (
-        <ScrollView
+        <FlatList
+            data={CATEGORIES_BUTTONS}
+            className='flex-grow-0 mt-5'
+            horizontal
             showsHorizontalScrollIndicator={false}
-            className='border pt-5'
-            contentContainerStyle={{ height: "8%" }}>
-            <FlatList
-                data={CATEGORIES_BUTTONS}
-                // className='border'
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{
-                    gap: 10,
-                    // height: "7.5%",
-                    // marginTop: 20,
-                    paddingHorizontal: 20,
-                }}
-                renderItem={({ item }) => (
-                    <CategoryButton
-                        title={item.title}
-                        name={item.name}
-                    />
-                )}
-                keyExtractor={(item) => item.id}
-            />
-        </ScrollView>
+            contentContainerStyle={{
+                gap: 10,
+                // height: "7.5%",
+                // marginTop: 20,
+                paddingHorizontal: 20,
+                paddingVertical: 10
+            }}
+            renderItem={({ item }) => (
+                <CategoryButton
+                    title={item.title}
+                    name={item.name}
+                />
+            )}
+            keyExtractor={(item) => item.id}
+        />
     );
 };
 

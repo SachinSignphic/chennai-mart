@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import {useFonts} from "expo-font";
-import { SplashScreen } from "expo-router";
+import { SplashScreen, router } from "expo-router";
 
 const HomeHeader = () => {
     const [fontsLoaded, fontError] = useFonts({
@@ -45,14 +45,22 @@ const HomeHeader = () => {
                 </Text>
             </View>
             <View className='flex flex-row items-center gap-6'>
-                <Ionicons
-                    name='md-settings-sharp'
-                    size={24}
-                    color='black'
-                />
-                <View className='border w-20 h-20 rounded-full flex items-center justify-center'>
-                    <View className='w-[85%] h-[85%] rounded-full bg-secondary'></View>
-                </View>
+                <TouchableOpacity
+                    onLongPress={() => router.push("/home/settings")}
+                    onPress={() => router.push("/home/settings")}>
+                    <Ionicons
+                        name='md-settings-sharp'
+                        size={24}
+                        color='black'
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onLongPress={() => router.push("/home/user/1")}
+                    onPress={() => router.push("/home/user/1")}>
+                    <View className='border w-20 h-20 rounded-full flex items-center justify-center'>
+                        <View className='w-[85%] h-[85%] rounded-full bg-secondary'></View>
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     );

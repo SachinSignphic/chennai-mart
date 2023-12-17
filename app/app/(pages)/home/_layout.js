@@ -19,6 +19,14 @@ export default Layout = () => {
                     name='product'
                     options={{ title: "Products" }} // later make this a dynamic name with reference to expo docs
                 />
+                <Stack.Screen
+                    name='settings'
+                    options={{ title: "Settings" }} // later make this a dynamic name with reference to expo docs
+                />
+                <Stack.Screen
+                    name='user'
+                    options={{ title: "User" }} // later make this a dynamic name with reference to expo docs
+                />
             </Stack>
         </Provider>
     );
