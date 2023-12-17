@@ -12,9 +12,11 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import homeSearch from "./homeSearch";
+import homeCategory from "./homeCategory";
 
 export default configureStore({
     reducer: {
-        homeSearch: homeSearch
+        homeSearch: homeSearch,
+        homeCategory: homeCategory
     }
 });

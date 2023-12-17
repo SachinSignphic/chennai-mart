@@ -2,7 +2,7 @@ import { Tabs } from "expo-router";
 import IonIcon from "@expo/vector-icons/Ionicons";
 import FeatherIcon from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { View } from "react-native";
+import { View, useWindowDimensions } from "react-native";
 
 const TabIconWrapper = ({ tabBarIconProps, children }) => {
     return (
@@ -16,6 +16,9 @@ const TabIconWrapper = ({ tabBarIconProps, children }) => {
 };
 
 export default function Layout() {
+    const windowDimension = useWindowDimensions();
+    const ICON_SIZE = (6 * windowDimension.width) / 100;
+
     return (
         <Tabs
             screenOptions={{
@@ -26,7 +29,7 @@ export default function Layout() {
                     // left: "50%",
                     // transform: [{ translateX: -270 }],
                     alignSelf: "center",
-                    height: 90,
+                    height: (9 * windowDimension.height) / 100,
                     borderWidth: 1,
                     borderRadius: 10,
                     width: "90%",
@@ -45,10 +48,10 @@ export default function Layout() {
                         <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                             <FeatherIcon
                                 name='shopping-bag'
-                                size={30}
+                                size={ICON_SIZE}
                                 color={"#fff"}
                                 // maxFontSizeMultiplier={0.3}
-                                adjustsFontSizeToFit
+                                // adjustsFontSizeToFit
                             />
                         </TabIconWrapper>
                     ),
@@ -64,7 +67,7 @@ export default function Layout() {
                         <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                             <FeatherIcon
                                 name='tag'
-                                size={30}
+                                size={ICON_SIZE}
                                 color='#fff'
                             />
                         </TabIconWrapper>
@@ -81,7 +84,7 @@ export default function Layout() {
                         <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                             <MaterialIcons
                                 name='category'
-                                size={30}
+                                size={ICON_SIZE}
                                 color='#fff'
                             />
                         </TabIconWrapper>
@@ -98,7 +101,7 @@ export default function Layout() {
                         <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                             <IonIcon
                                 name='home-outline'
-                                size={30}
+                                size={ICON_SIZE}
                                 color={"#fff"}
                             />
                         </TabIconWrapper>

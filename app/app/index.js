@@ -8,7 +8,7 @@ export default function App() {
             <Text className='text-xl text-red-500'>
                 The onboarding screen
             </Text>
-            <Link href={'/home'}>Go to home! After user logs in</Link>
+            <Link href={'/home'} className='text-2xl'>Go to home! After user logs in</Link>
             <StatusBar style='auto' />
             {/* once checking if signed in or used multiple times, use <Redirect /> component to take users */}
         </View>
