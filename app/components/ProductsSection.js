@@ -23,17 +23,31 @@ const DUMMY_PRODUCT_DATA = [
         price: 100,
         image: require("../assets/icon.png"),
     },
+    {
+        id: 4,
+        title: "Bell Pepper Blue",
+        quantity: "100mg",
+        price: 200,
+        image: require("../assets/icon.png"),
+    },
+    {
+        id: 5,
+        title: "Boll Paper Red",
+        quantity: "100mg",
+        price: 150,
+        image: require("../assets/icon.png"),
+    },
 ];
 
 const ProductCard = ({ imageURL, title, quantity, price }) => {
     return (
-        <View className='w-[42vw] h-[32vh] p-4 bg-teal rounded-3xl flex justify-between'>
-            <View className='product-card-action-container flex justify-center items-center h-[9vw] w-[9vw] bg-primary rounded-xl ml-auto'>
-                <TouchableOpacity>
+        <View className='p-4 min-w-[172px] bg-teal rounded-3xl flex flex-grow-0 justify-between'>
+            <View className='product-card-action-container flex justify-center items-end w-full'>
+                <TouchableOpacity className='rounded-xl w-10 h-10 bg-primary flex justify-center items-center'>
                     <Text className='text-white text-4xl'>+</Text>
                 </TouchableOpacity>
             </View>
-            <View className='w-full h-1/2 p-4'>
+            <View className='w-full h-1/2 p-1 flex flex-grow-0'>
                 <Image
                     resizeMode='contain'
                     className='w-full h-full'
@@ -41,14 +55,14 @@ const ProductCard = ({ imageURL, title, quantity, price }) => {
                 />
             </View>
             <View className='flex gap-4'>
-                <Text className='text-primary text-2xl font-semibold'>
+                <Text className='text-primary text-xl font-semibold'>
                     {title}
                 </Text>
                 <View className='flex flex-row justify-between items-center'>
-                    <Text className='badge text-lg px-4 py-1 bg-badge rounded-lg text-white'>
+                    <Text className='badge text-md px-4 py-1 bg-badge rounded-lg text-white'>
                         {quantity}
                     </Text>
-                    <Text className='price text-xl font-medium'>₹{price}</Text>
+                    <Text className='price text-base font-medium'>₹{price}</Text>
                 </View>
             </View>
         </View>
@@ -62,12 +76,12 @@ const ProductsSection = ({
 }) => {
     // perform data fetching from the sanity and then render this shit
     return (
-        <View className='flex w-full gap-4 px-2 mt-3'>
+        <View className='flex flex-grow-0 w-full gap-4 px-2 mt-3 h-96'>
             <View className='flex px-2 flex-row justify-between items-center'>
-                <Text className='text-3xl font-bold text-primary'>
+                <Text className='text-2xl font-bold text-primary'>
                     {sectionTitle}
                 </Text>
-                <Text className='text-lg text-primary'>
+                <Text className='text-base text-primary'>
                     {sectionActionText}
                 </Text>
             </View>
@@ -86,10 +100,11 @@ const ProductsSection = ({
                 contentContainerStyle={{
                     gap: 20,
                     paddingHorizontal: 10,
-                    paddingVertical: 10
+                    paddingVertical: 10,
+                    // height: 'auto'
                 }}
                 showsHorizontalScrollIndicator={false}
-                // className='border'
+                className='flex-grow-0'
             />
         </View>
     );

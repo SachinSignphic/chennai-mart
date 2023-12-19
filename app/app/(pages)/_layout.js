@@ -23,6 +23,7 @@ export default function Layout() {
             ? (13 * windowDimension.height) / 100
             : (9 * windowDimension.height) / 100;
     // did this foolery to implement responsive design (mom small phone buggy)
+    // start responsive work from productssection
     console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
 
     return (
@@ -35,14 +36,15 @@ export default function Layout() {
                     // left: "50%",
                     // transform: [{ translateX: -270 }],
                     alignSelf: "center",
-                    height: TAB_BAR_HEIGHT,
+                    height: 100,
                     borderWidth: 1,
                     borderRadius: 10,
                     width: "90%",
                     borderColor: "#424242",
                     borderTopColor: "#424242",
                     backgroundColor: "#2F2E41",
-                    paddingVertical: 14,
+                    paddingVertical: 12,
+                    // opacity: 0.2
                 },
             }}>
             <Tabs.Screen
