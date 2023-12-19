@@ -36,7 +36,7 @@ export default function Layout() {
                     // left: "50%",
                     // transform: [{ translateX: -270 }],
                     alignSelf: "center",
-                    height: 100,
+                    height: 90,
                     borderWidth: 1,
                     borderRadius: 10,
                     width: "90%",

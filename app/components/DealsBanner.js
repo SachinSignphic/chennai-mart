@@ -18,7 +18,7 @@ const DEALS_BANNER_DATA = [
 
 const BannerCard = ({ id, imageURL }) => {
     return (
-        <View className='w-[90vw] h-[22vh] bg-teal rounded-xl relative shadow-lg shadow-black/40'>
+        <View className='w-[90vw] h-44 bg-teal rounded-xl relative shadow-lg shadow-black/40'>
             <ImageBackground
                 resizeMode='cover'
                 source={imageURL}

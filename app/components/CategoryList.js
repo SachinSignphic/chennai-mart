@@ -46,12 +46,12 @@ const CategoryButton = ({ title, name }) => {
                 category == name
                     ? "bg-primary shadow-lg shadow-black/80"
                     : "bg-teal"
-            } w-[25vw] space-x-2 px-2 py-2 rounded-xl flex justify-center items-center`}
+            } space-x-2 px-6 py-2 rounded-xl flex justify-center items-center`}
             onPress={() => dispatch(selectCategory(name))}>
             <Text
                 className={`${
                     category == name ? "text-white" : "text-primary"
-                } text-md modern:text-xl font-bold`}>
+                } text-base modern:text-xl font-bold`}>
                 {title}
             </Text>
         </Pressable>

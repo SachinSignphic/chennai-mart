@@ -43,7 +43,7 @@ const ProductCard = ({ imageURL, title, quantity, price }) => {
     return (
         <View className='p-4 min-w-[172px] bg-teal rounded-3xl flex flex-grow-0 justify-between'>
             <View className='product-card-action-container flex justify-center items-end w-full'>
-                <TouchableOpacity className='rounded-xl w-10 h-10 bg-primary flex justify-center items-center'>
+                <TouchableOpacity className='rounded-xl w-9 h-9 bg-primary flex justify-center items-center'>
                     <Text className='text-white text-4xl'>+</Text>
                 </TouchableOpacity>
             </View>
@@ -76,7 +76,7 @@ const ProductsSection = ({
 }) => {
     // perform data fetching from the sanity and then render this shit
     return (
-        <View className='flex flex-grow-0 w-full gap-4 px-2 mt-3 h-96'>
+        <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>
             <View className='flex px-2 flex-row justify-between items-center'>
                 <Text className='text-2xl font-bold text-primary'>
                     {sectionTitle}

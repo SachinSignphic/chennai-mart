@@ -6,7 +6,7 @@ import { SplashScreen, router } from "expo-router";
 
 const HomeHeader = () => {
     const [fontsLoaded, fontError] = useFonts({
-        "Nunito-ExtraBold": require("@assets/fonts/Nunito-ExtraBold.otf"),
+        "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"),
         // "Inter-SemiBoldItalic":
         //     "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
     });
@@ -23,23 +23,23 @@ const HomeHeader = () => {
 
     return (
         <View
-            className='header flex flex-row items-center justify-around w-full py-6'
+            className='header flex flex-row items-center justify-between w-full px-6 py-6 pb-2'
             onLayout={onLayoutRootView}>
             <View>
                 <Text
                     className='text-secondary text-xl modern:text-3xl w-min'
                     style={{
                         // fontFamily: "serif",
-                        fontFamily: "Nunito-ExtraBold",
-                        fontWeight: 800,
+                        fontFamily: "Nunito ExtraBold",
+                        // fontWeight: 800,
                     }}>
                     Welcome Back,
                 </Text>
                 <Text
                     className='text-primary text-3xl modern:text-4xl w-fit'
                     style={{
-                        fontFamily: "Nunito-ExtraBold",
-                        fontWeight: 800,
+                        fontFamily: "Nunito ExtraBold",
+                        // fontWeight: 800,
                     }}>
                     DAVID
                 </Text>

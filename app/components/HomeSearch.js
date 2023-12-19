@@ -9,7 +9,7 @@ const HomeSearch = () => {
     const dispatch = useDispatch();
 
     return (
-        <View className='flex flex-row justify-between gap-4 items-center'>
+        <View className='flex flex-row justify-between gap-2 items-center'>
             <Ionicons
                 name='md-search-outline'
                 size={24}
