@@ -1,30 +1,14 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import {useFonts} from "expo-font";
 import { SplashScreen, router } from "expo-router";
 
 const HomeHeader = () => {
-    const [fontsLoaded, fontError] = useFonts({
-        "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"),
-        // "Inter-SemiBoldItalic":
-        //     "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
-    });
-
-    const onLayoutRootView = useCallback(async () => {
-        if (fontsLoaded || fontError) {
-            SplashScreen.hideAsync();
-        }
-    }, [fontsLoaded, fontError]);
-
-    if (!fontsLoaded && !fontError) {
-        return null;
-    }
 
     return (
         <View
             className='header flex flex-row items-center justify-between w-full px-6 py-6 pb-2'
-            onLayout={onLayoutRootView}>
+            >
             <View>
                 <Text
                     className='text-secondary text-xl modern:text-3xl w-min'
@@ -36,11 +20,7 @@ const HomeHeader = () => {
                     Welcome Back,
                 </Text>
                 <Text
-                    className='text-primary text-3xl modern:text-4xl w-fit'
-                    style={{
-                        fontFamily: "Nunito ExtraBold",
-                        // fontWeight: 800,
-                    }}>
+                    className='text-primary text-3xl modern:text-4xl w-fit font-nunito-800'>
                     DAVID
                 </Text>
             </View>

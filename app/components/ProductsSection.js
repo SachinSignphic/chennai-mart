@@ -32,7 +32,7 @@ const DUMMY_PRODUCT_DATA = [
     },
     {
         id: 5,
-        title: "Boll Paper Red",
+        title: "Boll Paper Red Red ball bat",
         quantity: "100mg",
         price: 150,
         image: require("../assets/icon.png"),
@@ -55,14 +55,14 @@ const ProductCard = ({ imageURL, title, quantity, price }) => {
                 />
             </View>
             <View className='flex gap-4'>
-                <Text className='text-primary text-xl font-semibold'>
+                <Text className='text-primary text-xl font-nunito-800'>
                     {title}
                 </Text>
                 <View className='flex flex-row justify-between items-center'>
-                    <Text className='badge text-md px-4 py-1 bg-badge rounded-lg text-white'>
+                    <Text className='badge text-md px-4 py-1 bg-badge font-nunito-400 rounded-lg text-white'>
                         {quantity}
                     </Text>
-                    <Text className='price text-base font-medium'>₹{price}</Text>
+                    <Text className='price text-base font-nunito-400'>₹{price}</Text>
                 </View>
             </View>
         </View>
@@ -78,10 +78,10 @@ const ProductsSection = ({
     return (
         <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>
             <View className='flex px-2 flex-row justify-between items-center'>
-                <Text className='text-2xl font-bold text-primary'>
+                <Text className='text-2xl font-nunito-800 text-primary'>
                     {sectionTitle}
                 </Text>
-                <Text className='text-base text-primary'>
+                <Text className='text-base font-nunito-400 text-primary'>
                     {sectionActionText}
                 </Text>
             </View>

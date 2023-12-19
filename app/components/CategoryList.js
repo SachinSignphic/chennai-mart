@@ -46,12 +46,15 @@ const CategoryButton = ({ title, name }) => {
                 category == name
                     ? "bg-primary shadow-lg shadow-black/80"
                     : "bg-teal"
-            } space-x-2 px-6 py-2 rounded-xl flex justify-center items-center`}
+            } space-x-4 px-6 py-2 rounded-xl flex justify-center items-center`}
             onPress={() => dispatch(selectCategory(name))}>
             <Text
                 className={`${
                     category == name ? "text-white" : "text-primary"
-                } text-base modern:text-xl font-bold`}>
+                } text-base modern:text-xl`}
+                style={{
+                    fontFamily: 'Nunito'
+                }}>
                 {title}
             </Text>
         </Pressable>
@@ -62,11 +65,11 @@ const CategoryList = () => {
     return (
         <FlatList
             data={CATEGORIES_BUTTONS}
-            className='flex-grow-0 mt-2 modern:mt-5'
+            className='flex-grow-0 mt-2 modern:mt-3'
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
-                gap: 10,
+                gap: 15,
                 // height: "7.5%",
                 // marginTop: 20,
                 paddingHorizontal: 20,

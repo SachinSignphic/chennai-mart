@@ -17,11 +17,14 @@ module.exports = {
             fontFamily: {
                 primary: ["Arial", "sans-serif"],
                 secondary: ["Times New Roman", "serif"],
+                'nunito-800': ["Nunito ExtraBold", "sans-serif"],
+                'nunito-400': ["Nunito", "sans-serif"],
+                'nunito-900': ["Nunito Black", "sans-serif"],
             },
         },
         screens: {
-            modern: '400px',
-        }
+            modern: "400px",
+        },
     },
     plugins: [],
 };

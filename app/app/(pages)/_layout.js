@@ -3,6 +3,8 @@ import IonIcon from "@expo/vector-icons/Ionicons";
 import FeatherIcon from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { View, useWindowDimensions } from "react-native";
+import { useFonts } from "expo-font";
+import { useCallback } from "react";
 
 const TabIconWrapper = ({ tabBarIconProps, children }) => {
     return (
@@ -25,6 +27,24 @@ export default function Layout() {
     // did this foolery to implement responsive design (mom small phone buggy)
     // start responsive work from productssection
     console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
+
+    const [fontsLoaded, fontError] = useFonts({
+        "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"), // 800
+        Nunito: require("@assets/fonts/Nunito.ttf"), // 400
+        "Nunito Black": require("@assets/fonts/Nunito Black.otf"), // 900
+        // "Inter-SemiBoldItalic":
+        //     "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
+    });
+
+    const onLayoutRootView = useCallback(async () => {
+        if (fontsLoaded || fontError) {
+            SplashScreen.hideAsync();
+        }
+    }, [fontsLoaded, fontError]);
+
+    if (!fontsLoaded && !fontError) {
+        return null;
+    }
 
     return (
         <Tabs
