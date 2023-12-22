@@ -1,5 +1,7 @@
 import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@context/cart";
 
 const DUMMY_PRODUCT_DATA = [
     {
@@ -39,11 +41,18 @@ const DUMMY_PRODUCT_DATA = [
     },
 ];
 
-const ProductCard = ({ imageURL, title, quantity, price }) => {
+const ProductCard = ({ id, imageURL, title, quantity, price }) => {
+    const cartItems = useSelector(state => state.cart.items);
+    const dispatch = useDispatch();
+    
+    console.log(cartItems);
+
     return (
         <View className='p-4 min-w-[172px] bg-teal rounded-3xl flex flex-grow-0 justify-between'>
             <View className='product-card-action-container flex justify-center items-end w-full'>
-                <TouchableOpacity className='rounded-xl w-9 h-9 bg-primary flex justify-center items-center'>
+                <TouchableOpacity 
+                onPress={() => dispatch(addToCart({id}))}
+                className='rounded-xl w-9 h-9 bg-primary flex justify-center items-center'>
                     <Text className='text-white text-4xl'>+</Text>
                 </TouchableOpacity>
             </View>
@@ -89,6 +98,7 @@ const ProductsSection = ({
                 data={DUMMY_PRODUCT_DATA}
                 renderItem={({ item }) => (
                     <ProductCard
+                        id={item.id}
                         title={item.title}
                         quantity={item.quantity}
                         price={item.price}

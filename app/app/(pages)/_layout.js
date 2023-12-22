@@ -31,7 +31,7 @@ export default function Layout() {
     const [fontsLoaded, fontError] = useFonts({
         "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"), // 800
         Nunito: require("@assets/fonts/Nunito.ttf"), // 400
-        "Nunito Black": require("@assets/fonts/Nunito Black.otf"), // 900
+        // "Nunito Black": require("@assets/fonts/Nunito Black.otf"), // 900
         // "Inter-SemiBoldItalic":
         //     "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
     });
