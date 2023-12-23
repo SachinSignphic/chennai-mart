@@ -1,31 +1,13 @@
 import store from "@context/store";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Stack, router } from "expo-router";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Stack, useLocalSearchParams } from "expo-router";
 // import { Image } from "react-native";
 import { Provider } from "react-redux";
-
-const StackHeader = ({ headerTitle }) => {
-    return (
-        <View className='flex flex-row justify-start w-full py-10'>
-            <TouchableOpacity
-                onPress={router.back}
-                hitSlop={10}
-                className='p-4 absolute flex self-center z-50'>
-                <MaterialIcons
-                    name='arrow-back-ios'
-                    size={14}
-                    color='black'
-                />
-            </TouchableOpacity>
-            <Text className='text-xl text-center w-full flex self-center font-nunito-400 text-primary'>
-                {headerTitle}
-            </Text>
-        </View>
-    );
-};
+import { StackHeader } from "@components";
 
 export default Layout = () => {
+    const x = useLocalSearchParams();
+    // console.log("product id from route is: ", x.id);
+    /* probably move this global store to even further above the entry js */
     return (
         <Provider store={store}>
             <Stack>
@@ -39,7 +21,19 @@ export default Layout = () => {
                 />
                 <Stack.Screen
                     name='product'
-                    options={{ title: "Products" }} // later make this dynamic by showing product name maybe
+                    options={{
+                        headerBackVisible: false,
+                        header: ({ route }) => {
+                            const isProductPage = route.params?.id;
+                            // console.log("Check if id:", isProductPage);
+                            return (
+                                <StackHeader
+                                    headerTitle=''
+                                    cartActionForId={isProductPage || null}
+                                />
+                            );
+                        },
+                    }}
                 />
                 <Stack.Screen
                     name='settings'

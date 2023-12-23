@@ -23,7 +23,7 @@ const home = () => {
 
             {/* test for product page stack */}
             <Pressable
-                className='mt-6'
+                className='mb-6'
                 onPress={() => router.push("home/product/1")}>
                 <Text className='text-2xl'>Sample product page</Text>
             </Pressable>

@@ -4,11 +4,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { SplashScreen, router } from "expo-router";
 
 const HomeHeader = () => {
-
     return (
-        <View
-            className='header flex flex-row items-center justify-between w-full px-6 py-6 pb-2'
-            >
+        <View className='header flex flex-row items-center justify-between w-full px-6 py-6 pb-2'>
             <View>
                 <Text
                     className='text-secondary text-xl modern:text-3xl w-min'
@@ -19,13 +16,13 @@ const HomeHeader = () => {
                     }}>
                     Welcome Back,
                 </Text>
-                <Text
-                    className='text-primary text-3xl modern:text-4xl w-fit font-nunito-800'>
+                <Text className='text-primary text-3xl modern:text-4xl w-fit font-nunito-800'>
                     DAVID
                 </Text>
             </View>
             <View className='flex flex-row items-center gap-6'>
                 <TouchableOpacity
+                    hitSlop={10}
                     onLongPress={() => router.push("/home/settings")}
                     onPress={() => router.push("/home/settings")}>
                     <Ionicons
@@ -35,6 +32,7 @@ const HomeHeader = () => {
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
+                    hitSlop={10}
                     onLongPress={() => router.push("/home/user/1")}
                     onPress={() => router.push("/home/user/1")}>
                     <View className='border-2 modern:border h-16 w-16 modern:w-20 modern:h-20 rounded-full flex items-center justify-center'>

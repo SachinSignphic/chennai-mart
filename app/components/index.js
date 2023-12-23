@@ -4,6 +4,8 @@ import ProductsSection from "./ProductsSection";
 import HomeHeader from "./HomeHeader";
 import HomeSearch from "./HomeSearch";
 import SafeArea from "./SafeArea";
+import StackHeader from "./StackHeader";
+import ProductCartAction from "./ProductCartAction";
 
 export {
     SafeArea,
@@ -12,4 +14,6 @@ export {
     CategoryList,
     DealsBanner,
     ProductsSection,
+    StackHeader,
+    ProductCartAction,
 };

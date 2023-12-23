@@ -24,13 +24,10 @@ export default function Layout() {
         windowDimension.width < 400
             ? (13 * windowDimension.height) / 100
             : (9 * windowDimension.height) / 100;
-    // did this foolery to implement responsive design (mom small phone buggy)
-    // start responsive work from productssection
-    console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
+            
+    // console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
 
     const n = usePathname();
-
-    // console.log(navigator.routeNames, JSON.stringify(navigator.routes));
 
     const [fontsLoaded, fontError] = useFonts({
         "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"), // 800
@@ -61,11 +58,8 @@ export default function Layout() {
                 return {
                     tabBarActiveTintColor: "#fefefe",
                     tabBarStyle: {
-                        display: n == "/home/settings" ? "none" : "flex",
-                        // position: "absolute",
+                        display: n == "/home/settings" ? "none" : "flex", // do the same trikcery to hide it in product page and in categories page
                         bottom: "2%",
-                        // left: "50%",
-                        // transform: [{ translateX: -270 }],
                         alignSelf: "center",
                         height: 90,
                         borderWidth: 1,
@@ -75,7 +69,6 @@ export default function Layout() {
                         borderTopColor: "#424242",
                         backgroundColor: "#2F2E41",
                         paddingVertical: 12,
-                        // opacity: 0.2
                     },
                 };
             }}>

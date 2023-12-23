@@ -4,6 +4,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+
 const SETTINGS_MENU_TEXT = [
     {
         name: "Orders",
@@ -12,7 +14,6 @@ const SETTINGS_MENU_TEXT = [
                 name='shopping-outline'
                 size={24}
                 color='black'
-                className='flex self-center absolute'
             />
         ),
         to: "",
@@ -74,17 +75,35 @@ const SETTINGS_MENU_TEXT = [
     },
     {
         name: "Suggest Products",
-        icon: "",
-        to: "",
+        icon: () => (
+            <Feather
+                name='package'
+                size={24}
+                color='black'
+            />
+        ),
+        to: ''
     },
     {
         name: "Policies",
-        icon: "",
+        icon: () => (
+            <Ionicons
+                name='document-text-outline'
+                size={24}
+                color='black'
+            />
+        ),
         to: "",
     },
     {
         name: "Notifications",
-        icon: "",
+        icon: () => (
+            <Feather
+                name='bell'
+                size={24}
+                color='black'
+            />
+        ),
         to: "",
     },
 ];
@@ -92,15 +111,20 @@ const SETTINGS_MENU_TEXT = [
 const SettingsItem = ({ name, to, icon: Icon }) => {
     return (
         <View className='flex flex-row items-center py-4 border-b border-[#EBEBEB] space-y-4'>
-            {Icon && <Icon />}
-            <Text className='text-primary font-nunito-400 ml-6 text-lg'>{name}</Text>
+            {Icon && (
+                <View className='mt-3'>
+                    <Icon className='border' />
+                </View>
+            )}
+            <Text className='text-primary font-nunito-400 ml-6 text-lg'>
+                {name}
+            </Text>
         </View>
     );
 };
 
 const index = () => {
     return (
-      
         <ScrollView className='px-12'>
             {SETTINGS_MENU_TEXT.map((settingsMenuContext, i) => (
                 <SettingsItem
