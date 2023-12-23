@@ -50,11 +50,12 @@ const ProductCard = ({ id, imageURL, title, quantity, price }) => {
     console.log(currentCartItem ?? id + ' Not yet added');
 
     return (
-        <View className='p-4 w-[172px] bg-teal rounded-3xl flex flex-grow-0 justify-between'>
+        <View className='p-4 min-w-[172px] max-w-[192px] bg-teal rounded-3xl flex flex-grow-0 justify-between'>
             <View className='product-card-action-container flex justify-center items-end w-full'>
                 {currentCartItem && (
                     <View className='rounded-xl bg-primary flex justify-center flex-row items-center gap-x-2 gap-y-0.5'>
                         <TouchableOpacity
+                        hitSlop={10}
                             onPress={() => dispatch(removeFromCart({ id }))}
                             className=' w-9 h-9 flex justify-center items-center'>
                             <AntDesign
@@ -67,6 +68,7 @@ const ProductCard = ({ id, imageURL, title, quantity, price }) => {
                             {currentCartItem.quantity}
                         </Text>
                         <TouchableOpacity
+                        hitSlop={10}
                             onPress={() => dispatch(addToCart({ id }))}
                             className='w-9 h-9 flex justify-center items-center'>
                             <AntDesign
@@ -79,6 +81,7 @@ const ProductCard = ({ id, imageURL, title, quantity, price }) => {
                 )}
                 {!currentCartItem && (
                     <TouchableOpacity
+                    hitSlop={10}
                         onPress={() => dispatch(addToCart({ id }))}
                         className='rounded-xl w-9 h-9 bg-primary flex justify-center items-center'>
                         <AntDesign

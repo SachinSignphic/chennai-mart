@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, usePathname } from "expo-router";
 import IonIcon from "@expo/vector-icons/Ionicons";
 import FeatherIcon from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -28,6 +28,10 @@ export default function Layout() {
     // start responsive work from productssection
     console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
 
+    const n = usePathname();
+
+    // console.log(navigator.routeNames, JSON.stringify(navigator.routes));
+
     const [fontsLoaded, fontError] = useFonts({
         "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"), // 800
         Nunito: require("@assets/fonts/Nunito.ttf"), // 400
@@ -43,33 +47,37 @@ export default function Layout() {
     }, [fontsLoaded, fontError]);
 
     if (!fontsLoaded && !fontError) {
-        return (<View className='flex-1 justify-center items-center'>
-            <Text className='text-xl'>
-                Loading...
-            </Text>
-        </View>);
+        return (
+            <View className='flex-1 justify-center items-center'>
+                <Text className='text-xl'>Loading...</Text>
+            </View>
+        );
     }
 
     return (
         <Tabs
-            screenOptions={{
-                tabBarActiveTintColor: "#fefefe",
-                tabBarStyle: {
-                    // position: "absolute",
-                    bottom: "2%",
-                    // left: "50%",
-                    // transform: [{ translateX: -270 }],
-                    alignSelf: "center",
-                    height: 90,
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    width: "90%",
-                    borderColor: "#424242",
-                    borderTopColor: "#424242",
-                    backgroundColor: "#2F2E41",
-                    paddingVertical: 12,
-                    // opacity: 0.2
-                },
+            screenOptions={({ route, navigation }) => {
+                // console.log(JSON.stringify(n))
+                return {
+                    tabBarActiveTintColor: "#fefefe",
+                    tabBarStyle: {
+                        display: n == "/home/settings" ? "none" : "flex",
+                        // position: "absolute",
+                        bottom: "2%",
+                        // left: "50%",
+                        // transform: [{ translateX: -270 }],
+                        alignSelf: "center",
+                        height: 90,
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        width: "90%",
+                        borderColor: "#424242",
+                        borderTopColor: "#424242",
+                        backgroundColor: "#2F2E41",
+                        paddingVertical: 12,
+                        // opacity: 0.2
+                    },
+                };
             }}>
             <Tabs.Screen
                 name='cart'
