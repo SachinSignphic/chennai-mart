@@ -2,7 +2,7 @@ import { Tabs } from "expo-router";
 import IonIcon from "@expo/vector-icons/Ionicons";
 import FeatherIcon from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { View, useWindowDimensions } from "react-native";
+import { View, useWindowDimensions, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
 
@@ -43,7 +43,11 @@ export default function Layout() {
     }, [fontsLoaded, fontError]);
 
     if (!fontsLoaded && !fontError) {
-        return null;
+        return (<View className='flex-1 justify-center items-center'>
+            <Text className='text-xl'>
+                Loading...
+            </Text>
+        </View>);
     }
 
     return (

@@ -1,7 +1,8 @@
 import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "@context/cart";
+import { addToCart, removeFromCart } from "@context/cart";
+import { AntDesign } from "@expo/vector-icons";
 
 const DUMMY_PRODUCT_DATA = [
     {
@@ -42,19 +43,51 @@ const DUMMY_PRODUCT_DATA = [
 ];
 
 const ProductCard = ({ id, imageURL, title, quantity, price }) => {
-    const cartItems = useSelector(state => state.cart.items);
+    const cartItems = useSelector((state) => state.cart.items);
     const dispatch = useDispatch();
-    
-    console.log(cartItems);
+
+    const currentCartItem = cartItems.find((item) => item.id == id);
+    console.log(currentCartItem ?? id + ' Not yet added');
 
     return (
-        <View className='p-4 min-w-[172px] bg-teal rounded-3xl flex flex-grow-0 justify-between'>
+        <View className='p-4 w-[172px] bg-teal rounded-3xl flex flex-grow-0 justify-between'>
             <View className='product-card-action-container flex justify-center items-end w-full'>
-                <TouchableOpacity 
-                onPress={() => dispatch(addToCart({id}))}
-                className='rounded-xl w-9 h-9 bg-primary flex justify-center items-center'>
-                    <Text className='text-white text-4xl'>+</Text>
-                </TouchableOpacity>
+                {currentCartItem && (
+                    <View className='rounded-xl bg-primary flex justify-center flex-row items-center gap-x-2 gap-y-0.5'>
+                        <TouchableOpacity
+                            onPress={() => dispatch(removeFromCart({ id }))}
+                            className=' w-9 h-9 flex justify-center items-center'>
+                            <AntDesign
+                                name='minus'
+                                size={18}
+                                color='white'
+                            />
+                        </TouchableOpacity>
+                        <Text className='text-white font-nunito-400 text-base'>
+                            {currentCartItem.quantity}
+                        </Text>
+                        <TouchableOpacity
+                            onPress={() => dispatch(addToCart({ id }))}
+                            className='w-9 h-9 flex justify-center items-center'>
+                            <AntDesign
+                                name='plus'
+                                size={18}
+                                color='white'
+                            />
+                        </TouchableOpacity>
+                    </View>
+                )}
+                {!currentCartItem && (
+                    <TouchableOpacity
+                        onPress={() => dispatch(addToCart({ id }))}
+                        className='rounded-xl w-9 h-9 bg-primary flex justify-center items-center'>
+                        <AntDesign
+                            name='plus'
+                            size={17}
+                            color='white'
+                        />
+                    </TouchableOpacity>
+                )}
             </View>
             <View className='w-full h-1/2 p-1 flex flex-grow-0'>
                 <Image
@@ -64,14 +97,19 @@ const ProductCard = ({ id, imageURL, title, quantity, price }) => {
                 />
             </View>
             <View className='flex gap-4'>
-                <Text className='text-primary text-xl font-nunito-800'>
+                <Text
+                    numberOfLines={1}
+                    ellipsizeMode='tail'
+                    className='text-primary w-40 text-xl font-nunito-800'>
                     {title}
                 </Text>
                 <View className='flex flex-row justify-between items-center'>
                     <Text className='badge text-md px-4 py-1 bg-badge font-nunito-400 rounded-lg text-white'>
                         {quantity}
                     </Text>
-                    <Text className='price text-base font-nunito-400'>₹{price}</Text>
+                    <Text className='price text-base font-nunito-400'>
+                        ₹{price}
+                    </Text>
                 </View>
             </View>
         </View>
