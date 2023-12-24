@@ -125,7 +125,7 @@ const SettingsItem = ({ name, to, icon: Icon }) => {
 
 const index = () => {
     return (
-        <ScrollView className='px-12'>
+        <ScrollView className='px-12 bg-white'>
             {SETTINGS_MENU_TEXT.map((settingsMenuContext, i) => (
                 <SettingsItem
                     key={i}

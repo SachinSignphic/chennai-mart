@@ -6,7 +6,10 @@ import ProductCartAction from "./ProductCartAction";
 
 const StackHeader = ({ headerTitle, cartActionForId }) => {
     return (
-        <View className={`flex flex-row ${cartActionForId? 'bg-teal': ''} justify-start w-full py-10 mt-4`}>
+        <View
+            className={`flex flex-row ${
+                cartActionForId ? "bg-teal" : "bg-white"
+            }  justify-start w-full py-10 mt-4`}>
             <TouchableOpacity
                 onPress={router.back}
                 hitSlop={10}
@@ -18,7 +21,9 @@ const StackHeader = ({ headerTitle, cartActionForId }) => {
                 />
             </TouchableOpacity>
             <Text
-                className={`text-xl text-center ${!cartActionForId && 'w-full' } flex self-center font-nunito-800 text-primary`}>
+                className={`text-xl text-center ${
+                    !cartActionForId && "w-full"
+                } flex self-center font-nunito-800 text-primary`}>
                 {headerTitle}
             </Text>
             {cartActionForId && (

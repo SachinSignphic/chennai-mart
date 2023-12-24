@@ -25,13 +25,17 @@ const index = () => {
         // also there should be a carousel for the image
 
         // fetch data for specific product and store it in the global store
+        // actually initialy load some products, like in featured or blah blah,
+        // then when clicking on product page, check if the specific product's ID
+        // has actually been loaded before and then show the content accordingly
+        // or just fetch it from the sanity server and store it in global store
         <>
             <ScrollView>
                 {/* view for image */}
-                <View className='bg-teal flex items-center justify-center'>
+                <View className='bg-teal flex items-center justify-center h-[50vh]'>
                     <Image
                         resizeMode='center'
-                        source={require("@assets/product1.png")}
+                        source={currentProduct?.mainImage}
                     />
                 </View>
 

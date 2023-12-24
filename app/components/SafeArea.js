@@ -11,7 +11,7 @@ const SafeArea = ({ children }) => {
                     // flex: 1,
                     display: 'flex',
                     backgroundColor: "#fff",
-                    // justifyContent: 'start'/,
+                    justifyContent: 'start',
                     alignItems: 'center'
                 }}>
                 {children}

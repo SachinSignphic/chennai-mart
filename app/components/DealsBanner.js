@@ -4,15 +4,15 @@ import React from "react";
 const DEALS_BANNER_DATA = [
     {
         id: 1,
-        image: require("../assets/banner-test.png"),
+        image: require("../assets/Group6895.png"),
     },
     {
         id: 2,
-        image: require("../assets/banner-test.png"),
+        image: require("../assets/Group6896.png"),
     },
     {
         id: 3,
-        image: require("../assets/banner-test.png"),
+        image: require("../assets/Group6895.png"),
     },
 ];
 

@@ -2,6 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 // has the global data store, but should actually fetch data from server
+// GROQ query to fetch
+// *[_type=='products'] | order(_createdAt) {
+//     _id,
+//     name,
+//     tags,
+//     main_image {
+//       asset -> {
+//         url
+//       }
+//     },
+//     images[]{asset -> {url}}
+// }
 
 export const productDataSlice = createSlice({
     name: "productsData",
@@ -13,6 +25,7 @@ export const productDataSlice = createSlice({
                 quantity: "100mg",
                 price: 450,
                 image: require("../assets/test-product1.png"),
+                mainImage: require("@assets/product1.png")
             },
             {
                 id: "2",
@@ -20,6 +33,7 @@ export const productDataSlice = createSlice({
                 quantity: "100mg",
                 price: 100,
                 image: require("../assets/test-product2.png"),
+                mainImage: require("@assets/product2.png")
             },
             {
                 id: "3",
@@ -27,6 +41,7 @@ export const productDataSlice = createSlice({
                 quantity: "100mg",
                 price: 100,
                 image: require("../assets/icon.png"),
+                mainImage: require("@assets/product1.png")
             },
             {
                 id: "4",
@@ -34,6 +49,7 @@ export const productDataSlice = createSlice({
                 quantity: "100mg",
                 price: 200,
                 image: require("../assets/icon.png"),
+                mainImage: require("@assets/product2.png")
             },
             {
                 id: "5",
@@ -41,6 +57,7 @@ export const productDataSlice = createSlice({
                 quantity: "100mg",
                 price: 150,
                 image: require("../assets/icon.png"),
+                mainImage: require("@assets/product1.png")
             },
         ],
     },
