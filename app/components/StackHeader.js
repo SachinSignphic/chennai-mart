@@ -4,14 +4,14 @@ import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import ProductCartAction from "./ProductCartAction";
 
-const StackHeader = ({ headerTitle, cartActionForId }) => {
+const StackHeader = ({ headerTitle, cartActionForId, routeAction }) => {
     return (
         <View
             className={`flex flex-row ${
                 cartActionForId ? "bg-teal" : "bg-white"
             }  justify-start w-full py-10 mt-4`}>
             <TouchableOpacity
-                onPress={router.back}
+                onPress={routeAction ? () => router.push(routeAction): router.back}
                 hitSlop={10}
                 className='p-2 left-5 absolute flex self-center bg-primary rounded-xl z-50'>
                 <Ionicons

@@ -1,8 +1,9 @@
-import { View, Text, TextInput, ScrollView, Image, SafeAreaView } from "react-native";
+import { View, Text, TextInput, ScrollView, Image, SafeAreaView, Pressable } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 // import { SafeArea } from "@components";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 // const DUMMY_CATEGORY_DATA = [
 //     {
 //         id: 1,
@@ -54,17 +55,18 @@ import { Ionicons } from "@expo/vector-icons";
 
 const CategoryCard = ({ id, category, image }) => {
     return (
-        // Pressable onPress goto category/{id}
-        <View className='flex justify-start items-center gap-0 w-28'>
-            <Image
-                className='w-full'
-                source={image}
-                resizeMode='contain'
-            />
-            <Text className='font-nunito-400 text-md text-primary'>
-                {category}
-            </Text>
-        </View>
+        <Pressable hitSlop={5} onPress={() => router.push(`/categories/${id}`)}>
+            <View className='flex justify-start items-center gap-0 w-28'>
+                <Image
+                    className='w-full'
+                    source={image}
+                    resizeMode='contain'
+                />
+                <Text className='font-nunito-400 text-md text-primary'>
+                    {category}
+                </Text>
+            </View>
+        </Pressable>
     );
 };
 

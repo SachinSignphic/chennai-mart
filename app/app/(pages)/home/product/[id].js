@@ -86,13 +86,7 @@ const index = () => {
                             Description
                         </Text>
                         <Text className='text-base text-secondary font-nunito-400'>
-                            Fugiat incididunt nisi ipsum magna non sunt labore
-                            sunt labore. Mollit anim non tempor nisi nisi anim
-                            sunt occaecat. Pariatur non eu officia nisi mollit
-                            irure et adipisicing cillum et. Cupidatat duis id
-                            laboris quis est ex id irure. Cillum consectetur
-                            ullamco anim irure fugiat excepteur incididunt ea
-                            esse id tempor.
+                            {currentProduct?.description}
                         </Text>
                     </View>
                 </View>

@@ -20,11 +20,12 @@ export default Layout = () => {
                 name='product'
                 options={{
                     headerBackVisible: false,
-                    header: ({ route }) => {
+                    header: ({ route, navigation, options, back }) => {
                         const isProductPage = route.params?.id;
-                        // console.log("Check if id:", isProductPage);
+                        console.log(route, back.title);
                         return (
                             <StackHeader
+                                // routeAction='/home'
                                 headerTitle=''
                                 cartActionForId={isProductPage || null}
                             />
@@ -35,7 +36,12 @@ export default Layout = () => {
             <Stack.Screen
                 name='settings'
                 options={{
-                    header: () => <StackHeader headerTitle='Settings' />,
+                    header: () => (
+                        <StackHeader
+                            routeAction='/home'
+                            headerTitle='Settings'
+                        />
+                    ),
                     headerBackVisible: false,
                     // headerTitleAlign: "center",
                     // headerLeft: ,
@@ -45,7 +51,12 @@ export default Layout = () => {
                 name='user'
                 options={{
                     headerBackVisible: false,
-                    header: () => <StackHeader headerTitle='Profile' />,
+                    header: () => (
+                        <StackHeader
+                            // routeAction='/home'
+                            headerTitle='Profile'
+                        />
+                    ),
                 }}
             />
         </Stack>

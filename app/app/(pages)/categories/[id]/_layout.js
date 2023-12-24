@@ -1,4 +1,3 @@
-import { StackHeader } from "@components";
 import { Stack } from "expo-router";
 
 export default Layout = () => {
@@ -6,7 +5,7 @@ export default Layout = () => {
     return (
         <Stack>
             <Stack.Screen
-                name='[id]'
+                name='index'
                 options={{
                     title: "",
                     headerShown: false,

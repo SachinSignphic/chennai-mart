@@ -1,51 +1,18 @@
 import { View, Text, Image, FlatList, Pressable,  } from "react-native";
 import React from "react";
-import ProductCartAction from "./ProductCartAction";
-import { router } from "expo-router";
 import { useSelector } from "react-redux";
-
-const ProductCard = ({ id, imageURL, title, quantity, price }) => {
-
-    return (
-        <View className='p-4 min-w-[172px] max-w-[192px] bg-teal rounded-3xl flex flex-grow-0 justify-between'>
-            <ProductCartAction productId={id} />
-            <Pressable className='flex justify-between' onPress={() => router.push(`/home/product/${id}`)}>
-                <View className='w-full h-1/2 p-1 flex flex-grow-0'>
-                    <Image
-                        resizeMode='contain'
-                        className='w-full h-full'
-                        source={imageURL}
-                    />
-                </View>
-                <View className='flex gap-4'>
-                    <Text
-                        numberOfLines={1}
-                        ellipsizeMode='tail'
-                        className='text-primary w-40 text-xl font-nunito-800'>
-                        {title}
-                    </Text>
-                    <View className='flex flex-row justify-between items-center'>
-                        <Text className='badge text-md px-4 py-1 bg-badge font-nunito-400 rounded-lg text-white'>
-                            {quantity}
-                        </Text>
-                        <Text className='price text-base font-nunito-400'>
-                            ₹{price}
-                        </Text>
-                    </View>
-                </View>
-            </Pressable>
-        </View>
-    );
-};
+import ProductCard from "./ProductCard";
 
 const ProductsSection = ({
     sectionTitle,
     sectionActionText,
     sectionActionURL,
+    sectionCategory,
 }) => {
-    const DUMMY_PRODUCT_DATA = useSelector((state) => state.products.products)
-    // console.log(DUMMY_PRODUCT_DATA);
-    // perform data fetching from the sanity and then render this shit
+    const DUMMY_PRODUCT_DATA = useSelector((state) => state.products.products);
+    
+    // use sectionCategory to filter from global products store
+
     return (
         <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>
             <View className='flex px-2 flex-row justify-between items-center'>

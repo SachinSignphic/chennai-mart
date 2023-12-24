@@ -58,6 +58,7 @@ export default function Layout() {
     return (
         <Provider store={store}>
             <Tabs
+                backBehavior="initialRoute"
                 screenOptions={({ route, navigation }) => {
                     // console.log(JSON.stringify(n))
                     return {
