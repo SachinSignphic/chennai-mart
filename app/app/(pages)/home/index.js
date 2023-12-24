@@ -22,11 +22,11 @@ const home = () => {
             <ProductsSection sectionTitle='Exclusive Offers' sectionActionText='See All' />
 
             {/* test for product page stack */}
-            <Pressable
+            {/* <Pressable
                 className='mb-6'
                 onPress={() => router.push("home/product/1")}>
                 <Text className='text-2xl'>Sample product page</Text>
-            </Pressable>
+            </Pressable> */}
         </SafeArea>
     );
 };

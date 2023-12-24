@@ -26,10 +26,10 @@ export default function Layout() {
             : (9 * windowDimension.height) / 100;
             
     // console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
+
     const regexPatternForRoutes = /^\/home\/(product\/\d+|settings)$/;
 
     const n = usePathname();
-    // console.log(n)
     
     const [fontsLoaded, fontError] = useFonts({
         "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"), // 800

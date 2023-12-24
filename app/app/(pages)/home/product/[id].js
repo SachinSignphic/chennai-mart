@@ -2,13 +2,21 @@ import { View, Text, ScrollView, Image } from "react-native";
 import React from "react";
 import { useGlobalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import {
+    SimpleLineIcons,
+    AntDesign,
+    Ionicons,
+} from "@expo/vector-icons";
 import { TabBarCartAction } from "@components";
+import { useSelector } from "react-redux";
+
 const index = () => {
     const { id } = useGlobalSearchParams(); // use this to read from the state and fetch
     // data about the product
+    const productData = useSelector(state => state.products.products);
+    const currentProduct = productData.find(item => item.id == id);
+    
+    // console.log(currentProduct)
 
     return (
         // initial idea is a scrollview
@@ -31,10 +39,10 @@ const index = () => {
                 <View className='bg-white py-8 px-8 rounded-[32px]'>
                     <View className='flex flex-row justify-between py-4 border-b border-[#F0F3FB]'>
                         <Text className='text-2xl font-nunito-800 text-primary'>
-                            Bell Paper Red
+                            {currentProduct?.title}
                         </Text>
                         <Text className='text-xl font-nunito-400 text-primary'>
-                            ₹450
+                            ₹{currentProduct?.price}
                         </Text>
                     </View>
                     <View className='flex flex-row justify-around py-4 border-b border-[#F0F3FB]'>
@@ -45,7 +53,7 @@ const index = () => {
                                 color='black'
                             />
                             <Text className='text-primary font-nunito-400 text-base'>
-                                100gm
+                                {currentProduct?.quantity}
                             </Text>
                         </View>
                         <View className='flex items-center flex-row gap-2'>
