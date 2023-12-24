@@ -91,6 +91,21 @@ export default defineType({
             initialValue: 0,
             validation: (rule) => rule.required().positive().precision(2),
         }),
+        defineField({
+            name: 'discount',
+            title: 'Discount',
+            type: 'number',
+            initialValue: 0,
+            validation: (rule) => rule.positive().precision(2),
+        }),
+        defineField({
+            name: 'discounted_price',
+            title: 'Price after discount',
+            type: 'number',
+            initialValue: 0,
+            description: "Enter price only if you want this to override the initial price",
+            validation: (rule) => rule.positive().precision(2),
+        }),
     ],
     preview: {
         select: {

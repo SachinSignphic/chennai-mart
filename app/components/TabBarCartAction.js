@@ -26,9 +26,8 @@ const TabBarCartAction = ({ id }) => {
                     (prev, curr) =>
                         prev +
                         curr.price *
-                            cartItems.find((item) => item.id == curr.id)
-                                .quantity,
-                    0
+                        cartItems.find((item) => item.id == curr.id).quantity,
+                        0
                 )}
             </Text>
             {!currentCartItem && (
@@ -41,11 +40,9 @@ const TabBarCartAction = ({ id }) => {
                             size={24}
                             color='white'
                         />
-                        <Pressable>
                             <Text className='font-nunito-800 text-lg text-white'>
                                 Add to Cart
                             </Text>
-                        </Pressable>
                     </View>
                 </Pressable>
             )}
@@ -60,11 +57,9 @@ const TabBarCartAction = ({ id }) => {
                             size={24}
                             color='white'
                         />
-                        <Pressable>
                             <Text className='font-nunito-800 text-lg text-white'>
                                 View Cart
                             </Text>
-                        </Pressable>
                     </View>
                 </Pressable>
             )}
