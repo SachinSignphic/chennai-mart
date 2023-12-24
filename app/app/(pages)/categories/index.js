@@ -56,7 +56,7 @@ import { router } from "expo-router";
 const CategoryCard = ({ id, category, image }) => {
     return (
         <Pressable hitSlop={5} onPress={() => router.push(`/categories/${id}`)}>
-            <View className='flex justify-start items-center gap-0 w-28'>
+            <View className='flex justify-start items-center gap-0 w-20'>
                 <Image
                     className='w-full'
                     source={image}
@@ -83,10 +83,10 @@ const index = () => {
                     justifyContent: "center",
                     gap: 6,
                 }}
-                className='px-4 py-4 bg-white w-full'>
+                className='px-2 py-4 bg-white w-full'>
 
 
-                <View className='flex flex-row mb-4 justify-center gap-x-4 items-center w-full'>
+                <View className='flex flex-row mb-4 justify-center gap-x-4 items-center w-[90%]'>
                     <Ionicons
                         name='md-search-outline'
                         size={24}
@@ -94,7 +94,7 @@ const index = () => {
                     />
                     <TextInput
                         placeholder='What are you looking for?'
-                        className='border-b border-b-slate-300 py-2 font-nunito-400 text-base w-[80%]'
+                        className='border-b border-b-slate-300 py-2 font-nunito-400 text-base w-[90%]'
                         // value={searchKey}
                         // onChangeText={(e) => dispatch(inputText(e))}
                     />
@@ -102,7 +102,7 @@ const index = () => {
 
 
                 {/*  two top category dabbas */}
-                <View className='flex justify-start items-center gap-0 w-[45vw]'>
+                <Pressable  hitSlop={5} onPress={() => router.push(`/categories/${1}`)} className='flex justify-start items-center w-[45vw]'>
                     <Image
                         className='w-full'
                         source={categoriesData[0].image}
@@ -111,8 +111,8 @@ const index = () => {
                     <Text className='font-nunito-400 text-md text-primary'>
                         {categoriesData[0].category}
                     </Text>
-                </View>
-                <View className='flex justify-start items-center gap-0 w-[45vw]'>
+                </Pressable>
+                <Pressable  hitSlop={5} onPress={() => router.push(`/categories/${2}`)} className='flex justify-start items-center w-[45vw]'>
                     <Image
                         className='w-full'
                         source={categoriesData[1].image}
@@ -121,7 +121,7 @@ const index = () => {
                     <Text className='font-nunito-400 text-md text-primary'>
                         {categoriesData[1].category}
                     </Text>
-                </View>
+                </Pressable>
 
                 {categoriesData.slice(2).map((categoryData, i) => {
                     return (

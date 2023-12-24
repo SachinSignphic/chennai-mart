@@ -7,11 +7,24 @@ import { ProductCard } from "@components";
 
 const CategoryMenu = ({ id, image, category, isActive }) => {
     return (
-        <TouchableOpacity className={`p-2 flex ${isActive && 'bg-teal'}`} onPress={() => router.push(`/categories/${id}`)}>
-            <Image resizeMode="contain" className='w-20 h-28' source={image} />
-            <Text ellipsizeMode="tail" numberOfLines={1} className='w-20 text-base text-primary font-nunito-400'>{category}</Text>
+        <TouchableOpacity
+            className={`p-2 flex ${
+                isActive && "bg-teal shadow-lg shadow-black/40"
+            }`}
+            onPress={() => router.push(`/categories/${id}`)}>
+            <Image
+                resizeMode='contain'
+                className='w-20 h-28'
+                source={image}
+            />
+            <Text
+                ellipsizeMode='tail'
+                numberOfLines={1}
+                className='w-20 text-base text-primary font-nunito-400'>
+                {category}
+            </Text>
         </TouchableOpacity>
-    )
+    );
 } 
 
 const index = () => {
@@ -21,12 +34,12 @@ const index = () => {
 
     return (
         <View className='flex flex-1 flex-row bg-white'>
-            <View className='flex'>
+            <View className='flex shadow-lg shadow-black/40'>
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
                         display: "flex",
-                        flexGrow: 0
+                        flexGrow: 0,
                     }}
                     data={categories}
                     renderItem={({ item: category }) => (
@@ -45,7 +58,13 @@ const index = () => {
                     className=''
                     numColumns={2}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({ item: product }) => <ProductCard {...product} imageURL={product.image} width={100} />}
+                    renderItem={({ item: product }) => (
+                        <ProductCard
+                            {...product}
+                            imageURL={product.image}
+                            width={100}
+                        />
+                    )}
                 />
             </View>
         </View>

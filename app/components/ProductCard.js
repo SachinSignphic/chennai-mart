@@ -8,7 +8,7 @@ const ProductCard = ({ id, imageURL, title, quantity, price, width }) => {
         <View
             className={`p-4 ${
                 width
-                    ? `max-w-[46%] max-h-60 mb-2 mx-1`
+                    ? `w-[46%] max-h-60 mb-2 mx-1`
                     : "min-w-[172px] max-w-[192px]"
             } bg-teal rounded-3xl flex flex-grow-0 justify-between`}>
             <ProductCartAction productId={id} />
