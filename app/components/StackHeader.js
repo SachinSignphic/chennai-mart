@@ -6,7 +6,7 @@ import ProductCartAction from "./ProductCartAction";
 
 const StackHeader = ({ headerTitle, cartActionForId }) => {
     return (
-        <View className='flex flex-row justify-start w-full py-10 mt-4'>
+        <View className={`flex flex-row ${cartActionForId? 'bg-teal': ''} justify-start w-full py-10 mt-4`}>
             <TouchableOpacity
                 onPress={router.back}
                 hitSlop={10}

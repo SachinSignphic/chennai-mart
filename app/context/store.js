@@ -14,11 +14,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import homeSearch from "./homeSearch";
 import homeCategory from "./homeCategory";
 import cart from "./cart";
+import productData from "./productData";
 
 export default configureStore({
     reducer: {
         homeSearch: homeSearch,
         homeCategory: homeCategory,
-        cart: cart
-    }
+        cart: cart,
+        products: productData,
+    },
 });

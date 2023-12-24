@@ -2,44 +2,7 @@ import { View, Text, Image, FlatList, Pressable,  } from "react-native";
 import React from "react";
 import ProductCartAction from "./ProductCartAction";
 import { router } from "expo-router";
-
-const DUMMY_PRODUCT_DATA = [
-    {
-        id: 1,
-        title: "Bell Pepper Red",
-        quantity: "100mg",
-        price: 450,
-        image: require("../assets/test-product1.png"),
-    },
-    {
-        id: 2,
-        title: "Organic Ginger",
-        quantity: "100mg",
-        price: 100,
-        image: require("../assets/test-product2.png"),
-    },
-    {
-        id: 3,
-        title: "Bell Pepper Red",
-        quantity: "100mg",
-        price: 100,
-        image: require("../assets/icon.png"),
-    },
-    {
-        id: 4,
-        title: "Bell Pepper Blue",
-        quantity: "100mg",
-        price: 200,
-        image: require("../assets/icon.png"),
-    },
-    {
-        id: 5,
-        title: "Boll Paper Red Red ball bat",
-        quantity: "100mg",
-        price: 150,
-        image: require("../assets/icon.png"),
-    },
-];
+import { useSelector } from "react-redux";
 
 const ProductCard = ({ id, imageURL, title, quantity, price }) => {
 
@@ -80,6 +43,8 @@ const ProductsSection = ({
     sectionActionText,
     sectionActionURL,
 }) => {
+    const DUMMY_PRODUCT_DATA = useSelector((state) => state.products.products)
+    // console.log(DUMMY_PRODUCT_DATA);
     // perform data fetching from the sanity and then render this shit
     return (
         <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>

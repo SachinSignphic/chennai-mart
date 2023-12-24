@@ -6,6 +6,7 @@ import HomeSearch from "./HomeSearch";
 import SafeArea from "./SafeArea";
 import StackHeader from "./StackHeader";
 import ProductCartAction from "./ProductCartAction";
+import TabBarCartAction from "./TabBarCartAction";
 
 export {
     SafeArea,
@@ -16,4 +17,5 @@ export {
     ProductsSection,
     StackHeader,
     ProductCartAction,
+    TabBarCartAction,
 };

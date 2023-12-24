@@ -26,9 +26,11 @@ export default function Layout() {
             : (9 * windowDimension.height) / 100;
             
     // console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
+    const regexPatternForRoutes = /^\/home\/(product\/\d+|settings)$/;
 
     const n = usePathname();
-
+    // console.log(n)
+    
     const [fontsLoaded, fontError] = useFonts({
         "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"), // 800
         Nunito: require("@assets/fonts/Nunito.ttf"), // 400
@@ -58,7 +60,7 @@ export default function Layout() {
                 return {
                     tabBarActiveTintColor: "#fefefe",
                     tabBarStyle: {
-                        display: n == "/home/settings" ? "none" : "flex", // do the same trikcery to hide it in product page and in categories page
+                        display: (regexPatternForRoutes.test(n)) ? "none" : "flex", // do the same trikcery to hide it in product page and in categories page
                         bottom: "2%",
                         alignSelf: "center",
                         height: 90,
