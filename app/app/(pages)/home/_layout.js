@@ -20,9 +20,8 @@ export default Layout = () => {
                 name='product'
                 options={{
                     headerBackVisible: false,
-                    header: ({ route, navigation, options, back }) => {
+                    header: ({ route }) => {
                         const isProductPage = route.params?.id;
-                        console.log(route, back.title);
                         return (
                             <StackHeader
                                 // routeAction='/home'

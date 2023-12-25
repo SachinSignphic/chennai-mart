@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, Image, SafeAreaView, Pressable } from "react-native";
+import { View, Text, TextInput, ScrollView, Image, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 // import { SafeArea } from "@components";
@@ -55,7 +55,7 @@ import { router } from "expo-router";
 
 const CategoryCard = ({ id, category, image }) => {
     return (
-        <Pressable hitSlop={5} onPress={() => router.push(`/categories/${id}`)}>
+        <TouchableOpacity onPress={() => router.push(`/categories/${id}`)}>
             <View className='flex justify-start items-center gap-0 w-20'>
                 <Image
                     className='w-full'
@@ -66,7 +66,7 @@ const CategoryCard = ({ id, category, image }) => {
                     {category}
                 </Text>
             </View>
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 
@@ -102,7 +102,7 @@ const index = () => {
 
 
                 {/*  two top category dabbas */}
-                <Pressable  hitSlop={5} onPress={() => router.push(`/categories/${1}`)} className='flex justify-start items-center w-[45vw]'>
+                <TouchableOpacity  hitSlop={5} onPress={() => router.push(`/categories/${1}`)} className='flex justify-start items-center w-[45vw]'>
                     <Image
                         className='w-full'
                         source={categoriesData[0].image}
@@ -111,8 +111,8 @@ const index = () => {
                     <Text className='font-nunito-400 text-md text-primary'>
                         {categoriesData[0].category}
                     </Text>
-                </Pressable>
-                <Pressable  hitSlop={5} onPress={() => router.push(`/categories/${2}`)} className='flex justify-start items-center w-[45vw]'>
+                </TouchableOpacity>
+                <TouchableOpacity  hitSlop={5} onPress={() => router.push(`/categories/${2}`)} className='flex justify-start items-center w-[45vw]'>
                     <Image
                         className='w-full'
                         source={categoriesData[1].image}
@@ -121,7 +121,7 @@ const index = () => {
                     <Text className='font-nunito-400 text-md text-primary'>
                         {categoriesData[1].category}
                     </Text>
-                </Pressable>
+                </TouchableOpacity>
 
                 {categoriesData.slice(2).map((categoryData, i) => {
                     return (

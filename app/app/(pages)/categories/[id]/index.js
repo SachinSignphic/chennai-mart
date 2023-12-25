@@ -20,7 +20,7 @@ const CategoryMenu = ({ id, image, category, isActive }) => {
             <Text
                 ellipsizeMode='tail'
                 numberOfLines={1}
-                className='w-20 text-base text-primary font-nunito-400'>
+                className='w-20 text-sm leading-4 text-primary font-nunito-400'>
                 {category}
             </Text>
         </TouchableOpacity>
@@ -34,12 +34,16 @@ const index = () => {
 
     return (
         <View className='flex flex-1 flex-row bg-white'>
-            <View className='flex shadow-lg shadow-black/40'>
+            <View className='flex'>
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
                         display: "flex",
                         flexGrow: 0,
+                        shadowColor: "black",
+                        shadowOffset: { width: 0, height: 2 },
+                        shadowOpacity: 0.86,
+                        shadowRadius: 5,
                     }}
                     data={categories}
                     renderItem={({ item: category }) => (

@@ -2,11 +2,9 @@ import { Tabs, usePathname } from "expo-router";
 import IonIcon from "@expo/vector-icons/Ionicons";
 import FeatherIcon from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { View, useWindowDimensions, Text } from "react-native";
-import { useFonts } from "expo-font";
+import { View, useWindowDimensions } from "react-native";
 import store from "@context/store";
 import { Provider } from "react-redux";
-import { useCallback } from "react";
 
 const TabIconWrapper = ({ tabBarIconProps, children }) => {
     return (
@@ -32,28 +30,6 @@ export default function Layout() {
     const regexPatternForRoutes = /^\/home\/(product\/\d+|settings)$/;
 
     const n = usePathname();
-
-    const [fontsLoaded, fontError] = useFonts({
-        "Nunito ExtraBold": require("@assets/fonts/Nunito ExtraBold.otf"), // 800
-        Nunito: require("@assets/fonts/Nunito.ttf"), // 400
-        // "Nunito Black": require("@assets/fonts/Nunito Black.otf"), // 900
-        // "Inter-SemiBoldItalic":
-        //     "https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
-    });
-
-    // const onLayoutRootView = useCallback(async () => {
-    //     if (fontsLoaded || fontError) {
-    //         SplashScreen.hideAsync();
-    //     }
-    // }, [fontsLoaded, fontError]);
-
-    if (!fontsLoaded && !fontError) {
-        return (
-            <View className='flex-1 justify-center items-center'>
-                <Text className='text-xl'>Loading...</Text>
-            </View>
-        );
-    }
 
     return (
         <Provider store={store}>
