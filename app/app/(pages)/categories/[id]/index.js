@@ -34,16 +34,20 @@ const index = () => {
 
     return (
         <View className='flex flex-1 flex-row bg-white'>
-            <View className='flex'>
+            <View
+                className='flex'
+                style={{
+                    shadowColor: "black",
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.86,
+                    shadowRadius: 5,
+                    elevation: 10,
+                }}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
                         display: "flex",
                         flexGrow: 0,
-                        shadowColor: "black",
-                        shadowOffset: { width: 0, height: 2 },
-                        shadowOpacity: 0.86,
-                        shadowRadius: 5,
                     }}
                     data={categories}
                     renderItem={({ item: category }) => (

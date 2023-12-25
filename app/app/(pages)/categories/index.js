@@ -55,17 +55,17 @@ import { router } from "expo-router";
 
 const CategoryCard = ({ id, category, image }) => {
     return (
-        <TouchableOpacity onPress={() => router.push(`/categories/${id}`)}>
-            <View className='flex justify-start items-center gap-0 w-20'>
-                <Image
-                    className='w-full'
-                    source={image}
-                    resizeMode='contain'
-                />
-                <Text className='font-nunito-400 text-md text-primary'>
-                    {category}
-                </Text>
-            </View>
+        <TouchableOpacity
+            className='flex justify-start items-center gap-0 w-20'
+            onPress={() => router.push(`/categories/${id}`)}>
+            <Image
+                className='w-full'
+                source={image}
+                resizeMode='contain'
+            />
+            <Text className='font-nunito-400 text-md leading-4 text-primary'>
+                {category}
+            </Text>
         </TouchableOpacity>
     );
 };
@@ -81,7 +81,7 @@ const index = () => {
                     flexDirection: "row",
                     flexWrap: "wrap",
                     justifyContent: "center",
-                    gap: 6,
+                    gap: 10,
                 }}
                 className='px-2 py-4 bg-white w-full'>
 
@@ -95,7 +95,7 @@ const index = () => {
                     <TextInput
                         placeholder='What are you looking for?'
                         className='border-b border-b-slate-300 py-2 font-nunito-400 text-base w-[90%]'
-                        // value={searchKey}
+                        // value={searchKey} state to search coming soon
                         // onChangeText={(e) => dispatch(inputText(e))}
                     />
                 </View>

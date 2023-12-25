@@ -27,6 +27,11 @@ export default function App() {
                 className='text-2xl'>
                 Go to home! After user logs in
             </Link>
+            <Link
+                href={"/location"}
+                className='text-2xl'>
+                Location
+            </Link>
             <StatusBar style='auto' />
             {/* once checking if signed in or used multiple times, use <Redirect /> component to take users */}
         </View>

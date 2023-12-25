@@ -32,7 +32,7 @@ const index = () => {
         <>
             <ScrollView>
                 {/* view for image */}
-                <View className='bg-teal flex items-center justify-center h-[50vh]'>
+                <View className='bg-teal flex items-center justify-center h-[35vh]'>
                     <Image
                         resizeMode='center'
                         source={currentProduct?.mainImage}
