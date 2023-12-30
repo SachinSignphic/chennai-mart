@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 const referrals = () => {
     return (
         <ScrollView className='px-8 bg-white'>
-            <View className='flex px-6 py-4 bg-primary gap-5 rounded-xl m-1'>
+            <View className='flex px-6 py-4 bg-primary gap-y-3 rounded-xl m-1'>
                 <Text className='text-white text-xl font-nunito-800'>
                     Refer to your friend!
                 </Text>
@@ -13,7 +13,7 @@ const referrals = () => {
                     Introduce us to your friend & you both get 20% off on your
                     next purchase.
                 </Text>
-                <View className='flex flex-row items-center'>
+                <View className='flex flex-row items-center mb-2'>
                     <TouchableOpacity className='px-4 py-2 mr-2 rounded-xl bg-white'>
                         <Ionicons
                             name='logo-whatsapp'
