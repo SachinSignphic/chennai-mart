@@ -1,11 +1,13 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
 
+// this array is shared with _layout.js of settings page so if updated here, update there or else stackheader names break
 const SETTINGS_MENU_TEXT = [
     {
         name: "Orders",
@@ -16,7 +18,7 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: "",
+        to: "orders",
     },
     {
         name: "Manage Referrals",
@@ -27,7 +29,7 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: "",
+        to: "referrals",
     },
     {
         name: "Customer Support & FAQ",
@@ -38,7 +40,7 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: "",
+        to: "faq",
     },
     {
         name: "Addresses",
@@ -49,7 +51,7 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: "",
+        to: "addresses",
     },
     {
         name: "Refunds",
@@ -60,7 +62,7 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: "",
+        to: "refunds",
     },
     {
         name: "Profile",
@@ -71,7 +73,8 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: "",
+        isProfile: true,
+        to: "user/1", // obtain user id from global store and then put it here
     },
     {
         name: "Suggest Products",
@@ -82,7 +85,7 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: ''
+        to: "suggest-products",
     },
     {
         name: "Policies",
@@ -93,7 +96,7 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: "",
+        to: "policies",
     },
     {
         name: "Notifications",
@@ -104,13 +107,19 @@ const SETTINGS_MENU_TEXT = [
                 color='black'
             />
         ),
-        to: "",
+        to: "notifications",
     },
 ];
 
-const SettingsItem = ({ name, to, icon: Icon }) => {
+const SettingsItem = ({ name, to, isProfile, icon: Icon }) => {
     return (
-        <View className='flex flex-row items-center py-4 border-b border-[#EBEBEB] space-y-4'>
+        <TouchableOpacity
+            className='flex flex-row items-center py-4 border-b border-[#EBEBEB] space-y-4'
+            onPress={() =>
+                isProfile
+                    ? router.push("/home/" + to)
+                    : router.push("/home/settings/" + to)
+            }>
             {Icon && (
                 <View className='mt-3'>
                     <Icon className='border' />
@@ -119,7 +128,7 @@ const SettingsItem = ({ name, to, icon: Icon }) => {
             <Text className='text-primary font-nunito-400 ml-6 text-lg'>
                 {name}
             </Text>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -132,6 +141,7 @@ const index = () => {
                     name={settingsMenuContext.name}
                     to={settingsMenuContext.to}
                     icon={settingsMenuContext.icon}
+                    isProfile={settingsMenuContext.isProfile}
                 />
             ))}
         </ScrollView>

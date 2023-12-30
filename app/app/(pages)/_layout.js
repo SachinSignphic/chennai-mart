@@ -27,14 +27,14 @@ export default function Layout() {
 
     // console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
 
-    const regexPatternForRoutes = /^\/home\/(product\/\d+|settings)$/;
+    const regexPatternForRoutes = /^\/home\/(product\/\d+|user\/.+|settings(?:\/.+)?)$/;
 
     const n = usePathname();
 
     return (
         <Provider store={store}>
             <Tabs
-                backBehavior="initialRoute"
+                backBehavior="history"
                 screenOptions={({ route, navigation }) => {
                     // console.log(JSON.stringify(n))
                     return {
@@ -56,9 +56,10 @@ export default function Layout() {
                         },
                     };
                 }}>
-                <Tabs.Screen
+                <Tabs.Screen  
                     name='cart'
                     options={{
+                        tabBarHideOnKeyboard: true,
                         title: "",
                         headerShown: false,
                         tabBarIcon: (tabBarIconProps) => (

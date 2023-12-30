@@ -35,15 +35,7 @@ export default Layout = () => {
             <Stack.Screen
                 name='settings'
                 options={{
-                    header: () => (
-                        <StackHeader
-                            routeAction='/home'
-                            headerTitle='Settings'
-                        />
-                    ),
-                    headerBackVisible: false,
-                    // headerTitleAlign: "center",
-                    // headerLeft: ,
+                    headerShown: false,
                 }}
             />
             <Stack.Screen
