@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -134,17 +134,18 @@ const SettingsItem = ({ name, to, isProfile, icon: Icon }) => {
 
 const index = () => {
     return (
-        <ScrollView className='px-12 bg-white'>
-            {SETTINGS_MENU_TEXT.map((settingsMenuContext, i) => (
-                <SettingsItem
-                    key={i}
-                    name={settingsMenuContext.name}
-                    to={settingsMenuContext.to}
-                    icon={settingsMenuContext.icon}
-                    isProfile={settingsMenuContext.isProfile}
-                />
-            ))}
-        </ScrollView>
+        // <SafeAreaView>
+            <ScrollView className='px-12 bg-white'>
+                {SETTINGS_MENU_TEXT.map((settingsMenuContext, i) => (
+                    <SettingsItem
+                        key={i}
+                        name={settingsMenuContext.name}
+                        to={settingsMenuContext.to}
+                        icon={settingsMenuContext.icon}
+                        isProfile={settingsMenuContext.isProfile}
+                    />
+                ))}
+            </ScrollView>
     );
 };
 

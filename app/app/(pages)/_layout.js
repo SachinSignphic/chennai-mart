@@ -27,7 +27,7 @@ export default function Layout() {
 
     // console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
 
-    const regexPatternForRoutes = /^\/home\/(product\/\d+|user\/.+|settings(?:\/.+)?)$/;
+    const regexPatternForRoutes = /^\/(cart(?:\/.*)?)?$|^\/home\/(product\/\d+|user\/.+|settings(?:\/.+)?|cart(?:\/.*)?)$/;
 
     const n = usePathname();
 
@@ -59,7 +59,6 @@ export default function Layout() {
                 <Tabs.Screen  
                     name='cart'
                     options={{
-                        tabBarHideOnKeyboard: true,
                         title: "",
                         headerShown: false,
                         tabBarIcon: (tabBarIconProps) => (

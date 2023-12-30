@@ -9,6 +9,8 @@ import {
     DealsBanner,
     ProductsSection,
 } from "@components";
+// import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "react-native";
 
 const home = () => {
     // console.log(searchKey)
@@ -29,12 +31,7 @@ const home = () => {
             */}
             <ProductsSection sectionCategory={"someId"} sectionTitle='Exclusive Offers' sectionActionText='See All' />
 
-            {/* test for product page stack */}
-            {/* <Pressable
-                className='mb-6'
-                onPress={() => router.push("home/product/1")}>
-                <Text className='text-2xl'>Sample product page</Text>
-            </Pressable> */}
+            <StatusBar style="light" barStyle="dark-content" />
         </SafeArea>
     );
 };

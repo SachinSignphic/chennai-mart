@@ -1,12 +1,9 @@
-import { View, Text } from "react-native";
-import {useState} from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { View, Text, ScrollView } from "react-native";
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import CustomSwitch from "react-native-custom-switch-new";
 
 const notification = () => {
-    const [toggleSwitch, setToggleSwitch] = useState(false);
-
     return (
         <ScrollView className='px-8 gap-y-4 bg-white'>
             <View className='flex flex-row border justify-around items-center border-primary/40 rounded-xl px-4 py-4'>
@@ -26,8 +23,8 @@ const notification = () => {
                 <CustomSwitch
                     buttonWidth={20}
                     switchWidth={40}
-                    switchBorderColor={"#2f2e41"}
-                    buttonBorderWidth={0.4}
+                    // switchBorderColor={"#2f2e41"}
+                    // buttonBorderWidth={0.4}
                     buttonPadding={2}
                     buttonColor={"white"}
                     switchBackgroundColor={'#ebebeb'}
@@ -58,8 +55,8 @@ const notification = () => {
                 <CustomSwitch
                     buttonWidth={20}
                     switchWidth={40}
-                    switchBorderColor={"#2f2e41"}
-                    buttonBorderWidth={0.4}
+                    // switchBorderColor={"#2f2e41"}
+                    // buttonBorderWidth={0.4}
                     buttonPadding={2}
                     buttonColor={"white"}
                     switchBackgroundColor={'#ebebeb'}
