@@ -12,11 +12,11 @@ const policies = () => {
                     color='black'
                 />
                 <View className='flex flex-col gap-y-1 ml-3'>
-                    <Text className='font-nunito-800 text-primary text-xl'>
+                    <Text className='font-nunito-800 text-primary text-lg modern:text-xl'>
                         Terms & Conditions
                     </Text>
-                    <Text className='font-nunito-400 text-secondary text-md w-[50vw]'>
-                        We send you updates and offers through WhatsApp
+                    <Text className='font-nunito-400 text-secondary text-sm modern:text-md w-[50vw]'>
+                        Terms & Conditions that you agree to while using the app
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -27,11 +27,11 @@ const policies = () => {
                     color='black'
                 />
                 <View className='flex flex-col gap-y-1 ml-3'>
-                    <Text className='font-nunito-800 text-primary text-xl'>
+                    <Text className='font-nunito-800 text-primary text-lg modern:text-xl'>
                         Privacy Policy
                     </Text>
-                    <Text className='font-nunito-400 text-secondary text-md w-[50vw]'>
-                        We send you updates and offers through WhatsApp
+                    <Text className='font-nunito-400 text-secondary text-sm modern:text-md w-[50vw]'>
+                        We respect your privacy.
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -42,11 +42,11 @@ const policies = () => {
                     color='black'
                 />
                 <View className='flex flex-col gap-y-1 ml-3'>
-                    <Text className='font-nunito-800 text-primary text-xl'>
+                    <Text className='font-nunito-800 text-primary text-lg modern:text-xl'>
                         Open Source Libraries
                     </Text>
-                    <Text className='font-nunito-400 text-secondary text-md w-[50vw]'>
-                        We send you updates and offers through WhatsApp
+                    <Text className='font-nunito-400 text-secondary text-sm modern:text-md w-[50vw]'>
+                        Licenses on open-source libraries used to build this app
                     </Text>
                 </View>
             </TouchableOpacity>

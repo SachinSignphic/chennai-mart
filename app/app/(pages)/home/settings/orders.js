@@ -52,22 +52,13 @@ const OrderItemCard = ({
 }) => {
     return (
         <View
-            className='flex py-6 px-6 gap-y-2 border border-primary/10 mt-2 max-modern:mt-4 justify-center rounded-xl'
-            style={{
-                shadowColor: "#00000015",
-                shadowOffset: {
-                    width: 0,
-                    height: 1,
-                },
-                shadowOpacity: 0.1,
-                shadowRadius: 12,
-                elevation: 5,
-            }}>
+            className='flex p-3.5 modern:p-6 modern:gap-y-2 border border-primary/10 mt-4 modern:mt-2 justify-center rounded-xl'
+        >
             <View className='flex flex-row justify-between items-center'>
-                <Text className='text-primary font-nunito-400 text-xl'>
+                <Text className='text-primary font-nunito-400 text-lg modern:text-xl'>
                     {orderName}
                 </Text>
-                <Text className='text-primary font-nunito-400 text-lg'>
+                <Text className='text-primary font-nunito-400 text-md modern:text-lg'>
                     ₹{price}
                 </Text>
             </View>
@@ -89,8 +80,8 @@ const OrderItemCard = ({
                     } rounded-xl text-sm px-3 py-1`}>
                     {orderStatusMap[orderStatus].status}
                 </Text>
-                <TouchableOpacity className='flex rounded bg-primary px-5 py-2 flex-row items-center justify-center'>
-                    <Text className='text-white text-lg font-nunito-400'>
+                <TouchableOpacity className='flex rounded-md bg-primary px-3 modern:px-5 py-2 flex-row items-center justify-center'>
+                    <Text className='text-white text-md modern:text-lg font-nunito-400'>
                         Reorder
                     </Text>
                 </TouchableOpacity>
@@ -101,7 +92,7 @@ const OrderItemCard = ({
 
 const orders = () => {
     return (
-        <ScrollView className='bg-white px-8 max-modern:px-4'>
+        <ScrollView className='bg-white px-4 modern:px-8'>
             <View className='flex flex-row justify-center gap-6 items-center mb-6'>
                 <Ionicons
                     name='md-search-outline'

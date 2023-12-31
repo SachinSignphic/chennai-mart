@@ -71,6 +71,7 @@ const index = () => {
                             {...product}
                             imageURL={product.image}
                             width={100}
+                            showProductCartAction={false}
                         />
                     )}
                 />

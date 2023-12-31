@@ -16,10 +16,10 @@ const ProductsSection = ({
     return (
         <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>
             <View className='flex px-2 flex-row justify-between items-center'>
-                <Text className='text-2xl font-nunito-800 text-primary'>
+                <Text className='text-xl modern:text-2xl font-nunito-800 text-primary'>
                     {sectionTitle}
                 </Text>
-                <Text className='text-base font-nunito-400 text-primary'>
+                <Text className='text-sm modern:text-base font-nunito-400 text-primary'>
                     {sectionActionText}
                 </Text>
             </View>

@@ -5,7 +5,7 @@ import CustomSwitch from "react-native-custom-switch-new";
 
 const notification = () => {
     return (
-        <ScrollView className='px-8 gap-y-4 bg-white'>
+        <ScrollView className='px-4 modern:px-8 gap-y-4 bg-white'>
             <View className='flex flex-row border justify-around items-center border-primary/40 rounded-xl px-4 py-4'>
                 <Ionicons
                     name='logo-whatsapp'
@@ -13,10 +13,10 @@ const notification = () => {
                     color='black'
                 />
                 <View className='flex flex-col gap-y-1 ml-3'>
-                    <Text className='font-nunito-800 text-primary text-xl'>
+                    <Text className='font-nunito-800 text-primary text-base modern:text-xl'>
                         WhatsApp Notifications
                     </Text>
-                    <Text className='font-nunito-400 text-secondary text-md w-[50vw]'>
+                    <Text className='font-nunito-400 text-secondary text-sm modern:text-lg w-[50vw]'>
                         We send you updates and offers through WhatsApp
                     </Text>
                 </View>
@@ -38,10 +38,10 @@ const notification = () => {
                     color='black'
                 />
                 <View className='flex flex-col gap-y-1 ml-3'>
-                    <Text className='font-nunito-800 text-primary text-xl'>
+                    <Text className='font-nunito-800 text-primary text-base modern:text-xl'>
                         SMS Notifications
                     </Text>
-                    <Text className='font-nunito-400 text-secondary text-md w-[50vw]'>
+                    <Text className='font-nunito-400 text-secondary text-sm modern:text-lg w-[50vw]'>
                         We send you updates and offers through SMS
                     </Text>
                 </View>

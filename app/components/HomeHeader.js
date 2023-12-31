@@ -8,12 +8,7 @@ const HomeHeader = () => {
         <View className='header flex flex-row items-center justify-between w-full px-6 py-6 pb-2'>
             <View>
                 <Text
-                    className='text-secondary text-xl modern:text-3xl w-min'
-                    style={{
-                        // fontFamily: "serif",
-                        fontFamily: "Nunito ExtraBold",
-                        // fontWeight: 800,
-                    }}>
+                    className='text-secondary text-xl modern:text-3xl w-min font-nunito-800'>
                     Welcome Back,
                 </Text>
                 <Text className='text-primary text-3xl modern:text-4xl w-fit font-nunito-800'>
@@ -35,7 +30,7 @@ const HomeHeader = () => {
                     hitSlop={10}
                     onLongPress={() => router.push("/home/user/1")}
                     onPress={() => router.push("/home/user/1")}>
-                    <View className='border-2 modern:border h-16 w-16 modern:w-20 modern:h-20 rounded-full flex items-center justify-center'>
+                    <View className='border-2 modern:border h-[68px] w-[68px] modern:w-20 modern:h-20 rounded-full flex items-center justify-center'>
                         <View className='w-[85%] h-[85%] rounded-full bg-secondary'></View>
                     </View>
                 </TouchableOpacity>

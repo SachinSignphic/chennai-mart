@@ -24,7 +24,6 @@ export default Layout = () => {
                         const isProductPage = route.params?.id;
                         return (
                             <StackHeader
-                                // routeAction='/home'
                                 headerTitle=''
                                 cartActionForId={isProductPage || null}
                             />

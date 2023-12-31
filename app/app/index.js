@@ -1,7 +1,7 @@
 import { useFonts } from "expo-font";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 // import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, Text, StatusBar, View, TouchableOpacity, useWindowDimensions } from "react-native";
+import { SafeAreaView, Text, StatusBar, View, TouchableOpacity } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import Swiper from "react-native-swiper";
 import { useState } from "react";
@@ -33,7 +33,7 @@ export default function App() {
         await SplashScreen.hideAsync();
     }
 
-    const windowDim = useWindowDimensions();
+    // const windowDim = useWindowDimensions();
 
     const [fontsLoaded, fontError] = useFonts({
         "Nunito ExtraBold": require("@assets/fonts/Nunito-ExtraBold.otf"), // 800
@@ -46,7 +46,7 @@ export default function App() {
         hideSplashScreen();
     }
 
-    console.log(windowDim)
+    // console.log(windowDim)
 
     return (
         <SafeAreaView className='flex-1'>

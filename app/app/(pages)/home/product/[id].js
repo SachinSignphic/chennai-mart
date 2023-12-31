@@ -35,14 +35,15 @@ const index = () => {
                 <View className='bg-teal flex items-center justify-center h-[35vh]'>
                     <Image
                         resizeMode='center'
+                        className='w-full'
                         source={currentProduct?.mainImage}
                     />
                 </View>
 
                 {/* view for the details pane */}
                 <View className='bg-white py-8 px-8 rounded-[32px]'>
-                    <View className='flex flex-row justify-between py-4 border-b border-[#F0F3FB]'>
-                        <Text className='text-2xl font-nunito-800 text-primary'>
+                    <View className='flex flex-row flex-wrap justify-between py-4 border-b border-[#F0F3FB]'>
+                        <Text className='text-xl modern:text-2xl font-nunito-800 text-primary'>
                             {currentProduct?.title}
                         </Text>
                         <Text className='text-xl font-nunito-400 text-primary'>

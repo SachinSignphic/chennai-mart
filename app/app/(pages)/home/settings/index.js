@@ -125,7 +125,7 @@ const SettingsItem = ({ name, to, isProfile, icon: Icon }) => {
                     <Icon className='border' />
                 </View>
             )}
-            <Text className='text-primary font-nunito-400 ml-6 text-lg'>
+            <Text className='text-primary font-nunito-400 ml-6 text-md modern:text-lg'>
                 {name}
             </Text>
         </TouchableOpacity>

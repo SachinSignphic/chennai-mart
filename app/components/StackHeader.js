@@ -9,9 +9,11 @@ const StackHeader = ({ headerTitle, cartActionForId, routeAction }) => {
         <View
             className={`flex flex-row ${
                 cartActionForId ? "bg-teal" : "bg-white"
-            }  justify-start w-full modern:py-10 py-4 mt-6`}>
+            }  justify-start w-full py-6 modern:py-8 mt-6`}>
             <TouchableOpacity
-                onPress={routeAction ? () => router.push(routeAction): router.back}
+                onPress={
+                    routeAction ? () => router.push(routeAction) : router.back
+                }
                 hitSlop={10}
                 className='p-2 left-5 absolute flex self-center bg-primary rounded-xl z-50'>
                 <Ionicons
@@ -23,7 +25,7 @@ const StackHeader = ({ headerTitle, cartActionForId, routeAction }) => {
             <Text
                 className={`text-xl text-center ${
                     !cartActionForId && "w-full"
-                } flex self-center font-nunito-800 text-primary max-modern:text-md`}>
+                } flex self-center font-nunito-800 text-primary text-base modern:text-xl`}>
                 {headerTitle}
             </Text>
             {cartActionForId && (

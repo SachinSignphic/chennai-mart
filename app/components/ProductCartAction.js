@@ -17,14 +17,15 @@ const ProductCartAction = ({ productId }) => {
                     <TouchableOpacity
                         hitSlop={10}
                         onPress={() => dispatch(removeFromCart({ id: productId }))}
-                        className=' w-9 h-9 flex justify-center items-center'>
+                        className='w-9 h-9 flex justify-center items-center'>
                         <AntDesign
                             name='minus'
                             size={18}
                             color='white'
+                            className='self-center'
                         />
                     </TouchableOpacity>
-                    <Text className='text-white font-nunito-400 text-base'>
+                    <Text className='text-white font-nunito-400 text-sm modern:text-base'>
                         {currentCartItem.quantity}
                     </Text>
                     <TouchableOpacity
