@@ -8,7 +8,7 @@ import { router } from "expo-router";
 
 const CartItemCard = ({ productId, productName, productQty, quantity, price, image }) => {
   return (
-      <View className='flex flex-row mt-2 border justify-between items-center border-primary/10 rounded-xl px-3 py-2'>
+      <View className='flex flex-row mt-2 flex-wrap  border justify-between items-center border-primary/10 rounded-xl px-2 py-2'>
           <View className='w-1/5 p-2'>
               <Image
                   resizeMode='center'
@@ -44,7 +44,7 @@ const index = () => {
 
     return (
         <>
-            <ScrollView className='px-8 bg-white'>
+            <ScrollView className='px-4 bg-white'>
                 {cartData.map((cartItem, i) => {
                     let currentCartItemData = productData.find(
                         (product) => product.id == cartItem.id
@@ -64,7 +64,7 @@ const index = () => {
             </ScrollView>
             <View className='absolute shadow-xl shadow-black/40 bottom-0 left-0 w-full bg-teal gap-y-3 z-50 px-4 py-4'>
                 <TouchableOpacity
-                    className='flex flex-row justify-between'
+                    className='flex flex-row justify-between flex-wrap'
                     onPress={() => router.push("/cart/addresses")}>
                     <Text className='text-secondary font-medium text-base'>
                         No.8, 9th cross street, thirumudivakkam, Chennai
@@ -94,7 +94,9 @@ const index = () => {
                             ₹{totalCartAmount}
                         </Text>
                     </View>
-                    <TouchableOpacity className='flex flex-1 py-3 bg-primary rounded-lg'>
+                    <TouchableOpacity
+                        disabled={cartData.length > 0 ? false : true}
+                        className={`flex flex-1 py-3 bg-primary rounded-lg ${(cartData.length < 1) && 'opacity-60' }`}>
                         <Text className='text-white self-center font-nunito-800 text-lg'>
                             Proceed ▶
                         </Text>

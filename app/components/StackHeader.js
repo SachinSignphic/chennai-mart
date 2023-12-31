@@ -9,7 +9,7 @@ const StackHeader = ({ headerTitle, cartActionForId, routeAction }) => {
         <View
             className={`flex flex-row ${
                 cartActionForId ? "bg-teal" : "bg-white"
-            }  justify-start w-full py-10 mt-6`}>
+            }  justify-start w-full modern:py-10 py-4 mt-6`}>
             <TouchableOpacity
                 onPress={routeAction ? () => router.push(routeAction): router.back}
                 hitSlop={10}

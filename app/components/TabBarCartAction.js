@@ -19,15 +19,16 @@ const TabBarCartAction = ({ id }) => {
     // console.log(cartItems, productsData, currentCartItemsData);
 
     return (
-        <View className='flex self-center flex-row items-center justify-between w-[90%] bg-primary px-4 rounded-xl min-h-[80px] fixed bottom-[4%]'>
-            <Text className='text-white font-nunito-800 text-xl ml-4'>
+        <View className='flex self-center flex-row items-center justify-between w-[90%] bg-primary px-4 rounded-xl min-h-[80px] absolute bottom-[2%]'>
+            <Text className='text-white font-nunito-800 modern:text-lg text-md ml-4'>
                 {cartItems?.length} items | ₹
                 {currentCartItemsData.reduce(
                     (prev, curr) =>
                         prev +
                         curr.price *
-                        cartItems.find((item) => item.id == curr.id).quantity,
-                        0
+                            cartItems.find((item) => item.id == curr.id)
+                                .quantity,
+                    0
                 )}
             </Text>
             {!currentCartItem && (
@@ -40,26 +41,25 @@ const TabBarCartAction = ({ id }) => {
                             size={24}
                             color='white'
                         />
-                            <Text className='font-nunito-800 text-lg text-white'>
-                                Add to Cart
-                            </Text>
+                        <Text className='font-nunito-800 modern:text-lg text-md text-white'>
+                            Add to Cart
+                        </Text>
                     </View>
                 </Pressable>
             )}
             {currentCartItem && (
                 <Pressable
                     hitSlop={10}
-                    onPress={() => router.push("/cart")}
-                   >
+                    onPress={() => router.push("/cart")}>
                     <View className='flex flex-row gap-x-2 items-center justify-center px-6 py-4 rounded-xl bg-[#100F18]'>
                         <MaterialCommunityIcons
                             name='shopping-outline'
                             size={24}
                             color='white'
                         />
-                            <Text className='font-nunito-800 text-lg text-white'>
-                                View Cart
-                            </Text>
+                        <Text className='font-nunito-800 modern:text-lg text-md text-white'>
+                            View Cart
+                        </Text>
                     </View>
                 </Pressable>
             )}

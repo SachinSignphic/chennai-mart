@@ -52,7 +52,7 @@ const OrderItemCard = ({
 }) => {
     return (
         <View
-            className='flex py-6 px-6 gap-y-2 border border-primary/10 mt-2 justify-center rounded-xl'
+            className='flex py-6 px-6 gap-y-2 border border-primary/10 mt-2 max-modern:mt-4 justify-center rounded-xl'
             style={{
                 shadowColor: "#00000015",
                 shadowOffset: {
@@ -101,7 +101,7 @@ const OrderItemCard = ({
 
 const orders = () => {
     return (
-        <ScrollView className='bg-white px-8'>
+        <ScrollView className='bg-white px-8 max-modern:px-4'>
             <View className='flex flex-row justify-center gap-6 items-center mb-6'>
                 <Ionicons
                     name='md-search-outline'
