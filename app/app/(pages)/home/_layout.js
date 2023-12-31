@@ -4,8 +4,7 @@ import { StackHeader } from "@components";
 
 export default Layout = () => {
     const x = useLocalSearchParams();
-    // console.log("product id from route is: ", x.id);
-    /* probably move this global store to even further above the entry js */
+    
     return (
         <Stack>
             <Stack.Screen
@@ -24,6 +23,7 @@ export default Layout = () => {
                         const isProductPage = route.params?.id;
                         return (
                             <StackHeader
+                                
                                 headerTitle=''
                                 cartActionForId={isProductPage || null}
                             />

@@ -18,7 +18,7 @@ const index = () => {
                 </Text>
                 <TextInput
                     placeholder=''
-                    value='Developer'
+                    defaultValue='Developer'
                     className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                 />
             </View>
@@ -28,7 +28,7 @@ const index = () => {
                 </Text>
                 <TextInput
                     placeholder=''
-                    value='sample@xmail.com'
+                    defaultValue='sample@xmail.com'
                     className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                 />
             </View>

@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import ProductCartAction from './ProductCartAction';
 import { router } from 'expo-router';
@@ -22,7 +22,8 @@ const ProductCard = ({
                 {
                     (showProductCartAction != false) && <ProductCartAction productId={id} />
                 }
-            <Pressable
+            <TouchableOpacity
+                activeOpacity={0.8}
                 className='flex justify-between'
                 onPress={() => router.push(`/home/product/${id}`)}>
                 <View className='w-full h-1/2 p-1 flex flex-grow-0'>
@@ -50,7 +51,7 @@ const ProductCard = ({
                         </Text>
                     </View>
                 </View>
-            </Pressable>
+            </TouchableOpacity>
         </View>
     );
 };

@@ -29,7 +29,8 @@ const home = () => {
                 a prop called category or some shit, that will filter out products from 
                 global store and then render it
             */}
-            <ProductsSection sectionCategory={"someId"} sectionTitle='Exclusive Offers' sectionActionText='See All' />
+            <ProductsSection sectionCategory={"someId"} sectionTitle='Exclusive Offers' sectionActionText='See all' />
+            <ProductsSection sectionCategory={"someId2"} sectionTitle='Deals for you' sectionActionText='See more' randomize />
 
             <StatusBar style="light" barStyle="dark-content" />
         </SafeArea>

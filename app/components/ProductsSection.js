@@ -1,4 +1,4 @@
-import { View, Text, Image, FlatList, Pressable,  } from "react-native";
+import { View, Text, Image, FlatList, Pressable } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
@@ -7,12 +7,11 @@ const ProductsSection = ({
     sectionTitle,
     sectionActionText,
     sectionActionURL,
-    sectionCategory,
+    sectionCategory, // use this soon for filtering products via category
+    randomize
 }) => {
     const DUMMY_PRODUCT_DATA = useSelector((state) => state.products.products);
     
-    // use sectionCategory to filter from global products store
-
     return (
         <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>
             <View className='flex px-2 flex-row justify-between items-center'>
@@ -24,7 +23,16 @@ const ProductsSection = ({
                 </Text>
             </View>
             <FlatList
-                data={DUMMY_PRODUCT_DATA}
+                data={
+                    randomize
+                        ? DUMMY_PRODUCT_DATA.map((value) => ({
+                              value,
+                              sort: Math.random(),
+                          }))
+                              .sort((a, b) => a.sort - b.sort)
+                              .map(({ value }) => value)
+                        : DUMMY_PRODUCT_DATA
+                }
                 renderItem={({ item }) => (
                     <ProductCard
                         id={item.id}

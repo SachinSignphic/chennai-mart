@@ -27,27 +27,28 @@ export default function Layout() {
 
     // console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
 
-    const regexPatternForRoutes = /^\/(cart(?:\/.*)?)?$|^\/home\/(product\/\d+|user\/.+|settings(?:\/.+)?|cart(?:\/.*)?)$/;
+    const regexPatternForRoutes =
+        /^\/(cart(?:\/.*)?)?$|^\/home\/(product\/\d+|user\/.+|settings(?:\/.+)?|cart(?:\/.*)?)$/;
 
     const n = usePathname();
 
     return (
         <Provider store={store}>
             <Tabs
-                backBehavior="history"
+                backBehavior='history'
+                initialRouteName="home"
                 screenOptions={({ route, navigation }) => {
                     // console.log(JSON.stringify(n))
                     return {
                         tabBarActiveTintColor: "#fefefe",
                         tabBarStyle: {
-                            display: regexPatternForRoutes.test(n)
-                                ? "none"
-                                : "flex", // do the same trikcery to hide it in product page and in categories page
+                            display: "flex", // do the same trikcery to hide it in product page and in categories page
                             bottom: "2%",
                             alignSelf: "center",
-                            height: 90,
+                            height: regexPatternForRoutes.test(n) ? 0 : 90,
                             borderWidth: 1,
                             borderRadius: 10,
+                            opacity: regexPatternForRoutes.test(n) ? 0 : 1,
                             width: "90%",
                             borderColor: "#424242",
                             borderTopColor: "#424242",
@@ -56,7 +57,7 @@ export default function Layout() {
                         },
                     };
                 }}>
-                <Tabs.Screen  
+                <Tabs.Screen
                     name='cart'
                     options={{
                         title: "",

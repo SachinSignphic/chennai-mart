@@ -30,7 +30,7 @@ const index = () => {
         // has actually been loaded before and then show the content accordingly
         // or just fetch it from the sanity server and store it in global store
         <>
-            <ScrollView>
+            <ScrollView className='pb-4'>
                 {/* view for image */}
                 <View className='bg-teal flex items-center justify-center h-[35vh]'>
                     <Image
@@ -82,7 +82,8 @@ const index = () => {
                             </Text>
                         </View>
                     </View>
-                    <View className='flex gap-2 py-6'>
+                    {/* the mb-10 is temporary and should be appended to the last element in the page and not to this description */}
+                    <View className='flex gap-2 py-6 mb-10'> 
                         <Text className='text-xl text-primary font-nunito-800'>
                             Description
                         </Text>
