@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Hecto Hyper Mart",
-    "slug": "hecto-hyper-mart",
-    "scheme": "hecto-mart",
+    "name": "Hecto Delivery Partner",
+    "slug": "hecto-delivery-partner",
+    "scheme": "hecto-delivery",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,22 +22,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.hectohypermart"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router"
-    ],
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "32e3e626-2d2d-4384-a163-999d7f978e30"
-      }
-    }
+    ]
   }
 }

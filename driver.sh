@@ -22,7 +22,7 @@ while getopts ":ct" opt; do
 done
 
 # Change directory to the "app" folder
-cd ./client
+cd ./driver
 
 # Run the selected command
 $command_to_run
