@@ -16,6 +16,7 @@ import homeCategory from "./homeCategory";
 import cart from "./cart";
 import productData from "./productData";
 import categoriesData from "./categoriesData";
+import user from "./user";
 
 export default configureStore({
     reducer: {
@@ -23,6 +24,7 @@ export default configureStore({
         homeCategory: homeCategory,
         cart: cart,
         products: productData,
-        categories: categoriesData
+        categories: categoriesData,
+        user: user
     },
 });

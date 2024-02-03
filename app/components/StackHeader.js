@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { router } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import ProductCartAction from "./ProductCartAction";
 
 const StackHeader = ({ headerTitle, cartActionForId, routeAction }) => {
+    const navigation = useNavigation();
     return (
         <View
             className={`flex flex-row ${
@@ -12,7 +13,7 @@ const StackHeader = ({ headerTitle, cartActionForId, routeAction }) => {
             }  justify-start w-full py-6 modern:py-8 mt-6`}>
             <TouchableOpacity
                 onPress={
-                    routeAction ? () => router.push(routeAction) : router.back
+                    routeAction ? () => router.push(routeAction) : navigation.goBack
                 }
                 hitSlop={10}
                 className='p-2 left-5 absolute flex self-center bg-primary rounded-xl z-50'>

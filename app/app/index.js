@@ -1,10 +1,11 @@
 import { useFonts } from "expo-font";
 import { router } from "expo-router";
 // import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, Text, StatusBar, View, TouchableOpacity } from "react-native";
+import { SafeAreaView, Text, StatusBar, View, TouchableOpacity, ToastAndroid } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import Swiper from "react-native-swiper";
 import { useState } from "react";
+import storage from "@utils/storage";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -29,27 +30,80 @@ const SwiperSlide = ({ heading, subheading, image }) => {
 }
 
 export default function App() {
+    const [isSwiperPlayed, setIsSwiperPlayed] = useState(false)
+    const [canDisplayOnboarding, setCanDisplayOnboarding] = useState(false)
+
     const hideSplashScreen = async () => {
         await SplashScreen.hideAsync();
     }
+    const checkIfUserSessionExpired = async () => {
+        try {
+            const user = await storage.load({ key: 'user' });
+            // check if it is expired by making a call to endpoint
+            router.replace("/home");
+        } catch (error) {
+            switch (error.name) {
+                case 'NotFoundError':
+                    ToastAndroid.show("User not found. Please login", 5000) 
+                    router.replace("/login?showname=false");
+                    break;
+                case 'ExpiredError':
+                    ToastAndroid.show("User session expired. Please login", 5000) 
+                    router.replace("/login?showname=false");
+                    break;
+            }
+        }
+    }
 
-    // const windowDim = useWindowDimensions();
+    const checkIfOnboardingComplete = async () => {
+        try {
+            // await storage.remove({ key: 'isSwiperPlayed' });
+            // setCanDisplayOnboarding(true);
+            // return;
+            // above 3 lines for testing. delete that boolean in storage whenever i need
+            const hasSwiperBeenPlayed = await storage.load({ key: 'isSwiperPlayed' });
+            if (hasSwiperBeenPlayed) router.push('/login');
+        } catch (error) {
+            // console.warn(error.message);
+            setCanDisplayOnboarding(true);
+            switch (error.name) {
+                case 'NotFoundError':
+                    console.log("SwiperPlayed state not found!"); // prolly remove this switch case
+                    break;
+                case 'ExpiredError':
+                    // not possible because it never expires
+                    break;
+            }
+        }
+    }
+
+    const handleSwiperComplete = async () => {
+        await storage.save({
+            key: "isSwiperPlayed",
+            data: true,
+            expires: 1000 * 60 * 60 * 24,
+        });
+        router.push('/login');
+        // await storage.remove({ key: 'isSwiperPlayed' });
+    }
 
     const [fontsLoaded, fontError] = useFonts({
         "Nunito ExtraBold": require("@assets/fonts/Nunito-ExtraBold.otf"), // 800
         Nunito: require("@assets/fonts/Nunito.ttf"),
     });
 
-    const [isSwiperPlayed, setIsSwiperPlayed] = useState(false)
-
     if (!fontsLoaded || !fontError) {
         hideSplashScreen();
     }
 
+    if (fontsLoaded) {
+        checkIfUserSessionExpired();
+        checkIfOnboardingComplete();
+    }
     // console.log(windowDim)
 
     return (
-        <SafeAreaView className='flex-1'>
+        canDisplayOnboarding && (<SafeAreaView className='flex-1'>
             <StatusBar barStyle='dark-content' />
             <Swiper
                 autoplay
@@ -73,7 +127,7 @@ export default function App() {
             </Swiper>
             {isSwiperPlayed && (
                 <TouchableOpacity
-                    onPress={() => router.push("/home")}
+                    onPress={handleSwiperComplete}
                     activeOpacity={0.8}
                     className='absolute w-[90%] bottom-4 self-center bg-primary py-3 rounded-lg'>
                     <Text className='text-white font-nunito-400 self-center text-xl'>
@@ -81,6 +135,6 @@ export default function App() {
                     </Text>
                 </TouchableOpacity>
             )}
-        </SafeAreaView>
+        </SafeAreaView>)
     );
 }

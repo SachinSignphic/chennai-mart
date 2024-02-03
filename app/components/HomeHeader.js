@@ -1,9 +1,12 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useCallback } from "react";
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { SplashScreen, router } from "expo-router";
+import { router } from "expo-router";
+import { useSelector } from "react-redux";
 
 const HomeHeader = () => {
+    const userData = useSelector(state => state.user);
+
     return (
         <View className='header flex flex-row items-center justify-between w-full px-6 py-6 pb-2'>
             <View>
@@ -12,7 +15,7 @@ const HomeHeader = () => {
                     Welcome Back,
                 </Text>
                 <Text className='text-primary text-3xl modern:text-4xl w-fit font-nunito-800'>
-                    DAVID
+                    { userData?.userName }
                 </Text>
             </View>
             <View className='flex flex-row items-center gap-6'>

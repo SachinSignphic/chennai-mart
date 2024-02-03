@@ -1,10 +1,11 @@
-import { Tabs, usePathname } from "expo-router";
+import { Tabs, router, usePathname } from "expo-router";
 import IonIcon from "@expo/vector-icons/Ionicons";
 import FeatherIcon from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { View, useWindowDimensions } from "react-native";
+import { ToastAndroid, View, useWindowDimensions } from "react-native";
 import store from "@context/store";
 import { Provider } from "react-redux";
+import storage from "@utils/storage";
 
 const TabIconWrapper = ({ tabBarIconProps, children }) => {
     return (
@@ -31,6 +32,25 @@ export default function Layout() {
         /^\/(cart(?:\/.*)?)?$|^\/home\/(product\/\d+|user\/.+|settings(?:\/.+)?|cart(?:\/.*)?)$/;
 
     const n = usePathname();
+
+    const checkIfUserSessionExpired = async () => {
+        try {
+            const user = await storage.load({ key: 'user' });
+        } catch (error) {
+            switch (error.name) {
+                case 'NotFoundError':
+                    ToastAndroid.show("User not found. Please login", 5000) // prolly remove this switch case
+                    router.replace("/login?showname=false");
+                    break;
+                    case 'ExpiredError':
+                    ToastAndroid.show("User session expired. Please login", 5000) // prolly remove this switch case
+                    router.replace("/login?showname=false");
+                    break;
+            }
+        }
+    }
+
+    checkIfUserSessionExpired();
 
     return (
         <Provider store={store}>
