@@ -6,6 +6,15 @@ module.exports = function (api) {
     [
       'expo-router/babel',
       "nativewind/babel",
+      [
+        "module-resolver",
+        {
+          alias: {
+            // This needs to be mirrored in tsconfig.json
+            "@": "./"
+          },
+        },
+      ],
     ],
   };
 };
