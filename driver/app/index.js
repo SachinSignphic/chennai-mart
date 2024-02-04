@@ -1,7 +1,7 @@
-import { View, Text, Pressable, TouchableOpacity } from 'react-native'
+import { useFonts } from 'expo-font';
+import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useRef, useState } from 'react'
 import * as Splashscreen from "expo-splash-screen";
-import { useFonts } from 'expo-font';
 import Swiper from 'react-native-swiper';
 import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
@@ -46,7 +46,7 @@ const index = () => {
     }
 
     return (
-        <>
+        fontsLoaded && <>
             <StatusBar backgroundColor='#F2F5FD' style='dark' />
             <Swiper
                 ref={swiperRef}
@@ -60,7 +60,7 @@ const index = () => {
                     <View className='bg-primary w-2 h-2 rounded-full mx-1' />
                 }
                 paginationStyle={{
-                    bottom: 110,
+                    bottom: isSwiperPlayed? 110: 50,
                 }}
                 loop={false}
                 onIndexChanged={(i) => i == 2 && setIsSwiperPlayed(true)}
@@ -69,13 +69,11 @@ const index = () => {
                     return <SwiperSlide key={i} heading={data.heading} />
                 })}
             </Swiper>
-            <TouchableOpacity activeOpacity={0.8} className='absolute flex bottom-6 items-center justify-center self-center bg-primary w-[90%] rounded-md py-4'
-                onPress={() => {
-                    if (isSwiperPlayed) return router.push("/mobile")
-                }}
+            {isSwiperPlayed && <TouchableOpacity activeOpacity={0.8} className='absolute flex bottom-6 items-center justify-center self-center bg-primary w-[90%] rounded-md py-4'
+                onPress={() => router.push("/mobile")}
             >
                 <Text className='font-nunito-400 text-lg modern:text-xl text-teal'>Next</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>}
         </>
     )
 }
