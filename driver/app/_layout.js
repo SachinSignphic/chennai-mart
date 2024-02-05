@@ -17,6 +17,15 @@ const Layout = () => {
             <Stack.Screen name="loc" options={{
                 header: () => <StackHeader headerTitle={'Your Location'} />
             }} />
+            <Stack.Screen name="choose-city" options={{
+                header: () => <StackHeader headerTitle={'Choose City'} />
+            }} />
+            <Stack.Screen name="job-type" options={{
+                header: () => <StackHeader headerTitle={'Job Type'} />
+            }} />
+            <Stack.Screen name="marital-status" options={{
+                header: () => <StackHeader headerTitle={'Marital Status'} />
+            }} />
         </Stack>
     )
 }

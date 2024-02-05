@@ -1,4 +1,5 @@
 import OnboardingScreens from "@/components/OnboardingScreens"
+import ProceedButton from "@/components/ProceedButton"
 import { router } from "expo-router"
 import { Text, View, TextInput, TouchableOpacity } from "react-native"
 
@@ -12,11 +13,7 @@ const mobile = () => {
                 <Text className='absolute top-[22%] z-20 left-[3%] text-primary font-nunito-400 text-base modern:text-lg'>+91 </Text>
             </View>
             <Text className='mt-auto mb-3 w-full text-left px-2 text-gray-400'>By continuing you agree to terms of service & privacy policy</Text>
-            <TouchableOpacity className='w-full rounded-md mb-6 py-4 flex items-center bg-primary' activeOpacity={0.8}
-                onPress={() => router.push("/otp")}
-            >
-                <Text className='text-teal font-nunito-800 text-md modern:text-xl'>Get OTP</Text>
-            </TouchableOpacity>
+            <ProceedButton routeName={'/otp'} innerText={"Get OTP"} />
         </OnboardingScreens>
     )
 }
