@@ -67,7 +67,7 @@ export default location = () => {
                                         Choose city manually
                                     </Link>
                                 </View>
-                                <ProceedButton routeName={'/job-type'} autoMarginTop={true} innerText={"Proceed"} />
+                                <ProceedButton routeName={'/choose-jobtype'} autoMarginTop={true} innerText={"Proceed"} />
                             </>
                                     :
                                 <>

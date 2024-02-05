@@ -53,7 +53,7 @@ const chooseDayoff = () => {
                 })
             }
             {
-                selected !== "" && <ProceedButton autoMarginTop={true} innerText={'Continue'} routeName={'/choose-'} />
+                selected !== "" && <ProceedButton autoMarginTop={true} innerText={'Continue'} routeName={'/upload-documents'} />
             }
         </OnboardingScreens>
     )

@@ -20,7 +20,7 @@ const Layout = () => {
             <Stack.Screen name="choose-city" options={{
                 header: () => <StackHeader headerTitle={'Choose City'} />
             }} />
-            <Stack.Screen name="job-type" options={{
+            <Stack.Screen name="choose-jobtype" options={{
                 header: () => <StackHeader headerTitle={'Job Type'} />
             }} />
             <Stack.Screen name="marital-status" options={{
@@ -34,6 +34,15 @@ const Layout = () => {
             }} />
             <Stack.Screen name="choose-dayoff" options={{
                 header: () => <StackHeader headerTitle={'Choose Day off'} />
+            }} />
+            <Stack.Screen name="upload-documents" options={{
+                header: () => <StackHeader headerTitle={'Upload Documents'} />
+            }} />
+            <Stack.Screen name="camera" options={{
+                headerShown: false
+            }} />
+            <Stack.Screen name="documents-uploaded" options={{
+                headerShown: false
             }} />
         </Stack>
     )

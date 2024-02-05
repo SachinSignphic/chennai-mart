@@ -1,6 +1,6 @@
 import OnboardingScreens from "@/components/OnboardingScreens"
 import ProceedButton from "@/components/ProceedButton"
-import { router } from "expo-router"
+import { Link, router } from "expo-router"
 import { Text, View, TextInput, TouchableOpacity } from "react-native"
 
 
@@ -14,6 +14,7 @@ const mobile = () => {
             </View>
             <Text className='mt-auto mb-3 w-full text-left px-2 text-gray-400'>By continuing you agree to terms of service & privacy policy</Text>
             <ProceedButton routeName={'/otp'} innerText={"Get OTP"} />
+            <Link href={'/upload-documents'}>Test skip</Link>
         </OnboardingScreens>
     )
 }
