@@ -11,7 +11,7 @@ const documentsUploaded = () => {
                 <Text className='text-primary text-lg modern:text-2xl font-nunito-400'>Thanks for all the details. We’re verifying your documents.</Text>
                 <Text className='text-primary/70 text-base modern:text-lg font-nunito-400'>Don’t worry, We’ll notify you in few hours.</Text>
             </View>
-            <ProceedButton autoMarginTop={true} innerText={"Continue"} routeName={'/'} /> 
+            <ProceedButton autoMarginTop={true} innerText={"Continue"} routeName={'/address'} /> 
         </OnboardingScreens>
     )
 }
