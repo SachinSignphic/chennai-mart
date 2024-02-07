@@ -7,7 +7,7 @@ const StackHeader = ({ headerTitle, routeAction }) => {
     const navigation = useNavigation();
     return (
         <View
-            className={`flex flex-row "bg-white"
+            className={`flex flex-row bg-white
                   justify-start w-full py-6 modern:py-8 mt-6`}>
             <TouchableOpacity
                 onPress={

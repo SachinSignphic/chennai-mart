@@ -1,7 +1,8 @@
 import { View, Text, useWindowDimensions } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
-import { SimpleLineIcons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { SimpleLineIcons, Ionicons, Feather } from '@expo/vector-icons';
+import StackHeader from '@/components/StackHeader';
 
 export function TabIconWrapper({ tabBarIconProps, children }) {
     return (
@@ -18,7 +19,7 @@ const Layout = () => {
 
     return (
         <Tabs 
-        initialRouteName='home'
+        // initialRouteName='home'
         screenOptions={({ route, navigation }) => {
             return {
                 headerShown: false,
@@ -41,10 +42,11 @@ const Layout = () => {
         }}>
             <Tabs.Screen name='profile' options={{
                 title: "",
-                headerShown: false,
+                headerShown: true,
+                header: () => <StackHeader headerTitle={"Profile"} routeAction={'/home'} />,
                 tabBarIcon: (tabBarIconProps) => (
                     <TabIconWrapper tabBarIconProps={tabBarIconProps}>
-                         <FontAwesome5 name="user" size={ICON_SIZE-2} color="#fff" />
+                        <Feather name="user" size={ICON_SIZE} color="#fff" />
                     </TabIconWrapper>
                 ),
             }} />

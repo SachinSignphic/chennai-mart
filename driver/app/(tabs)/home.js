@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import OnboardingScreens from '@/components/OnboardingScreens'
 import CustomSwitch from "react-native-custom-switch-new";
@@ -7,7 +7,6 @@ import Divider from '@/components/Divider';
 
 const dashboard = () => {
     const [nextOrderData, setNextOrderData] = useState(null);
-
 
     // this entire useEffect is to simulate loading orders
     useEffect(() => {
@@ -20,9 +19,8 @@ const dashboard = () => {
         return () => clearTimeout(dummyTimeOut);
     }, [])
 
-
     return (
-        <OnboardingScreens>
+        <OnboardingScreens scrollView={true}>
             <View className='px-2 py-12 flex flex-row justify-between w-full items-center'>
                 <Text>L</Text>
                 <CustomSwitch
