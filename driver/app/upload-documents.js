@@ -45,7 +45,7 @@ const DocumentSelectionButton = ({ title, completed }) => {
 const uploadDocuments = () => {
     return (
         <OnboardingScreens>
-            <Text className='text-secondary w-full mt-5 text-justify font-nunito-400 text-base modern:text-lg'>Upload photos of original documents so we can verify them</Text>
+            <Text className='text-secondary w-full my-5 text-justify font-nunito-400 text-base modern:text-lg'>Upload photos of original documents so we can verify them</Text>
             <Divider text={'PENDING'} />
             {
                 DOCUMENTS.map((doc) => <DocumentSelectionButton title={doc.title} key={doc.id} completed={false} />)
@@ -53,7 +53,7 @@ const uploadDocuments = () => {
             {
                 // testing
             }
-            <Link href={'/documents-uploaded'}>Skip section</Link>
+            <Link href={'/home'}>Skip section</Link>
         </OnboardingScreens>
     )
 }

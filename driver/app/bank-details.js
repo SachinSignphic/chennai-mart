@@ -33,7 +33,7 @@ const bankDetails = () => {
                     BANK_DETAILS.map(bankDetail => <TextInputLabel label={bankDetail.label} isNumeric={bankDetail.isNumeric?? false} isPassword={bankDetail.isPassword ?? false} key={bankDetail.id} />)
                 }
             </ScrollView>
-            <ProceedButton innerText={'Continue'} autoMarginTop={true} routeName={'/dashboard'} />
+            <ProceedButton innerText={'Continue'} autoMarginTop={true} routeName={'/home'} />
         </OnboardingScreens>
     )
 }

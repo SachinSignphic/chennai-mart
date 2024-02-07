@@ -56,7 +56,7 @@ const Layout = () => {
             <Stack.Screen name="bank-details" options={{
                 header: () => <StackHeader headerTitle={'Bank Details'} />
             }} />
-            <Stack.Screen name="dashboard" options={{
+            <Stack.Screen name="(tabs)" options={{
                 headerShown: false
             }} />
         </Stack>
