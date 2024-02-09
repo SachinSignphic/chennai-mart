@@ -85,6 +85,28 @@ export default defineType({
             ],
         }),
         defineField({
+            name: 'quantity_no',
+            title: 'Quantity (Enter number eg., 250, 500)',
+            type: 'number',
+            initialValue: 0,
+            validation: (rule) => rule.required().positive(),
+        }),
+        defineField({
+            name: 'quantity_count',
+            title: 'Quantity (Select unit eg., mg, gm, etc.)',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'mg', value: 'mg' },
+                    { title: 'gm', value: 'gm' },
+                    { title: 'kg', value: 'kg' },
+                    { title: 'ml', value: 'ml' },
+                    { title: 'l', value: 'l' },
+                    { title: 'nos.', value: 'nos.' },
+                ]
+            }
+        }),
+        defineField({
             name: 'price',
             title: 'Price',
             type: 'number',
