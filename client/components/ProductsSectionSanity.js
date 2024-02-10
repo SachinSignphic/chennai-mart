@@ -1,10 +1,32 @@
 import { View, Text, Image, FlatList, Pressable } from "react-native";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
+import sanity from "@/utils/sanity";
+import { addProduct } from "@/context/productData";
 
+const productQuery = `
+    *[_type=='products'] {
+        _id,
+        name,
+        description,
+        'category': category[] -> {title, description, category_image},
+        quantity_no,
+        quantity_count,
+        price,
+        discount,
+        discounted_price,
+        tags,
+        main_image {
+            asset -> {
+                url
+            }
+        },
+        images{asset -> {url}}[]
+    }
+`
 
-const ProductsSection = ({
+const ProductsSectionSanity = ({
     sectionTitle,
     sectionActionText,
     sectionActionURL,
@@ -12,6 +34,17 @@ const ProductsSection = ({
     randomize
 }) => {
     const productData = useSelector((state) => state.products.products);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchRandomProductData = async () => {
+            const data = await sanity.fetch(productQuery);
+            console.log(data[99]);
+            // dispatch(addProduct(data[99]))
+        }
+
+        fetchRandomProductData();
+    }, [])
 
     return (
         <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>
@@ -27,11 +60,11 @@ const ProductsSection = ({
                 data={
                     randomize
                         ? productData.map((value) => ({
-                              value,
-                              sort: Math.random(),
-                          }))
-                              .sort((a, b) => a.sort - b.sort)
-                              .map(({ value }) => value)
+                            value,
+                            sort: Math.random(),
+                        }))
+                            .sort((a, b) => a.sort - b.sort)
+                            .map(({ value }) => value)
                         : productData
                 }
                 renderItem={({ item }) => (
@@ -58,4 +91,4 @@ const ProductsSection = ({
     );
 };
 
-export default ProductsSection;
+export default ProductsSectionSanity;

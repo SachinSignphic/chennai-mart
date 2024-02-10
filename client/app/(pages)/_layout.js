@@ -6,6 +6,7 @@ import { ToastAndroid, View, useWindowDimensions } from "react-native";
 import store from "@context/store";
 import { Provider } from "react-redux";
 import storage from "@utils/storage";
+import { IS_DEV } from "@/constants";
 
 const TabIconWrapper = ({ tabBarIconProps, children }) => {
     return (
@@ -42,15 +43,15 @@ export default function Layout() {
                     ToastAndroid.show("User not found. Please login", 5000) // prolly remove this switch case
                     router.replace("/login?showname=false");
                     break;
-                    case 'ExpiredError':
-                    ToastAndroid.show("User session expired. Please login", 5000) // prolly remove this switch case
-                    router.replace("/login?showname=false");
-                    break;
+                case 'ExpiredError':
+                ToastAndroid.show("User session expired. Please login", 5000) // prolly remove this switch case
+                router.replace("/login?showname=false");
+                break;
             }
         }
     }
 
-    checkIfUserSessionExpired();
+    if (!IS_DEV) checkIfUserSessionExpired();
 
     return (
         <Provider store={store}>

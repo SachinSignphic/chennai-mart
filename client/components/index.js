@@ -8,6 +8,7 @@ import StackHeader from "./StackHeader";
 import ProductCartAction from "./ProductCartAction";
 import TabBarCartAction from "./TabBarCartAction";
 import ProductCard from "./ProductCard";
+import ProductsSectionSanity from "./ProductsSectionSanity";
 
 export {
     SafeArea,
@@ -19,5 +20,6 @@ export {
     StackHeader,
     ProductCartAction,
     TabBarCartAction,
+    ProductsSectionSanity,
     ProductCard,
 };

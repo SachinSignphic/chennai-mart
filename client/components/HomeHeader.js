@@ -15,7 +15,7 @@ const HomeHeader = () => {
                     Welcome Back,
                 </Text>
                 <Text className='text-primary text-3xl modern:text-4xl w-fit font-nunito-800'>
-                    { userData?.userName }
+                    { userData?.userName || 'User' }
                 </Text>
             </View>
             <View className='flex flex-row items-center gap-6'>

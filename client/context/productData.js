@@ -11,7 +11,7 @@ import { createSlice } from "@reduxjs/toolkit";
 //         url
 //       }
 //     },
-//     images[]{asset -> {url}}
+//     images{asset -> {url}}[]
 // }
 
 export const productDataSlice = createSlice({
@@ -110,9 +110,16 @@ export const productDataSlice = createSlice({
             },
         ],
     },
-    reducers: {},
+    reducers: {
+        addProduct: (state, action) => {
+            state.products.push(action.payload)
+        },
+        removeProduct: (state, action) => {
+            state.products = state.products.filter(product => product.id !== action.payload.id)
+        },
+    },
 });
 
-// export const { action } = productDataSlice.actions;
+export const { addProduct, removeProduct } = productDataSlice.actions;
 
 export default productDataSlice.reducer;

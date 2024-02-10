@@ -1,9 +1,10 @@
 import { View, Text, TextInput, BackHandler, Alert } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { router, useGlobalSearchParams, useLocalSearchParams, useNavigation } from 'expo-router'
+import { Link, router, useGlobalSearchParams, useLocalSearchParams, useNavigation } from 'expo-router'
 import storage from '@utils/storage';
 import 'react-native-url-polyfill/auto';
+import { IS_DEV } from '@/constants';
 
 const API_URL = process.env.EXPO_PUBLIC_SERVER_URL;
 
@@ -12,8 +13,7 @@ const login = () => {
     const nameInputRef = useRef(null);
     // const [canShowNameInput, setCanShowNameInput] = useState(true);
     const { showname } = useLocalSearchParams();
-    console.log(showname)
-
+    
     const checkIfOnboardingComplete = async () => {
         try {
             const hasSwiperBeenPlayed = await storage.load({ key: 'isSwiperPlayed' });
@@ -83,6 +83,9 @@ const login = () => {
                     className='px-2 pl-12 w-[94%] font-nunito-400 border text-md modern:text-xl border-primary/40 py-3 bg-teal rounded-xl'
                 />
             </View>
+            {
+                IS_DEV && <Link href={'/home'}>Test skip to home</Link>
+            }
         </SafeAreaView>
     )
 }
