@@ -30,13 +30,15 @@ export default function Layout() {
     // console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
 
     const regexPatternForRoutes =
-        /^\/(cart(?:\/.*)?)?$|^\/home\/(product\/\d+|user\/.+|settings(?:\/.+)?|cart(?:\/.*)?)$/;
+        /^\/(cart(?:\/.*)?)?$|^\/home\/(product\/.+|user\/.+|settings(?:\/.+)?|cart(?:\/.*)?)$/;
 
     const n = usePathname();
+    // console.log("🚀 ~ Layout ~ n:", regexPatternForRoutes.test(n))
 
     const checkIfUserSessionExpired = async () => {
         try {
             const user = await storage.load({ key: 'user' });
+            console.log("🚀 ~ checkIfUserSessionExpired _layout.js ~ user:", user)
         } catch (error) {
             switch (error.name) {
                 case 'NotFoundError':

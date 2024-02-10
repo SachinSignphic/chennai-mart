@@ -11,12 +11,11 @@ const TabBarCartAction = ({ id }) => {
 
     const dispatch = useDispatch();
     const currentCartItem = cartItems.find((item) => item.id == id);
-    const currentProduct = productsData.find((item) => item.id == id);
+    const currentProduct = productsData.find((item) => item._id == id);
     const cartItemIDs = cartItems.map((item) => item.id);
     const currentCartItemsData = productsData.filter((product) =>
-        cartItemIDs.includes(product.id)
+        cartItemIDs.includes(product._id)
     );
-    // console.log(cartItems, productsData, currentCartItemsData);
 
     return (
         <View className='flex self-center flex-row items-center justify-between w-[90%] bg-primary px-4 rounded-xl min-h-[80px] absolute bottom-[2%]'>
@@ -25,11 +24,11 @@ const TabBarCartAction = ({ id }) => {
                 {currentCartItemsData.reduce(
                     (prev, curr) =>
                         prev +
-                        curr.price *
-                            cartItems.find((item) => item.id == curr.id)
+                        (curr.discounted_price === 0 ? (curr.price * (1 - (curr.discount / 100))): curr.discounted_price) *
+                            cartItems.find((item) => item.id == curr._id)
                                 .quantity,
                     0
-                )}
+                ).toFixed(2)}
             </Text>
             {!currentCartItem && (
                 <Pressable

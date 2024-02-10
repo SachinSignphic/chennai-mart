@@ -30,7 +30,7 @@ const ProductCard = ({
                     <Image
                         resizeMode='contain'
                         className='w-full h-full'
-                        source={imageURL}
+                        source={{ uri: imageURL }}
                     />
                 </View>
                 <View className='flex gap-4'>

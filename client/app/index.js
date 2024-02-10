@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import Swiper from "react-native-swiper";
 import { useState } from "react";
 import storage from "@utils/storage";
+import { IS_DEV } from "@/constants";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -97,7 +98,7 @@ export default function App() {
     }
 
     if (fontsLoaded) {
-        checkIfUserSessionExpired();
+        !IS_DEV && checkIfUserSessionExpired();
         checkIfOnboardingComplete();
     }
     // console.log(windowDim)

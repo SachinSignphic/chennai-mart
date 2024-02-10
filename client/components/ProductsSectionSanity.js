@@ -3,14 +3,14 @@ import React, { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
 import sanity from "@/utils/sanity";
-import { addProduct } from "@/context/productData";
+import { addProduct, addProductsArray } from "@/context/productData";
 
 const productQuery = `
     *[_type=='products'] {
         _id,
         name,
         description,
-        'category': category[] -> {title, description, category_image},
+        'category': category[] -> {_id, title, description, category_image},
         quantity_no,
         quantity_count,
         price,
@@ -23,7 +23,7 @@ const productQuery = `
             }
         },
         images{asset -> {url}}[]
-    }
+    }[1..20]
 `
 
 const ProductsSectionSanity = ({
@@ -38,13 +38,14 @@ const ProductsSectionSanity = ({
 
     useEffect(() => {
         const fetchRandomProductData = async () => {
-            const data = await sanity.fetch(productQuery);
-            console.log(data[99]);
-            // dispatch(addProduct(data[99]))
+            if (productData.length === 0) {
+                var data = await sanity.fetch(productQuery);
+                console.log("check if fetch works:",data[10].name);
+                dispatch(addProductsArray(data));
+            }
         }
-
         fetchRandomProductData();
-    }, [])
+    }, [productData])
 
     return (
         <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>
@@ -56,37 +57,40 @@ const ProductsSectionSanity = ({
                     {sectionActionText}
                 </Text>
             </View>
-            <FlatList
-                data={
-                    randomize
-                        ? productData.map((value) => ({
-                            value,
-                            sort: Math.random(),
-                        }))
-                            .sort((a, b) => a.sort - b.sort)
-                            .map(({ value }) => value)
-                        : productData
-                }
-                renderItem={({ item }) => (
-                    <ProductCard
-                        id={item.id}
-                        title={item.title}
-                        quantity={item.quantity}
-                        price={item.price}
-                        imageURL={item.image}
-                    />
-                )}
-                horizontal
-                keyExtractor={(item) => item.id}
-                contentContainerStyle={{
-                    gap: 20,
-                    paddingHorizontal: 10,
-                    paddingVertical: 10,
-                    // height: 'auto'
-                }}
-                showsHorizontalScrollIndicator={false}
-                className='flex-grow-0'
-            />
+            {
+                productData.length !== 0 ? <FlatList
+                    data={
+                        randomize
+                            ? productData.map((value) => ({
+                                value,
+                                sort: Math.random(),
+                            }))
+                                .sort((a, b) => a.sort - b.sort)
+                                .map(({ value }) => value)
+                            : productData
+                    }
+                    renderItem={({ item }) => (
+                        <ProductCard
+                            key={item._id}
+                            id={item._id}
+                            title={item.name}
+                            quantity={(item.quantity_no ?? "500") + " " + (item.quantity_count ?? "gm")}
+                            price={item.discounted_price === 0 ? (item.price * (1 - (item.discount / 100))).toFixed(1) : item.discounted_price}
+                            imageURL={item.main_image.asset.url}
+                        />
+                    )}
+                    horizontal
+                    keyExtractor={(item) => item._id}
+                    contentContainerStyle={{
+                        gap: 20,
+                        paddingHorizontal: 10,
+                        paddingVertical: 10,
+                        // height: 'auto'
+                    }}
+                    showsHorizontalScrollIndicator={false}
+                    className='flex-grow-0'
+                />: <Text>Loading...</Text>
+            }
         </View>
     );
 };

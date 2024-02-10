@@ -13,7 +13,7 @@ const CartItemCard = ({ productId, productName, productQty, quantity, price, ima
               <Image
                   resizeMode='center'
                   className='w-16 h-16 mr-2'
-                  source={image}
+                  source={{ uri: image }}
               />
           </View>
           <View className='w-1/2'>
@@ -21,12 +21,12 @@ const CartItemCard = ({ productId, productName, productQty, quantity, price, ima
                   {productName}
               </Text>
               <Text className='font-normal text-secondary text-sm modern:text-base'>
-                  {productQty} • ₹{price}
+                  {productQty} • ₹{price.toFixed(2)}
               </Text>
           </View>
           <View className='w-1/5 flex items-start modern:items-center justify-center'>
               <Text className='font-nunito-400 text-primary text-md modern:text-xl mb-1'>
-                  ₹{price * quantity}
+                  ₹{(price * quantity).toFixed(2)}
               </Text>
               <ProductCartAction productId={productId} />
           </View>
@@ -37,24 +37,27 @@ const CartItemCard = ({ productId, productName, productQty, quantity, price, ima
 const index = () => {
     const productData = useSelector((state) => state.products.products);
     const cartData = useSelector((state) => state.cart.items);
-    let totalCartAmount = cartData.map(item => productData.find(product => product.id == item.id).price * item.quantity).reduce((prev, curr) => prev + curr, 0);
+    let totalCartAmount = cartData.map(item => {
+        let currProduct = productData.find(product => product._id == item.id)
+        return (currProduct.discounted_price === 0 ? (currProduct.price * (1 - (currProduct.discount / 100))) : currProduct.discounted_price) * item.quantity
+    }).reduce((prev, curr) => prev + curr, 0).toFixed(2);
 
     return (
         <>
             <ScrollView className='px-4 bg-white'>
                 {cartData.map((cartItem, i) => {
                     let currentCartItemData = productData.find(
-                        (product) => product.id == cartItem.id
+                        (product) => product._id == cartItem.id
                     );
                     return (
                         <CartItemCard
                             key={i}
-                            productQty={currentCartItemData.quantity}
-                            productId={currentCartItemData.id}
-                            image={currentCartItemData.mainImage}
-                            productName={currentCartItemData.title}
+                            productQty={(currentCartItemData.quantity_no ?? "500") + " " + (currentCartItemData.quantity_count ?? "gm")}
+                            productId={currentCartItemData._id}
+                            image={currentCartItemData.main_image.asset.url}
+                            productName={currentCartItemData.name}
                             quantity={cartItem.quantity}
-                            price={currentCartItemData.price}
+                            price={(currentCartItemData.discounted_price === 0 ? (currentCartItemData.price * (1 - (currentCartItemData.discount / 100))) : currentCartItemData.discounted_price)}
                         />
                     );
                 })}

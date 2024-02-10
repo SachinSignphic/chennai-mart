@@ -14,9 +14,10 @@ const index = () => {
     const { id } = useGlobalSearchParams(); // use this to read from the state and fetch
     // data about the product
     const productData = useSelector(state => state.products.products);
-    const currentProduct = productData.find(item => item.id == id);
+    const currentProduct = productData.find(item => item._id == id);
     
     // console.log(currentProduct)
+    // console.log(currentProduct?.description)
 
     return (
         // initial idea is a scrollview
@@ -32,11 +33,11 @@ const index = () => {
         <>
             <ScrollView className='pb-4'>
                 {/* view for image */}
-                <View className='bg-teal flex items-center justify-center h-[35vh]'>
+                <View className='bg-teal flex items-center justify-center h-[35vh] pb-6'>
                     <Image
-                        resizeMode='center'
-                        className='w-full'
-                        source={currentProduct?.mainImage}
+                        resizeMode='contain'
+                        className='w-full h-full'
+                        source={{ uri: currentProduct?.main_image.asset.url }}
                     />
                 </View>
 
@@ -44,10 +45,10 @@ const index = () => {
                 <View className='bg-white py-8 px-8 rounded-[32px]'>
                     <View className='flex flex-row flex-wrap justify-between py-4 border-b border-[#F0F3FB]'>
                         <Text className='text-xl modern:text-2xl font-nunito-800 text-primary'>
-                            {currentProduct?.title}
+                            {currentProduct?.name}
                         </Text>
                         <Text className='text-xl font-nunito-400 text-primary'>
-                            ₹{currentProduct?.price}
+                            ₹{currentProduct?.discounted_price === 0 ? (currentProduct?.price * (1 - (currentProduct?.discount / 100))).toFixed(2) : currentProduct?.discounted_price}
                         </Text>
                     </View>
                     <View className='flex flex-row justify-around py-4 border-b border-[#F0F3FB]'>
@@ -58,7 +59,7 @@ const index = () => {
                                 color='black'
                             />
                             <Text className='text-primary font-nunito-400 text-base'>
-                                {currentProduct?.quantity}
+                                {(currentProduct?.quantity_no ?? '500') + " " + (currentProduct?.quantity_count ?? 'gm')}
                             </Text>
                         </View>
                         <View className='flex items-center flex-row gap-2'>
@@ -88,7 +89,7 @@ const index = () => {
                             Description
                         </Text>
                         <Text className='text-base text-secondary font-nunito-400'>
-                            {currentProduct?.description}
+                            {currentProduct?.description.map(desc => desc.children[0]?.text).join('\n\n')}
                         </Text>
                     </View>
                 </View>

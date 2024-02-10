@@ -31,7 +31,7 @@ const home = () => {
                 global store and then render it
             */}
             <ProductsSectionSanity sectionCategory={"someId"} sectionTitle='Exclusive Offers' sectionActionText='See all' />
-            <ProductsSection sectionCategory={"someId2"} sectionTitle='Deals for you' sectionActionText='See more' randomize />
+            <ProductsSectionSanity sectionCategory={"someId2"} sectionTitle='Deals for you' sectionActionText='See more' randomize />
 
             <StatusBar style="light" barStyle="dark-content" />
         </SafeArea>
