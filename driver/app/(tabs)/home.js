@@ -7,6 +7,7 @@ import Divider from '@/components/Divider';
 
 const dashboard = () => {
     const [nextOrderData, setNextOrderData] = useState(null);
+    const [isWorking, setIsWorking] = useState(true)
 
     // this entire useEffect is to simulate loading orders
     useEffect(() => {
@@ -26,22 +27,22 @@ const dashboard = () => {
                 <CustomSwitch
                     buttonWidth={30}
                     switchWidth={60}
-                    // switchBorderColor={"#2f2e41"}
-                    // buttonBorderWidth={0.4}
+                    onSwitch={() => setIsWorking(false)}
+                    onSwitchReverse={() => setIsWorking(true)}
                     buttonPadding={2}
                     buttonColor={"white"}
                     switchBackgroundColor={'#ebebeb'}
                     onSwitchBackgroundColor={"#2f2e41"}
-                    buttonText={"Break"}
+                    buttonText={"Work"}
                     buttonTextStyle={{ fontSize: 10 }}
-                    onSwitchButtonText={"Work"}
+                    onSwitchButtonText={"Break"}
                     onSwitchButtonTextStyle={{ fontSize: 10 }}
                 />
             </View>
             <View className='flex w-full rounded-2xl p-6 bg-primary/95'>
                 <View className='flex flex-row items-center mb-4 justify-between w-full'>
                     <Text className='text-primary font-nunito-400 text-base modern:text-lg px-4 py-1 rounded-full bg-teal/90'>5AM — 2PM</Text>
-                    <Text className='text-teal font-nunito-400 text-base modern:text-lg'>Shift Ongoing</Text>
+                    <Text className='text-teal font-nunito-400 text-base modern:text-lg'>{isWorking ? "Shift Ongoing": "On break!"}</Text>
                 </View>
                 <View className='flex flex-row items-center w-full pl-2'>
                     <Entypo name="time-slot" size={30} color="white" />
@@ -79,10 +80,10 @@ const dashboard = () => {
                 {
                     nextOrderData ?
                         <View className='flex flex-row mt-5 w-full justify-center gap-x-8 items-center'>
-                            <TouchableOpacity className='bg-teal rounded-full px-6 py-2 border border-primary/20' activeOpacity={0.8}>
+                            <TouchableOpacity disabled={!isWorking} className={`bg-teal ${!isWorking && 'opacity-50'} rounded-full px-6 py-2 border border-primary/20`} activeOpacity={0.8}>
                                 <Text className='text-primary font-nunito-400 text-base'>DECLINE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity className='bg-primary rounded-full px-6 py-2 border border-primary/20' activeOpacity={0.8}>
+                            <TouchableOpacity disabled={!isWorking} className={`bg-primary ${!isWorking && 'opacity-50'} rounded-full px-6 py-2 border border-primary/20`} activeOpacity={0.8}>
                                 <Text className='text-teal font-nunito-400 text-base'>ACCEPT</Text>
                             </TouchableOpacity>
                         </View>
@@ -102,7 +103,7 @@ const dashboard = () => {
                 <View className='flex flex-row p-4 items-center justify-between w-full rounded-xl'>
                     <View>
                         <Text className='text-primary font-nunito-400 text-base'>Orders</Text>
-                        <Text className='text-primary font-nunito-800 text-lg modern:text-2xl'>26</Text>
+                        <Text className='text-primary font-nunito-800 text-lg modern:text-2xl'>{nextOrderData ? 27 : 26}</Text>
                     </View>
                     <View className='bg-secondary/40 ml-auto mr-5 flex h-[1] w-[50%] self-center'></View>
                     <Entypo name="shopping-bag" size={36} color="black" />

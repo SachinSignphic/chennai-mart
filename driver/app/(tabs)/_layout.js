@@ -19,7 +19,6 @@ const Layout = () => {
 
     return (
         <Tabs 
-        // initialRouteName='home'
         screenOptions={({ route, navigation }) => {
             return {
                 headerShown: false,

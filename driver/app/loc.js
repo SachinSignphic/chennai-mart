@@ -12,6 +12,9 @@ export default location = () => {
     console.log(city, geoLocation);
 
     useEffect(() => {
+        const setGeoLocationError = () => {
+            if (!geoLocation) setErrorMsg('Failed to detect location!')
+        }
         const locateCity = async () => {
             let locationPermission = await Location.requestForegroundPermissionsAsync();
             console.log("🚀 ~ locationPermission:", locationPermission)
@@ -21,9 +24,7 @@ export default location = () => {
                 return;
             }
 
-            setTimeout(() => {
-                if (!geoLocation) setErrorMsg('Failed to detect location!')
-            }, 1000 * 2);
+            setTimeout(setGeoLocationError, 1000 * 2);
 
             let loc = await Location.getCurrentPositionAsync({});
             console.log("🚀 ~ loc:", loc)
@@ -40,6 +41,8 @@ export default location = () => {
             return
         }
         if (!geoLocation) locateCity();
+
+        return () => clearTimeout(setGeoLocationError);
     }, [city]);
 
     return (

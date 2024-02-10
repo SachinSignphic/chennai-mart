@@ -4,6 +4,8 @@ import OnboardingScreens from '@/components/OnboardingScreens'
 import Divider from '@/components/Divider'
 import { MaterialIcons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
+import { IS_DEV } from '@/constants';
+import ProceedButton from '@/components/ProceedButton';
 
 const DOCUMENTS = [
     {
@@ -52,8 +54,9 @@ const uploadDocuments = () => {
             }
             {
                 // testing
+                IS_DEV && <Link href={'/home'}>Skip section</Link>
             }
-            <Link href={'/home'}>Skip section</Link>
+            <ProceedButton autoMarginTop={true} innerText={'Continue'} routeName={'/documents-uploaded'} />
         </OnboardingScreens>
     )
 }
