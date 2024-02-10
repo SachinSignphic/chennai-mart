@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import RadioButton from '@/components/RadioButton';
 import ProceedButton from '@/components/ProceedButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
 
 const SHIFTS_AVAILABLE = [
     {

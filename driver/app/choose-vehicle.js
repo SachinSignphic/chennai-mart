@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native'
+import { ToastAndroid, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import OnboardingScreens from '@/components/OnboardingScreens'
 import { Ionicons } from '@expo/vector-icons';
@@ -6,6 +6,8 @@ import RadioButton from '@/components/RadioButton';
 import ProceedButton from '@/components/ProceedButton';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
 
 const VEHICLES = [
     {
@@ -31,6 +33,18 @@ const VEHICLES = [
 const chooseVehicle = () => {
     const [selected, setSelected] = useState("");
 
+    const checkJobType = async () => {
+        try {
+            const jobType = await AsyncStorage.getItem("job-type");
+            console.log("🚀 ~ checkJobType ~ jobType:", jobType)
+            if (jobType === "Full-Time") router.push("/choose-dayoff")
+            else router.push('/choose-shift')
+        } catch (error) {
+            console.log("jobtype", error);
+            ToastAndroid.show("Error in saving data. Please contact help from website", ToastAndroid.LONG);
+        }
+    }
+
     return (
         <OnboardingScreens>
             {
@@ -48,7 +62,7 @@ const chooseVehicle = () => {
                 })
             }
             {
-                selected !== "" && <ProceedButton autoMarginTop={true} innerText={'Continue'} routeName={'/choose-shift'} />
+                selected !== "" && <ProceedButton autoMarginTop={true} innerText={'Continue'} action={checkJobType} />
             }
         </OnboardingScreens>
     )

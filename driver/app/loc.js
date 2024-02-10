@@ -9,9 +9,10 @@ export default location = () => {
     const [geoLocation, setGeoLocation] = useState(null)
     const [errorMsg, setErrorMsg] = useState(null);
     const { city } = useLocalSearchParams();
-    console.log(city, geoLocation);
+    console.log("city:",city,"geo:",geoLocation);
 
     useEffect(() => {
+        let timeout;
         const setGeoLocationError = () => {
             if (!geoLocation) setErrorMsg('Failed to detect location!')
         }
@@ -24,7 +25,7 @@ export default location = () => {
                 return;
             }
 
-            setTimeout(setGeoLocationError, 1000 * 2);
+            timeout = setTimeout(setGeoLocationError, 1000 * 10);
 
             let loc = await Location.getCurrentPositionAsync({});
             console.log("🚀 ~ loc:", loc)
@@ -32,17 +33,15 @@ export default location = () => {
             console.log("🚀 ~ geo:", geo)
             // console.log("🚀 ~ cityName:", cityName)
             setGeoLocation(geo);
-        
+            clearTimeout(timeout);
         }
 
         if (!geoLocation && city) {
             setErrorMsg(null)
             setGeoLocation([{ city: city }])
-            return
-        }
-        if (!geoLocation) locateCity();
+        } else if (!geoLocation) locateCity();
 
-        return () => clearTimeout(setGeoLocationError);
+        return () => clearTimeout(timeout);
     }, [city]);
 
     return (
