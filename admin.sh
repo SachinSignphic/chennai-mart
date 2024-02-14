@@ -1,3 +1,3 @@
-cd ./server
+cd ./admin
 
 npm run dev

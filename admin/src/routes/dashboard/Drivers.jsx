@@ -2,16 +2,16 @@ import Layout from "@/components/Layout"
 import { Helmet } from "react-helmet"
 import { Link } from "react-router-dom"
 
-const Orders = () => {
+const Drivers = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Orders</title>
+        <title>Drivers</title>
       </Helmet>
-      <p className="text-white">Hello Orders</p>
+      <p className="text-white">Hello Drivers</p>
       <Link to={'/dashboard'}>← back</Link>
     </Layout>
   )
 }
 
-export default Orders
+export default Drivers
