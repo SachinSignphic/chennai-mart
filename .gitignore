@@ -8,6 +8,7 @@ driver/node_modules
 admin/node_modules
 server/.pnp
 .pnp.js
+.test_assets/*
 
 # Compiled Sanity Studio
 server/dist

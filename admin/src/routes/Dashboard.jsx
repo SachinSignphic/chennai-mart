@@ -1,27 +1,22 @@
+/* eslint-disable no-unused-vars */
+import Navbar from "@/components/Navbar"
 import { Helmet } from "react-helmet"
-import { Link, Outlet } from "react-router-dom"
+import { NavLink, Outlet } from "react-router-dom"
 
 
 function App() {
   
   return (
-    <div className="flex w-full h-[100vh]">
+    <div className="flex w-full h-[100vh] bg-primary">
       <Helmet>
         <title>Dashboard</title>
       </Helmet>
-      <nav className="flex flex-col h-full p-2 w-[13%] bg-white justify-center items-center">
-        <p className="text-black">nav aam</p>
-        <ul className="text-black text-lg font-bold">
-          <li><Link to={'/dashboard/orders'}>Orders</Link></li>
-          <li><Link to={'/dashboard/drivers'}>Drivers</Link></li>
-          <li>W</li>
-          <li>T</li>
-          <li>F</li>
-        </ul>
-      </nav>
-      {/* assume a nav bar comes here.. delete all markup 👆 */}
-      <div id="page" className="flex flex-col p-1">
-        <p className='font-light text-xl'>Admin page common content</p>
+
+      <Navbar />
+
+      <div id="page" className="flex flex-col p-1 w-full bg-secondary">
+        <p className='text-4xl font-poppins-500 font-semibold ml-4 mt-7 text-blk'>HECTO ADMIN DASHBOARD</p>
+        {/* search box */}
         <Outlet />
       </div>
     </div>
