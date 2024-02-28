@@ -2,10 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './routes/Dashboard.jsx'
 import './index.css'
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
 import Orders from './routes/dashboard/Orders.jsx'
 import Drivers from './routes/dashboard/Drivers.jsx'
 import Login from './routes/Login.jsx'
+import Requests from './routes/dashboard/Requests.jsx'
+import Home from './routes/dashboard/Home.jsx'
 
 const router = createBrowserRouter([
   {
@@ -13,16 +15,28 @@ const router = createBrowserRouter([
     element: <Login />
   },
   {
-    path: "/dashboard",
-    element: <App />,
+    path: '',
+    element: <Navigate to={'/orders'} replace />
+  },
+  {
+    // path: "/dashboard",
+    // element: <App />,
     children: [
       {
+        path: 'dashboard',
+        element: <App><Home /></App>
+      },
+      {
         path: 'orders',
-        element: <Orders />
+        element: <App><Orders /></App>
       },
       {
         path: 'drivers',
-        element: <Drivers /> // this one is summa route.. replace with actual route
+        element: <App><Drivers /> </App>
+      },
+      {
+        path: 'requests',
+        element: <App><Requests /> </App>
       },
     ]
   },

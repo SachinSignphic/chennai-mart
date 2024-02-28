@@ -8,7 +8,7 @@ const Drivers = () => {
       <Helmet>
         <title>Drivers</title>
       </Helmet>
-      <p className="text-white">Hello Drivers</p>
+      <p className="">Hello Drivers</p>
       <Link to={'/dashboard'}>← back</Link>
     </Layout>
   )

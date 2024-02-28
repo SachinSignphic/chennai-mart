@@ -8,7 +8,7 @@ const Orders = () => {
       <Helmet>
         <title>Orders</title>
       </Helmet>
-      <p className="text-white">Hello Orders</p>
+      <p className="">Hello Orders</p>
       <Link to={'/dashboard'}>← back</Link>
     </Layout>
   )

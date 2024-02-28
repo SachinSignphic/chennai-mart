@@ -4,5 +4,6 @@
     "prettier.jsxSingleQuote": true,
     "prettier.singleAttributePerLine": true,
     "prettier.tabWidth": 4,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true
 }
