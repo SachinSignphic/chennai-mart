@@ -9,7 +9,7 @@
 
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
-  background-color: #242424;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -36,4 +36,14 @@
 @font-face {
   font-family: 'Poppins 500';
   src: url('/fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins 600';
+  src: url('/fonts/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins 700';
+  src: url('/fonts/Poppins-Bold.ttf');
 }

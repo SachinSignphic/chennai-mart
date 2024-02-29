@@ -10,37 +10,52 @@ import Requests from './routes/dashboard/Requests.jsx'
 import Home from './routes/dashboard/Home.jsx'
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Login />
-  },
-  {
-    path: '',
-    element: <Navigate to={'/orders'} replace />
-  },
-  {
-    // path: "/dashboard",
-    // element: <App />,
-    children: [
-      {
-        path: 'dashboard',
-        element: <App><Home /></App>
-      },
-      {
-        path: 'orders',
-        element: <App><Orders /></App>
-      },
-      {
-        path: 'drivers',
-        element: <App><Drivers /> </App>
-      },
-      {
-        path: 'requests',
-        element: <App><Requests /> </App>
-      },
-    ]
-  },
-])
+    {
+        path: "/",
+        element: <Login />,
+    },
+    {
+        path: "",
+        element: (
+            <Navigate
+                to={"/orders"}
+                replace
+            />
+        ),
+    },
+    {
+        path: "dashboard",
+        element: (
+            <App>
+                <Home />
+            </App>
+        ),
+    },
+    {
+        path: "orders",
+        element: (
+            <App>
+                <Orders />
+            </App>
+        ),
+    },
+    {
+        path: "drivers",
+        element: (
+            <App>
+                <Drivers />{" "}
+            </App>
+        ),
+    },
+    {
+        path: "requests",
+        element: (
+            <App>
+                <Requests />{" "}
+            </App>
+        ),
+    },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
