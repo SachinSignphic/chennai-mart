@@ -59,13 +59,13 @@ const Home = () => {
                             />
                         ))}
                     </div>
-                    <div className='flex justify-center items-center p-5'>
+                    <div className='flex justify-center items-center p-5 w-full'>
                         <DashboardLineGraph />
                     </div>
                 </div>
 
                 {/* for recent orders */}
-                <div className='flex items-center justify-center w-full'>
+                <div className='flex justify-center w-full'>
                     <div className='flex flex-col gap-5 bg-white rounded-lg p-5 w-[70%] shadow-md'>
                         <h4 className='font-poppins-700 text-lg text-black/70'>
                             RECENT ORDERS

@@ -8,7 +8,7 @@ import { CgLogOut } from "react-icons/cg";
 
 const Navbar = () => {
   return (
-      <nav className='flex flex-col h-full p-2 px-10 py-6 bg-white gap-4 items-center shadow-xl shadow-black/100'>
+      <nav className='flex flex-col h-full justify-between p-2 px-10 py-6 bg-white gap-4 items-stretch shadow-sm fixed z-50'>
           <img
               src='/nav-logo.png'
               alt='Hecto Admin'
