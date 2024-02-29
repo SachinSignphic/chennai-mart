@@ -66,7 +66,7 @@ const Home = () => {
 
                 {/* for recent orders */}
                 <div className='flex justify-center w-full'>
-                    <div className='flex flex-col gap-5 bg-white rounded-lg p-5 w-[70%] shadow-md'>
+                    <div className='flex flex-col gap-5 bg-white rounded-lg p-5 w-[80%] shadow-md'>
                         <h4 className='font-poppins-700 text-lg text-black/70'>
                             RECENT ORDERS
                         </h4>
