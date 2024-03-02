@@ -9,6 +9,7 @@ import Login from './routes/Login.jsx'
 import Requests from './routes/dashboard/Requests.jsx'
 import Home from './routes/dashboard/Home.jsx'
 import OrderPage from './routes/dashboard/orders/OrderPage.jsx'
+import DriverPage from './routes/dashboard/drivers/DriverPage.jsx'
 
 const router = createBrowserRouter([
     {
@@ -52,7 +53,15 @@ const router = createBrowserRouter([
         path: "drivers",
         element: (
             <App>
-                <Drivers />{" "}
+                <Drivers />
+            </App>
+        ),
+    },
+    {
+        path: "drivers/:id",
+        element: (
+            <App>
+                <DriverPage />
             </App>
         ),
     },

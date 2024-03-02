@@ -7,6 +7,7 @@ import { GoPackage } from "react-icons/go";
 import { MdCurrencyRupee } from "react-icons/md";
 import { Link } from "react-router-dom";
 import DashboardLineGraph from "@/components/DashboardLineGraph";
+import { rows } from "@/utils/dummyOrderData";
 
 const INFO_CARDS_DATA = [
     {
@@ -24,19 +25,6 @@ const INFO_CARDS_DATA = [
         icon: () => <MdCurrencyRupee className='text-teal' />,
         value: "13,255.34",
     },
-];
-
-const FAKE_ORDER_DATA = [
-    { customer: "Frank", orderId: "#5678" },
-    { customer: "Alice", orderId: "#91011" },
-    { customer: "Charlie", orderId: "#303132" },
-    { customer: "David", orderId: "#242526" },
-    { customer: "Isaac", orderId: "#151617" },
-    { customer: "Grace", orderId: "#242526" },
-    { customer: "Eve", orderId: "#91011" },
-    { customer: "David", orderId: "#242526" },
-    { customer: "Hannah", orderId: "#91011" },
-    { customer: "Alice", orderId: "#5678" },
 ];
 
 const Home = () => {
@@ -71,13 +59,14 @@ const Home = () => {
                             RECENT ORDERS
                         </h4>
                         <ul className='list-none divide-y-[1px]'>
-                            {FAKE_ORDER_DATA.map((data, i) => (
+                            {rows.map((data, i) => (
                                 <Link
-                                    to={"/orders/" + data.orderId.slice(1)}
+                                    to={"/orders/" + data.id}
                                     key={i}
                                     className='flex font-poppins-500 my-4 hover:text-teal text-base text-black/70 w-full justify-between items-center'>
-                                    <p>{data.customer}</p>
-                                    <p>{data.orderId}</p>
+                                    <p>{data.name}</p>
+                                    <p>
+                                        #{data.id}</p>
                                 </Link>
                             ))}
                         </ul>
