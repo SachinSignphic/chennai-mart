@@ -8,6 +8,7 @@ import Drivers from './routes/dashboard/Drivers.jsx'
 import Login from './routes/Login.jsx'
 import Requests from './routes/dashboard/Requests.jsx'
 import Home from './routes/dashboard/Home.jsx'
+import OrderPage from './routes/dashboard/orders/OrderPage.jsx'
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
         element: (
             <App>
                 <Orders />
+            </App>
+        ),
+    },
+    {
+        path: "orders/:id",
+        element: (
+            <App>
+                <OrderPage />
             </App>
         ),
     },
