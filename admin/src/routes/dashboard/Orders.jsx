@@ -5,7 +5,8 @@ import SearchBar from "@/components/SearchBar";
 import { IoMdMore, IoMdClose } from "react-icons/io";
 import * as Popover from "@radix-ui/react-popover";
 import { Link } from "react-router-dom";
-import { columns, rows } from "@/lib/dummyOrderData";
+import { columns, rows } from "@/utils/dummyOrderData";
+import { IoEyeSharp } from "react-icons/io5";
 
 const Orders = () => {
     const apiRef = useGridApiRef(); // this hook provides DataGrid context and can be used to manipulate it!
@@ -67,6 +68,11 @@ const Orders = () => {
                             headerName: "Actions",
                             width: 90,
                             sortable: false,
+                            renderCell: (params) => (
+                                <Link to={`/orders/${params.id}`}>
+                                    <IoEyeSharp />
+                                </Link>
+                            ),
                         },
                     ]}
                     initialState={{
