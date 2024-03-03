@@ -7,7 +7,7 @@ export default function Login () {
             <Helmet>
                 <title>Login</title>
             </Helmet>
-            <Link to={'/dashboard'}>Click to go to dashboard</Link>
+            <Link to={'/dashboard'} className="text-black">Click to go to dashboard</Link>
         </div>
     )
 }
