@@ -224,6 +224,41 @@ export const rows = [
 }));
 
 
+export const randomDriverOrderColumns = [
+    { field: "id", headerName: "Order ID", width: 80 },
+    {
+        field: "name",
+        headerName: "Name",
+        width: 80,
+        editable: false,
+    },
+    {
+        field: "date",
+        headerName: "Date",
+        // description: 'This column has a value getter and is not sortable.',
+        sortable: true,
+        width: 150,
+        // valueGetter: (params) =>
+        //   `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    },
+    {
+        field: "status",
+        headerName: "Status",
+        width: 120,
+        editable: false,
+    },
+];
+
+export const randomDriverOrderData = dataArray.map((each) => (
+  {
+    id: each.orderId,
+    name: each.customer,
+    date: new Date().toLocaleString(),
+    status: getRandomStatus(),
+  })
+);
+
+
 
 export const users = [
     {

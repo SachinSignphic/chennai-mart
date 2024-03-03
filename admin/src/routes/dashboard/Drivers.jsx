@@ -19,24 +19,35 @@ const Drivers = () => {
                   Drivers
               </h1>
               <div className='flex flex-wrap gap-4'>
-                {drivers.map((driver) => (
-                    <div key={driver.id} className='flex flex-col w-80 p-3 rounded bg-secondary/40 outline outline-1 outline-gray-200'>
-                        <div className='flex justify-between items-center'>
-                            <img
-                                src='/driver.jpg'
-                                alt='Driver'
-                                className='w-14 h-14 rounded-full'
-                            />
-                            <Link to={`/drivers/${driver.id}`}>{driver.name}</Link>
-                            <button className='bg-secondary rounded-sm grid place-items-center p-2'>
-                                <IoMdMore />
-                            </button>
-                        </div>
-                        <div className='grid place-items-center bg-secondary py-2 rounded'>
-                            Orders {Math.floor(Math.random() * drivers.length * 20)}
-                        </div>
-                    </div>
-                ))}
+                  {drivers.map((driver) => (
+                      <div
+                          key={driver.id}
+                          className='flex flex-col w-80 p-3 rounded bg-secondary/40 outline outline-1 outline-gray-200'>
+                          <div className='flex justify-between items-center'>
+                              <img
+                                  src='/driver.jpg'
+                                  alt='Driver'
+                                  className='w-14 h-14 rounded-full'
+                              />
+                              <Link to={`/drivers/${driver.id}`}>
+                                  {driver.name}
+                              </Link>
+                              <button className='bg-secondary rounded-sm grid place-items-center p-2'>
+                                  <IoMdMore />
+                              </button>
+                          </div>
+                          <div className='grid place-items-center self-end bg-secondary py-1 grid-cols-2 rounded w-56 px-3 outline outline-1 outline-gray-200'>
+                              <h4 className='font-normal text-sm text-black/80 mr-auto'>
+                                  Orders{" "}
+                              </h4>
+                              <h4 className='font-normal text-sm text-black/80 ml-auto'>
+                                  {Math.floor(
+                                      Math.random() * drivers.length * 20
+                                  )}
+                              </h4>
+                          </div>
+                      </div>
+                  ))}
               </div>
           </div>
       </Layout>
