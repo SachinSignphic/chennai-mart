@@ -10,6 +10,8 @@ import Requests from './routes/dashboard/Requests.jsx'
 import Home from './routes/dashboard/Home.jsx'
 import OrderPage from './routes/dashboard/orders/OrderPage.jsx'
 import DriverPage from './routes/dashboard/drivers/DriverPage.jsx'
+import DriverRequest from './routes/dashboard/requests/DriverRequest.jsx'
+import ProductRequest from './routes/dashboard/requests/ProductRequest.jsx'
 
 const router = createBrowserRouter([
     {
@@ -69,7 +71,23 @@ const router = createBrowserRouter([
         path: "requests",
         element: (
             <App>
-                <Requests />{" "}
+                <Requests />
+            </App>
+        ),
+    },
+    {
+        path: "requests/drivers/:id",
+        element: (
+            <App>
+                <DriverRequest />
+            </App>
+        ),
+    },
+    {
+        path: "requests/products/:id",
+        element: (
+            <App>
+                <ProductRequest />
             </App>
         ),
     },

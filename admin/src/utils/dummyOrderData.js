@@ -20,7 +20,7 @@ const statusOptions = [
 
 // Function to generate a random status
 function getRandomStatus() {
-  const randomIndex = Math.floor(Math.random() * statusOptions.length);
+  const randomIndex = generateRandom();
   return statusOptions[randomIndex];
 }
 
@@ -258,12 +258,21 @@ export const randomDriverOrderData = dataArray.map((each) => (
   })
 );
 
+function generateRandomProduct() {
+  const items = ["Apple", "Pineapple", "Milk", "Blueberry"];
+  return items[generateRandom(4)]
+}
 
+function generateRandom(upto = 10) {
+  return Math.floor(Math.random() * upto);
+}
 
-export const users = [
-    {
-        id: 3,
-        name: 'David',
-        address: ''
-    },
-]
+export const driverRequests = Array.from({ length: 4 }, (v, k) => ({
+    id: k+1,
+    name: getRandomName(),
+}));
+
+export const productRequests = Array.from({ length: 4 }, (v, k) => ({
+    id: k+1,
+    name: generateRandomProduct(),
+}));
