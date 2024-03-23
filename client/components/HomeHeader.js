@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 const HomeHeader = () => {
     const userData = useSelector(state => state.user);
+    console.log("🚀 ~ HomeHeader ~ userData:", userData)
 
     return (
         <View className='header flex flex-row items-center justify-between w-full px-6 py-6 pb-2'>

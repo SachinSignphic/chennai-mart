@@ -40,7 +40,7 @@ export default function App() {
     const checkIfUserSessionExpired = async () => {
         try {
             const user = await storage.load({ key: 'user' });
-            console.log("🚀 ~ checkIfUserSessionExpired ~ user:", user)
+            console.log("🚀 ~ index- checkIfUserSessionExpired ~ user:", user)
             // check if it is expired by making a call to endpoint
             router.replace("/home");
         } catch (error) {
@@ -68,6 +68,7 @@ export default function App() {
             const hasSwiperBeenPlayed = await storage.load({ key: 'isSwiperPlayed' });
             if (hasSwiperBeenPlayed) router.push('/login');
         } catch (error) {
+            console.log("🚀 ~ checkIfOnboardingComplete ~ error:", error)
             // console.warn(error.message);
             setCanDisplayOnboarding(true);
             switch (error.name) {
@@ -101,7 +102,8 @@ export default function App() {
     }
 
     if (fontsLoaded) {
-        !IS_DEV && checkIfUserSessionExpired();
+        const isSession = !IS_DEV && checkIfUserSessionExpired();
+        if (isSession) return;
         checkIfOnboardingComplete();
     }
     // console.log(windowDim)

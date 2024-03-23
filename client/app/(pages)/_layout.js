@@ -4,9 +4,10 @@ import FeatherIcon from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ToastAndroid, View, useWindowDimensions } from "react-native";
 import store from "@context/store";
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import storage from "@utils/storage";
 import { IS_DEV } from "@/constants";
+import { setUser, userSlice } from "@/context/user";
 
 const TabIconWrapper = ({ tabBarIconProps, children }) => {
     return (
@@ -26,7 +27,8 @@ export default function Layout() {
         windowDimension.width < 400
             ? (13 * windowDimension.height) / 100
             : (9 * windowDimension.height) / 100;
-
+    const dispatch = useDispatch();
+    const userState = useSelector((state) => state.user);
     // console.log(windowDimension, ICON_SIZE, TAB_BAR_HEIGHT);
 
     const regexPatternForRoutes =
@@ -37,22 +39,37 @@ export default function Layout() {
 
     const checkIfUserSessionExpired = async () => {
         try {
-            const user = await storage.load({ key: 'user' });
-            console.log("🚀 ~ checkIfUserSessionExpired _layout.js ~ user:", user.userName);
+            const user = await storage.load({ key: "user" });
+            console.log(
+                "🚀 ~ checkIfUserSessionExpired _layout.js ~ user:",
+                user.userName
+            );
+            // console.log(userState);
+            if (!userState.userId)
+                dispatch(
+                    setUser({ userId: user.userId, userName: user.userName })
+                );
+            // console.log(userState);
         } catch (error) {
-            console.log("🚀 ~ layout- checkIfUserSessionExpired ~ error:", error)
+            console.log(
+                "🚀 ~ layout- checkIfUserSessionExpired ~ error:",
+                error
+            );
             switch (error.name) {
-                case 'NotFoundError':
-                    ToastAndroid.show("User not found. Please login", 5000) // prolly remove this switch case
+                case "NotFoundError":
+                    ToastAndroid.show("User not found. Please login", 5000); // prolly remove this switch case
                     router.replace("/login?showname=false");
                     break;
-                case 'ExpiredError':
-                ToastAndroid.show("User session expired. Please login", 5000) // prolly remove this switch case
-                router.replace("/login?showname=false");
-                break;
+                case "ExpiredError":
+                    ToastAndroid.show(
+                        "User session expired. Please login",
+                        5000
+                    ); // prolly remove this switch case
+                    router.replace("/login?showname=false");
+                    break;
             }
         }
-    }
+    };
 
     if (!IS_DEV) checkIfUserSessionExpired();
 
@@ -60,7 +77,7 @@ export default function Layout() {
         <Provider store={store}>
             <Tabs
                 backBehavior='history'
-                initialRouteName="home"
+                initialRouteName='home'
                 screenOptions={({ route, navigation }) => {
                     // console.log(JSON.stringify(n))
                     return {
