@@ -4,6 +4,7 @@ import express from 'express';
 const router = express.Router();
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User.js';
+import { generateToken } from '../utils/token.js';
 
 const secretKey = process.env.ISS_SECRET; // Change this to a more secure value in production
 
@@ -66,7 +67,7 @@ router.post('/login', async (req, res) => {
         /// for simplicity, no expiry check for now
 
         // Generate JWT token for the user
-        const token = jwt.sign({ userId: user._id }, "unakkuthaan", { expiresIn: '2d' });
+        const token = generateToken(user._id);
         console.log({ token, userId: user._id, userName: user.userName })
         res.json({ data: { token, userId: user._id, userName: user.userName } });
     } catch (err) {
