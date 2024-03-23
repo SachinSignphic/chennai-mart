@@ -44,7 +44,7 @@ export default function App() {
             // check if it is expired by making a call to endpoint
             router.replace("/home");
         } catch (error) {
-            console.log("🚀 ~ checkIfUserSessionExpired ~ error:", error)
+            console.log("🚀 ~ index- checkIfUserSessionExpired ~ error:", error)
             switch (error.name) {
                 case 'NotFoundError':
                     ToastAndroid.show("User not found. Please login", 5000) 

@@ -51,7 +51,8 @@ const otp = () => {
                         userId,
                         token
                     },
-                    expires: 1000 * 60 // for now one minute.. but later change it to several days
+                    // This line below caused so much trubl bcs it overrode the expires in storage.js file fuck me
+                    // expires: 1000 * 60 // for now one minute.. but later change it to several days
                 })
                 router.push('/home');
 

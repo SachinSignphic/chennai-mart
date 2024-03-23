@@ -40,7 +40,7 @@ export default function Layout() {
             const user = await storage.load({ key: 'user' });
             console.log("🚀 ~ checkIfUserSessionExpired _layout.js ~ user:", user.userName);
         } catch (error) {
-            console.log("🚀 ~ checkIfUserSessionExpired ~ error:", error)
+            console.log("🚀 ~ layout- checkIfUserSessionExpired ~ error:", error)
             switch (error.name) {
                 case 'NotFoundError':
                     ToastAndroid.show("User not found. Please login", 5000) // prolly remove this switch case
