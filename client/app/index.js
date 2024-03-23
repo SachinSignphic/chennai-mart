@@ -40,13 +40,15 @@ export default function App() {
     const checkIfUserSessionExpired = async () => {
         try {
             const user = await storage.load({ key: 'user' });
+            console.log("🚀 ~ checkIfUserSessionExpired ~ user:", user)
             // check if it is expired by making a call to endpoint
             router.replace("/home");
         } catch (error) {
+            console.log("🚀 ~ checkIfUserSessionExpired ~ error:", error)
             switch (error.name) {
                 case 'NotFoundError':
                     ToastAndroid.show("User not found. Please login", 5000) 
-                    router.replace("/login?showname=false");
+                    router.replace("/login?showname=true");
                     break;
                 case 'ExpiredError':
                     ToastAndroid.show("User session expired. Please login", 5000) 
@@ -59,6 +61,7 @@ export default function App() {
     const checkIfOnboardingComplete = async () => {
         try {
             // await storage.remove({ key: 'isSwiperPlayed' });
+            // await storage.remove({ key: 'user' });
             // setCanDisplayOnboarding(true);
             // return;
             // above 3 lines for testing. delete that boolean in storage whenever i need

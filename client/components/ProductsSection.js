@@ -1,5 +1,5 @@
 import { View, Text, Image, FlatList, Pressable } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
 
@@ -11,7 +11,20 @@ const ProductsSection = ({
     sectionCategory, // use this soon for filtering products via category
     randomize
 }) => {
-    const productData = useSelector((state) => state.products.products);
+    const productDataState = useSelector((state) => state.products.products);
+    const productData = useMemo(
+        () =>
+            randomize
+                ? productDataState
+                      .map((value) => ({
+                          value,
+                          sort: Math.random(),
+                      }))
+                      .sort((a, b) => a.sort - b.sort)
+                      .map(({ value }) => value)
+                : productDataState,
+        [randomize]
+    );
 
     return (
         <View className='flex flex-grow-0 w-full gap-4 px-2 mt-0.5 h-80'>
@@ -25,14 +38,7 @@ const ProductsSection = ({
             </View>
             <FlatList
                 data={
-                    randomize
-                        ? productData.map((value) => ({
-                              value,
-                              sort: Math.random(),
-                          }))
-                              .sort((a, b) => a.sort - b.sort)
-                              .map(({ value }) => value)
-                        : productData
+                    productData
                 }
                 renderItem={({ item }) => (
                     <ProductCard
@@ -41,6 +47,7 @@ const ProductsSection = ({
                         quantity={item.quantity}
                         price={item.price}
                         imageURL={item.image}
+                        key={item.id}
                     />
                 )}
                 horizontal

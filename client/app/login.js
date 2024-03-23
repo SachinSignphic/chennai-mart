@@ -10,7 +10,8 @@ const login = () => {
     const navigation = useNavigation();
     const nameInputRef = useRef(null);
     // const [canShowNameInput, setCanShowNameInput] = useState(true);
-    const { showname } = useLocalSearchParams();
+    const { current: { showname } } = useRef(useLocalSearchParams());
+    console.log("🚀 ~ login ~ showname:", showname)
     
     const checkIfOnboardingComplete = async () => {
         try {
@@ -53,7 +54,8 @@ const login = () => {
                 method: "POST"
             });
             
-            const OTPResponse = await OTPRequest.json();
+            const OTPResponse = await OTPRequest.text();
+            console.log("🚀 ~ handlePhoneSubmit ~ OTPResponse:", OTPResponse)
             if (!OTPRequest.ok || OTPResponse.error) {
                 throw new Error(OTPResponse.error);
             }

@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { DealsBanner, ProductsSection } from "@components";
+import { DealsBanner, ProductsSection, ProductsSectionSanity } from "@/components";
 import Swiper from "react-native-swiper";
 
 const DUMMY_DEALS_DATA = [
@@ -46,7 +46,7 @@ const index = () => {
                     ))}
                 </Swiper>
             </View>
-            <ProductsSection
+            <ProductsSectionSanity
                 sectionCategory={"summa"}
                 sectionTitle={"Today's offers"}
                 sectionActionText={"See more"}

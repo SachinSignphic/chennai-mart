@@ -11,7 +11,7 @@ const secretKey = process.env.ISS_SECRET; // Change this to a more secure value 
 router.post("/req-otp", async (req, res) => {
     const { mobile, name } = req.body;
     console.log("🚀 ~ router.post ~ req.body:", req.body)
-    
+    // return res.send("OK");
     try {
         const requestOTP = async (mobile) => {
             // const OTPRequest = await fetch("thatsiteendpoint");
