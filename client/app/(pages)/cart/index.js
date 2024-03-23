@@ -3,7 +3,7 @@ import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import { ProductCartAction } from "@components";
+import { ProductCartAction } from "@/components";
 import { router } from "expo-router";
 
 const CartItemCard = ({ productId, productName, productQty, quantity, price, image }) => {
@@ -92,14 +92,16 @@ const index = () => {
                             To Pay
                         </Text>
                         <Text className='text-lg modern:text-xl font-nunito-800 text-primary'>
-                            ₹{totalCartAmount}
+                            ₹ {totalCartAmount}
                         </Text>
                     </View>
                     <TouchableOpacity
-                        disabled={cartData.length > 0 ? false : true}
+                        disabled={cartData.length < 0}
                         className={`flex flex-1 py-3 bg-primary rounded-lg ${
                             cartData.length < 1 && "opacity-60"
-                        }`}>
+                        }`}
+                        onPress={() => router.push('/cart/mockpay')}    
+                    >
                         <Text className='text-white self-center font-nunito-800 text-md modern:text-lg'>
                             Proceed ▶
                         </Text>

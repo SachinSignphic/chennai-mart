@@ -1,17 +1,17 @@
-// controllers/authController.js
+// controllers/address.js
 
 import express from "express";
 const router = express.Router();
-import jwt from "jsonwebtoken";
-import UserModel from "../models/Address.js";
 import { verifyToken } from "../utils/token.js";
 import AddressModel from "../models/Address.js";
+import UserModel from "../models/User.js";
 
 const secretKey = process.env.ISS_SECRET; // Change this to a more secure value in production
 
 // Route for user login
 router.post("/address", async (req, res) => {
-    const token = req.headers.token;
+    console.log(req.headers);
+    const token = req.headers['auth'];
     const address = req.body;
     console.log("🚀 address: ", address, token);
 
@@ -28,7 +28,7 @@ router.post("/address", async (req, res) => {
             return res.status(403).json({ error: 'Invalid User!' });
         } 
 
-        const address = await AddressModel.findOneAndUpdate(
+        const addressData = await AddressModel.findOneAndUpdate(
             { userId },
             {
                 $setOnInsert: {
@@ -43,54 +43,18 @@ router.post("/address", async (req, res) => {
             },
             { new: true, upsert: true }
         );
-        console.log("🚀 ~ router.post ~ address:", address)
+        console.log("🚀 ~ router.post ~ address:", addressData)
 
         res.json({
             data: {
-                address,
+                addressData,
             },
         });
     } catch (error) {
-        console.log(`Error in generating OTP for ${mobile}:`, error);
+        console.log(`Error in saving address for ${req.headers.auth}:`, error);
         res.status(500).json({
-            error: { message: "Server error for OTP request" },
+            error: { message: "Error in saving address" },
         });
-    }
-});
-
-router.post("/login", async (req, res) => {
-    const { mobile, OTP } = req.body; // i get mobile number again from user because i can check if it has been messed with or not
-    console.log(req.body);
-    try {
-        // Check if the mobile number exists in the database
-        let user = await UserModel.findOne({ phone: mobile });
-        console.log("🚀 ~ router.post ~ user:", user);
-
-        if (!user) {
-            // If the mobile number doesn't exist, add the user to the collection
-            return res
-                .status(404)
-                .json({ error: "Mobile number does not exist!" });
-        }
-
-        if (!(user.otp === OTP)) {
-            return res.status(403).json({ error: "Invalid OTP entered!" });
-        }
-
-        // also make a check to implement expired OTP and such!
-        /// for simplicity, no expiry check for now
-
-        // Generate JWT token for the user
-        const token = jwt.sign({ userId: user._id }, "unakkuthaan", {
-            expiresIn: "2d",
-        });
-        console.log({ token, userId: user._id, userName: user.userName });
-        res.json({
-            data: { token, userId: user._id, userName: user.userName },
-        });
-    } catch (err) {
-        console.error(`Error during login for ${mobile}:`, err);
-        res.status(500).json({ error: "Internal Server Error" });
     }
 });
 

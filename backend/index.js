@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { connect } from 'mongoose';
 import authController from './controller/authController.js'; // Import the auth controller
+import addressController from './controller/addressController.js'; // Import the auth controller
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,4 +24,5 @@ connect(mongoURI, { dbName: "chennai-mart" })
 
 // Mount the authController router
 app.use('/auth', authController);
+app.use('/', addressController);
 

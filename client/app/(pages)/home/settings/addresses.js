@@ -9,7 +9,8 @@ import {
 import React, { useRef, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { useSelector } from "react-redux";
+import { API_URL } from "@/constants";
+import storage from "@/utils/storage";
 
 const AddressItemCard = ({ name, address }) => {
     return (
@@ -51,18 +52,27 @@ const fields = [
     "state",
 ];
 
+const getToken = async () => {
+    try {
+        const userData = await storage.load({ key: "user" });
+        return userData?.token;
+    } catch (error) {
+        console.log("🚀 ~ getToken ~ error:", error);
+        return false;
+    }
+};
+
 const addresses = () => {
     const [canEdit, setCanEdit] = useState(false);
-    const userData = useSelector(state => state.user);
     const formRef = useRef({
-        city: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        mobile: '',
-        pincode: '',
-        state: '',
-        streetLandmark: '',
+        city: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        mobile: "",
+        pincode: "",
+        state: "",
+        streetLandmark: "",
     });
     // on page load, read addresses for user from backend
     // put them in global state, just like in ProductSectionSanity.js
@@ -79,13 +89,13 @@ const addresses = () => {
         });
         console.log("🚀 ~ handleSubmit ~ address:", address);
         try {
-            const addressReq = await fetch('/address', {
-                method: 'POST',
+            const addressReq = await fetch(API_URL + "/address", {
+                method: "POST",
                 body: JSON.stringify(address),
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Auth': userData?.token
-                }
+                    "Content-Type": "application/json",
+                    Auth: await getToken(),
+                },
             });
             const addressRes = await addressReq.json();
             console.log("🚀 ~ handleSubmit ~ addressRes:", addressRes);
@@ -93,7 +103,7 @@ const addresses = () => {
             // now handle save by dispatching event
         } catch (error) {
             console.log("🚀 ~ handleSubmit ~ error:", error);
-            ToastAndroid.show('Something went wrong!', 2000);
+            ToastAndroid.show("Something went wrong!", 2000);
         } finally {
             setCanEdit(false);
         }
@@ -105,7 +115,7 @@ const addresses = () => {
 
     return (
         <ScrollView className='bg-white px-4 modern:px-8 py-2 gap-y-2'>
-            {!canEdit ? (
+            {canEdit ? (
                 <>
                     {/* Names */}
                     <View className='flex flex-row justify-between gap-x-3'>
@@ -117,7 +127,9 @@ const addresses = () => {
                                 defaultValue='For testing only!'
                                 placeholder=''
                                 // ref={formRef}
-                                onChangeText={(text) => formRef.current.firstName = text}
+                                onChangeText={(text) =>
+                                    (formRef.current.firstName = text)
+                                }
                                 className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                             />
                         </View>
@@ -129,7 +141,9 @@ const addresses = () => {
                                 defaultValue='For testing only!'
                                 placeholder=''
                                 // ref={formRef}
-                                onChangeText={(text) => formRef.current.lastName = text}
+                                onChangeText={(text) =>
+                                    (formRef.current.lastName = text)
+                                }
                                 className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                             />
                         </View>
@@ -145,7 +159,9 @@ const addresses = () => {
                             inputMode='numeric'
                             placeholder=''
                             // ref={formRef}
-                            onChangeText={(text) => formRef.current.mobile = text}
+                            onChangeText={(text) =>
+                                (formRef.current.mobile = text)
+                            }
                             className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                             keyboardType='phone-pad'
                         />
@@ -161,7 +177,9 @@ const addresses = () => {
                             inputMode='email'
                             placeholder=''
                             // ref={formRef}
-                            onChangeText={(text) => formRef.current.email = text}
+                            onChangeText={(text) =>
+                                (formRef.current.email = text)
+                            }
                             className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                             keyboardType='email-address'
                         />
@@ -177,7 +195,9 @@ const addresses = () => {
                             inputMode='text'
                             placeholder=''
                             // ref={formRef}
-                            onChangeText={(text) => formRef.current.streetLandmark = text}
+                            onChangeText={(text) =>
+                                (formRef.current.streetLandmark = text)
+                            }
                             className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                         />
                     </View>
@@ -192,7 +212,9 @@ const addresses = () => {
                             inputMode='text'
                             placeholder=''
                             // ref={formRef}
-                            onChangeText={(text) => formRef.current.city = text}
+                            onChangeText={(text) =>
+                                (formRef.current.city = text)
+                            }
                             className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                         />
                     </View>
@@ -205,10 +227,12 @@ const addresses = () => {
                         <TextInput
                             defaultValue='600063'
                             inputMode='numeric'
-                            keyboardType="phone-pad"
+                            keyboardType='phone-pad'
                             placeholder=''
                             // ref={formRef}
-                            onChangeText={(text) => formRef.current.pincode = text}
+                            onChangeText={(text) =>
+                                (formRef.current.pincode = text)
+                            }
                             className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                         />
                     </View>
@@ -223,7 +247,9 @@ const addresses = () => {
                             inputMode='text'
                             placeholder=''
                             // ref={formRef}
-                            onChangeText={(text) => formRef.current.state = text}
+                            onChangeText={(text) =>
+                                (formRef.current.state = text)
+                            }
                             className='px-4 text-md modern:text-lg py-2 bg-teal rounded-xl'
                         />
                     </View>
