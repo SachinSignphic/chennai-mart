@@ -1,5 +1,5 @@
-import { View, Text, Image, FlatList, Pressable } from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, Image, FlatList, Pressable, ActivityIndicator } from "react-native";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
 import sanity from "@/utils/sanity";
@@ -33,7 +33,20 @@ const ProductsSectionSanity = ({
     sectionCategory, // use this soon for filtering products via category
     randomize
 }) => {
-    const productData = useSelector((state) => state.products.products);
+    const productDataState = useSelector((state) => state.products.products);
+    const productData = useMemo(
+        () =>
+            randomize
+                ? productDataState
+                      .map((value) => ({
+                          value,
+                          sort: Math.random(),
+                      }))
+                      .sort((a, b) => a.sort - b.sort)
+                      .map(({ value }) => value)
+                : productDataState,
+        [randomize, productDataState]
+    );
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -57,25 +70,29 @@ const ProductsSectionSanity = ({
                     {sectionActionText}
                 </Text>
             </View>
-            {
-                productData.length !== 0 ? <FlatList
+            {productData.length !== 0 ? (
+                <FlatList
                     data={
-                        randomize
-                            ? productData.map((value) => ({
-                                value,
-                                sort: Math.random(),
-                            }))
-                                .sort((a, b) => a.sort - b.sort)
-                                .map(({ value }) => value)
-                            : productData
+                        productData
                     }
                     renderItem={({ item }) => (
                         <ProductCard
                             key={item._id}
                             id={item._id}
                             title={item.name}
-                            quantity={(item.quantity_no ?? "500") + " " + (item.quantity_count ?? "gm")}
-                            price={item.discounted_price === 0 ? (item.price * (1 - (item.discount / 100))).toFixed(1) : item.discounted_price}
+                            quantity={
+                                (item.quantity_no ?? "500") +
+                                " " +
+                                (item.quantity_count ?? "gm")
+                            }
+                            price={
+                                item.discounted_price === 0
+                                    ? (
+                                          item.price *
+                                          (1 - item.discount / 100)
+                                      ).toFixed(1)
+                                    : item.discounted_price
+                            }
                             imageURL={item.main_image.asset.url}
                         />
                     )}
@@ -89,8 +106,13 @@ const ProductsSectionSanity = ({
                     }}
                     showsHorizontalScrollIndicator={false}
                     className='flex-grow-0'
-                />: <Text>Loading...</Text>
-            }
+                />
+            ) : (
+                <>
+                    <ActivityIndicator size={29} />
+                    <Text>Loading...</Text>
+                </>
+            )}
         </View>
     );
 };

@@ -66,10 +66,25 @@ const index = () => {
                     className=''
                     numColumns={2}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({ item: product }) => (
+                    renderItem={({ item }) => (
                         <ProductCard
-                            {...product}
-                            imageURL={product.image}
+                            key={item._id}
+                            id={item._id}
+                            title={item.name}
+                            quantity={
+                                (item.quantity_no ?? "N/A") +
+                                " " +
+                                (item.quantity_count ?? "N/A")
+                            }
+                            price={
+                                item.discounted_price === 0
+                                    ? (
+                                          item.price *
+                                          (1 - item.discount / 100)
+                                      ).toFixed(1)
+                                    : item.discounted_price
+                            }
+                            imageURL={item.main_image.asset.url}
                             width={100}
                             showProductCartAction={false}
                         />
