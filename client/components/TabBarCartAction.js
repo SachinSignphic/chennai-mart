@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "@context/cart";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import storage from "@/utils/storage";
 
 const TabBarCartAction = ({ id }) => {
     const cartItems = useSelector((state) => state.cart.items);
@@ -11,7 +12,7 @@ const TabBarCartAction = ({ id }) => {
 
     const dispatch = useDispatch();
     const currentCartItem = cartItems.find((item) => item.id == id);
-    const currentProduct = productsData.find((item) => item._id == id);
+    // const currentProduct = productsData.find((item) => item._id == id);
     
     // I Think i am unnecessarily memoizing these states, anyway lets see
     const cartItemIDs = useMemo(
@@ -49,7 +50,9 @@ const TabBarCartAction = ({ id }) => {
             {!currentCartItem && (
                 <Pressable
                     hitSlop={10}
-                    onPress={() => dispatch(addToCart({ id }))}>
+                    onPress={async () =>{ 
+                        await storage.save({ key: 'cartItems', data: cartItems.map(item => item.id == productId? {...item, quantity: ++item.quantity }: item) })
+                        dispatch(addToCart({ id }))}}>
                     <View className='flex flex-row gap-x-2 items-center justify-center px-6 py-4 rounded-xl bg-[#100F18]'>
                         <MaterialCommunityIcons
                             name='shopping-outline'

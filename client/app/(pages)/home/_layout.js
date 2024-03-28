@@ -23,22 +23,17 @@ export default Layout = () => {
         const getCartItemsFromStr = async () => {
             const cartItemsss = await getStorageData("cartItems");
             console.log(
-                "🚀 ~ _laout ~ useEffect ~ cartItemsss:",
+                "🚀 ~ _layout ~ useEffect ~ cartItemsss:",
                 cartItemsss
             );
             if (cartItemsss) {
                 // writing to cart global state if cart items were found in storage
                 dispatch(addToCartFromLS(cartItemsss));
-                // remove useeffect from each productcart component and put here only
-                // create a new action to add several cartitems at once! and we are done
             }
         };
 
         getCartItemsFromStr();
         getCartId();
-        // also check if items are there and put them in global state
-        // before this, i am now going to the add to cart button component and
-        // trigger a write to storage
     }, []);
 
     return (

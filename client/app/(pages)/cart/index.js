@@ -63,55 +63,53 @@ const index = () => {
 
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     const fetchCartData = async () => {
-    //         try {
-    //             const cartReq = await fetch("/cart/new", {
-    //                 method: "GET",
-    //                 headers: {
-    //                     Auth: await getToken(),
-    //                 },
-    //             });
-    //             const cartRes = await cartReq.json();
+    useEffect(() => {
+        const fetchCartData = async () => {
+            try {
+                const cartReq = await fetch("/cart/new", {
+                    method: "GET",
+                    headers: {
+                        Auth: await getToken(),
+                    },
+                });
+                const cartRes = await cartReq.json();
 
-    //             if (cartReq.status == 403) {
-    //                 await storage.remove({ key: "user" });
-    //                 router.replace("/login?showname=false");
-    //                 return;
-    //             }
+                if (cartReq.status == 403) {
+                    await storage.remove({ key: "user" });
+                    router.replace("/login?showname=false");
+                    return;
+                }
 
-    //             if (cartReq.status == 404) {
-    //                 // probably a POST call right here?
-    //             }
+                if (cartReq.status == 404) {
+                    // call endpoint to create a new cart and when cartId is obtained,
+                    // save in global state and localstorage
+                }
 
-    //             if (cartReq.status == 200) {
-    //                 dispatch(addCartId(cartRes._id));
-    //                 await storage.save({ key: "cartId", data: cartRes._id });
-    //                 console.log(cartRes._id + " added!");
-    //             }
-    //         } catch (error) {
-    //             console.log("🚀 ~ fetchCartData ~ error:", error);
-    //             return;
-    //         }
-    //     };
+                if (cartReq.status == 200) {
+                    dispatch(addCartId(cartRes._id));
+                    await storage.save({ key: "cartId", data: cartRes._id });
+                    console.log(cartRes._id + " added!");
+                }
+            } catch (error) {
+                console.log("🚀 ~ fetchCartData ~ error:", error);
+                return;
+            }
+        };
 
-    //     if (cartData.cartId) {
-    //         // POST request to send product data to endpoint
-    //         return;
-    //     }
+        //  i dont think i need fetchCartData function(?)
 
-    //     // fetchCartData(); ---> iru paa nee
-    // }, []);
-    // useEffect(() => {
-    //     const getCartItemsFromStr = async () => {
-    //         const cartItemsss = await getStorageData("cartItems");
-    //         console.log(
-    //             "🚀 ~ ProductCartAction ~ useEffect ~ cartItemsss:",
-    //             cartItemsss
-    //         );
-    //     };
-    //     getCartItemsFromStr();
-    // }, []);
+        if (cartData.cartId) {
+            // POST request to send product data to endpoint
+            
+        } else {
+            // hit endpoint that create new cart for user and THEN send it
+        }
+
+        // fetchCartData(); ---> iru paa nee
+    }, []);
+    
+
+    // here i removed a useffect that loads cart items from storage in _layout.js
     
 
     return (
