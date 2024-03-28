@@ -4,6 +4,7 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         items: [],
+        cartId: ''
         // check for cart items via API
     },
     reducers: {
@@ -34,10 +35,16 @@ export const cartSlice = createSlice({
         },
         deleteCart: (state, action) => {
             state.items = [];
+        },
+        addCartId: (state, action) => {
+            state.cartId = action.payload
+        },
+        addToCartFromLS: (state, action) => {
+            state.items = action.payload;
         }
     }
 });
 
-export const { addToCart, deleteCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, deleteCart, removeFromCart, addCartId, addToCartFromLS } = cartSlice.actions;
 
 export default cartSlice.reducer;

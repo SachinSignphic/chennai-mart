@@ -1,7 +1,7 @@
 import { View, TextInput } from "react-native";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { inputText } from "@context/homeSearch";
+import { inputText } from "@/context/homeSearch";
 import { Ionicons } from "@expo/vector-icons";
 
 const HomeSearch = () => {

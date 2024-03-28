@@ -1,63 +1,144 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ProductCartAction } from "@/components";
 import { router } from "expo-router";
+import { getStorageData, getToken } from "@/utils/fetch";
+import storage from "@/utils/storage";
+import { addCartId } from "@/context/cart";
 
-const CartItemCard = ({ productId, productName, productQty, quantity, price, image }) => {
-  return (
-      <View className='flex flex-row mt-2 flex-wrap border justify-between items-center border-primary/10 rounded-xl px-1 modern:px-2 py-2'>
-          <View className='w-1/5 p-2'>
-              <Image
-                  resizeMode='center'
-                  className='w-16 h-16 mr-2'
-                  source={{ uri: image }}
-              />
-          </View>
-          <View className='w-1/2'>
-              <Text className='font-nunito-800 text-primary text-md modern:text-xl'>
-                  {productName}
-              </Text>
-              <Text className='font-normal text-secondary text-sm modern:text-base'>
-                  {productQty} • ₹{price.toFixed(2)}
-              </Text>
-          </View>
-          <View className='w-1/5 flex items-start modern:items-center justify-center'>
-              <Text className='font-nunito-400 text-primary text-md modern:text-xl mb-1'>
-                  ₹{(price * quantity).toFixed(2)}
-              </Text>
-              <ProductCartAction productId={productId} />
-          </View>
-      </View>
-  );
-}
+const CartItemCard = ({
+    productId,
+    productName,
+    productQty,
+    quantity,
+    price,
+    image,
+}) => {
+    return (
+        <View className='flex flex-row mt-2 flex-wrap border justify-between items-center border-primary/10 rounded-xl px-1 modern:px-2 py-2'>
+            <View className='w-1/5 p-2'>
+                <Image
+                    resizeMode='center'
+                    className='w-16 h-16 mr-2'
+                    source={{ uri: image }}
+                />
+            </View>
+            <View className='w-1/2'>
+                <Text className='font-nunito-800 text-primary text-md modern:text-xl'>
+                    {productName}
+                </Text>
+                <Text className='font-normal text-secondary text-sm modern:text-base'>
+                    {productQty} • ₹{price.toFixed(2)}
+                </Text>
+            </View>
+            <View className='w-1/5 flex items-start modern:items-center justify-center'>
+                <Text className='font-nunito-400 text-primary text-md modern:text-xl mb-1'>
+                    ₹{(price * quantity).toFixed(2)}
+                </Text>
+                <ProductCartAction productId={productId} />
+            </View>
+        </View>
+    );
+};
 
 const index = () => {
     const productData = useSelector((state) => state.products.products);
-    const cartData = useSelector((state) => state.cart.items);
-    let totalCartAmount = cartData.map(item => {
-        let currProduct = productData.find(product => product._id == item.id)
-        return (currProduct.discounted_price === 0 ? (currProduct.price * (1 - (currProduct.discount / 100))) : currProduct.discounted_price) * item.quantity
-    }).reduce((prev, curr) => prev + curr, 0).toFixed(2);
+    const cartData = useSelector((state) => state.cart);
+    let totalCartAmount = cartData.items
+        .map((item) => {
+            let currProduct = productData.find(
+                (product) => product._id == item.id
+            );
+            return (
+                (currProduct.discounted_price === 0
+                    ? currProduct.price * (1 - currProduct.discount / 100)
+                    : currProduct.discounted_price) * item.quantity
+            );
+        })
+        .reduce((prev, curr) => prev + curr, 0)
+        .toFixed(2);
+
+    const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //     const fetchCartData = async () => {
+    //         try {
+    //             const cartReq = await fetch("/cart/new", {
+    //                 method: "GET",
+    //                 headers: {
+    //                     Auth: await getToken(),
+    //                 },
+    //             });
+    //             const cartRes = await cartReq.json();
+
+    //             if (cartReq.status == 403) {
+    //                 await storage.remove({ key: "user" });
+    //                 router.replace("/login?showname=false");
+    //                 return;
+    //             }
+
+    //             if (cartReq.status == 404) {
+    //                 // probably a POST call right here?
+    //             }
+
+    //             if (cartReq.status == 200) {
+    //                 dispatch(addCartId(cartRes._id));
+    //                 await storage.save({ key: "cartId", data: cartRes._id });
+    //                 console.log(cartRes._id + " added!");
+    //             }
+    //         } catch (error) {
+    //             console.log("🚀 ~ fetchCartData ~ error:", error);
+    //             return;
+    //         }
+    //     };
+
+    //     if (cartData.cartId) {
+    //         // POST request to send product data to endpoint
+    //         return;
+    //     }
+
+    //     // fetchCartData(); ---> iru paa nee
+    // }, []);
+    // useEffect(() => {
+    //     const getCartItemsFromStr = async () => {
+    //         const cartItemsss = await getStorageData("cartItems");
+    //         console.log(
+    //             "🚀 ~ ProductCartAction ~ useEffect ~ cartItemsss:",
+    //             cartItemsss
+    //         );
+    //     };
+    //     getCartItemsFromStr();
+    // }, []);
+    
 
     return (
         <>
             <ScrollView className='px-4 bg-white'>
-                {cartData.map((cartItem, i) => {
+                {cartData.items.map((cartItem, i) => {
                     let currentCartItemData = productData.find(
                         (product) => product._id == cartItem.id
                     );
                     return (
                         <CartItemCard
                             key={i}
-                            productQty={(currentCartItemData.quantity_no ?? "500") + " " + (currentCartItemData.quantity_count ?? "gm")}
+                            productQty={
+                                (currentCartItemData.quantity_no ?? "500") +
+                                " " +
+                                (currentCartItemData.quantity_count ?? "gm")
+                            }
                             productId={currentCartItemData._id}
                             image={currentCartItemData.main_image.asset.url}
                             productName={currentCartItemData.name}
                             quantity={cartItem.quantity}
-                            price={(currentCartItemData.discounted_price === 0 ? (currentCartItemData.price * (1 - (currentCartItemData.discount / 100))) : currentCartItemData.discounted_price)}
+                            price={
+                                currentCartItemData.discounted_price === 0
+                                    ? currentCartItemData.price *
+                                      (1 - currentCartItemData.discount / 100)
+                                    : currentCartItemData.discounted_price
+                            }
                         />
                     );
                 })}
@@ -100,8 +181,7 @@ const index = () => {
                         className={`flex flex-1 py-3 bg-primary rounded-lg ${
                             cartData.length < 1 && "opacity-60"
                         }`}
-                        onPress={() => router.push('/cart/mockpay')}    
-                    >
+                        onPress={() => router.push("/cart/mockpay")}>
                         <Text className='text-white self-center font-nunito-800 text-md modern:text-lg'>
                             Proceed ▶
                         </Text>

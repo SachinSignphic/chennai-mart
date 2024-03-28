@@ -24,5 +24,5 @@ connect(mongoURI, { dbName: "chennai-mart" })
 
 // Mount the authController router
 app.use('/auth', authController);
-app.use('/', addressController);
+app.use('/address/', addressController);
 

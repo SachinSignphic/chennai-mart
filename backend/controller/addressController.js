@@ -6,10 +6,8 @@ import { verifyToken } from "../utils/token.js";
 import AddressModel from "../models/Address.js";
 import UserModel from "../models/User.js";
 
-const secretKey = process.env.ISS_SECRET; // Change this to a more secure value in production
-
 // Route for user login
-router.post("/address", async (req, res) => {
+router.post("/new", async (req, res) => {
     console.log(req.headers);
     const token = req.headers['auth'];
     const address = req.body;

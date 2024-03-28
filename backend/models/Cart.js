@@ -16,8 +16,13 @@ const CartSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Address",
     },
+    status: {
+        type: String,
+        enum: ['new', 'paid'],
+        default: 'new'
+    }
 });
 
-const CartModel = model("user", CartSchema);
+const CartModel = model("cart", CartSchema);
 
 export default CartModel;

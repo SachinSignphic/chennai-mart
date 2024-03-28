@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "@context/cart";
+import { addToCart } from "@context/cart";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
@@ -12,23 +12,39 @@ const TabBarCartAction = ({ id }) => {
     const dispatch = useDispatch();
     const currentCartItem = cartItems.find((item) => item.id == id);
     const currentProduct = productsData.find((item) => item._id == id);
-    const cartItemIDs = cartItems.map((item) => item.id);
-    const currentCartItemsData = productsData.filter((product) =>
-        cartItemIDs.includes(product._id)
+    
+    // I Think i am unnecessarily memoizing these states, anyway lets see
+    const cartItemIDs = useMemo(
+        () => cartItems.map((item) => item.id),
+        [cartItems]
+    );
+    const currentCartItemsData = useMemo(
+        () =>
+            productsData.filter((product) => cartItemIDs.includes(product._id)),
+        [productsData, cartItemIDs]
+    );
+    const priceRightNow = useMemo(
+        () =>
+            currentCartItemsData
+                .reduce(
+                    (prev, curr) =>
+                        prev +
+                        (curr.discounted_price === 0
+                            ? curr.price * (1 - curr.discount / 100)
+                            : curr.discounted_price) *
+                            cartItems.find((item) => item.id == curr._id)
+                                .quantity,
+                    0
+                )
+                .toFixed(2),
+        [currentCartItemsData]
     );
 
     return (
         <View className='flex self-center flex-row items-center justify-between w-[90%] bg-primary px-4 rounded-xl min-h-[80px] absolute bottom-[2%]'>
             <Text className='text-white font-nunito-800 modern:text-lg text-md ml-4'>
                 {cartItems?.length} items | ₹
-                {currentCartItemsData.reduce(
-                    (prev, curr) =>
-                        prev +
-                        (curr.discounted_price === 0 ? (curr.price * (1 - (curr.discount / 100))): curr.discounted_price) *
-                            cartItems.find((item) => item.id == curr._id)
-                                .quantity,
-                    0
-                ).toFixed(2)}
+                {priceRightNow}
             </Text>
             {!currentCartItem && (
                 <Pressable

@@ -8,9 +8,8 @@ import {
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { Feather } from "@expo/vector-icons";
-import { router } from "expo-router";
 import { API_URL } from "@/constants";
-import storage from "@/utils/storage";
+import { getToken } from "@/utils/fetch";
 
 const AddressItemCard = ({ name, address }) => {
     return (
@@ -52,16 +51,6 @@ const fields = [
     "state",
 ];
 
-const getToken = async () => {
-    try {
-        const userData = await storage.load({ key: "user" });
-        return userData?.token;
-    } catch (error) {
-        console.log("🚀 ~ getToken ~ error:", error);
-        return false;
-    }
-};
-
 const addresses = () => {
     const [canEdit, setCanEdit] = useState(false);
     const formRef = useRef({
@@ -89,7 +78,7 @@ const addresses = () => {
         });
         console.log("🚀 ~ handleSubmit ~ address:", address);
         try {
-            const addressReq = await fetch(API_URL + "/address", {
+            const addressReq = await fetch(API_URL + "/address/new", {
                 method: "POST",
                 body: JSON.stringify(address),
                 headers: {
