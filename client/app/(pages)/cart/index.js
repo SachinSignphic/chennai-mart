@@ -1,11 +1,11 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ToastAndroid, Alert } from "react-native";
 import React, { useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductCartAction } from "@/components";
 import { router } from "expo-router";
-import { getStorageData, getToken } from "@/utils/fetch";
+import { getToken } from "@/utils/fetch";
 import storage from "@/utils/storage";
 import { addCartId } from "@/context/cart";
 import { API_URL } from "@/constants";
@@ -82,6 +82,7 @@ const index = () => {
                 if (cartCreateRequest.status == 403) {
                     await storage.remove({ key: "user" });
                     await storage.save({ key: "user", expires: 10 });
+                    ToastAndroid.show('User Session Expired. Please login again', ToastAndroid.LONG);
                     router.replace("/login?showname=false");
                     return;
                 }
@@ -114,10 +115,19 @@ const index = () => {
                 );
                 const cartUpdateResponse = await cartUpdateRequest.json();
                 console.log("🚀 ~ updateCartData ~ cartUpdateResponse:", cartUpdateResponse)
+                
+                if (cartUpdateRequest.status == 200) {
+                    // here cart is updated successfully means, maybe show an indication?
+                    console.log("Cart updated!");
+                }
 
                 if (cartUpdateRequest.status == 403) {
                     await storage.remove({ key: "user" });
                     await storage.save({ key: "user", expires: 10 });
+                    ToastAndroid.show(
+                        "User Session Expired. Please login again",
+                        ToastAndroid.LONG
+                    );
                     router.replace("/login?showname=false");
                     return;
                 }
@@ -127,17 +137,15 @@ const index = () => {
                     dispatch(addCartId(''));
                 }
 
-                if (cartUpdateRequest.status == 200) {
-                    // here cart is updated successfully means, maybe show an indication?
-                    console.log("Cart updated!");
+                if (cartUpdateRequest.status == 500) {
+                    Alert.alert('Unexpected Server Error!', cartUpdateResponse.error, [{ text: 'OK', style: "cancel" }])
                 }
+
             } catch (error) {
                 console.log("🚀 ~ updateCartData ~ error:", error);
                 return;
             }
         };
-
-        //  i dont think i need fetchCartData function(?)
 
         if (cartData.cartId) {
             // POST request to send product data to endpoint
@@ -149,7 +157,6 @@ const index = () => {
             createCart();
         }
 
-        // fetchCartData(); ---> iru paa nee
     }, []);
     
 

@@ -2,32 +2,13 @@
 
 import express from "express";
 const router = express.Router();
-import { verifyToken } from "../utils/token.js";
 import AddressModel from "../models/Address.js";
-import UserModel from "../models/User.js";
+import { verifyTokenMiddleware  } from "../utils/middleware.js"
 
-// Route for user login
-router.post("/new", async (req, res) => {
-    console.log(req.headers);
-    const token = req.headers['auth'];
-    const address = req.body;
-    console.log("🚀 address: ", address, token);
-
+router.post("/new", verifyTokenMiddleware, async (req, res) => {
     try {
-        const userId = verifyToken(token);
-        console.log("🚀 ~ router.post ~ userId:", userId)
-        
-        if (!userId) return res.status(403).json({ error: 'Invalid Token!' });
-
-        const userData = await UserModel.findById(userId);
-        console.log("🚀 ~ address.post ~ userData:", userData)
-
-        if (!userData) {
-            return res.status(403).json({ error: 'Invalid User!' });
-        } 
-
         const addressData = await AddressModel.findOneAndUpdate(
-            { userId },
+            { userId: req.userId },
             {
                 $setOnInsert: {
                     userId: userId,
@@ -55,5 +36,16 @@ router.post("/new", async (req, res) => {
         });
     }
 });
+
+router.get('/', verifyTokenMiddleware, async (req, res) => {
+    try {
+        const addressData = await AddressModel.findOne({ userId: req.userId });
+        if (!addressData) return res.status(404).json({ message: "No addresses saved!" });
+        return res.json({ data: addressData.addresses });
+    } catch (error) {
+        console.log("🚀 ~ address.get ~ error:", error);
+        return res.status(500).json({ message: "Server error in fetching addresses!" });
+    }
+})
 
 export default router;
