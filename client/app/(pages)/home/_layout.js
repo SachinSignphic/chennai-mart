@@ -15,7 +15,7 @@ export default Layout = () => {
             const cartId = await getStorageData("cartId");
             console.log("🚀 ~ Home ~ cartId:", cartId);
             if (cartId) {
-                console.log('yeah?');
+                console.log('cart id exists from storage?');
                 dispatch(addCartId(cartId));
             }
         };

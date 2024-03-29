@@ -7,7 +7,11 @@ const OrderSchema = new Schema({
     },
     cartId: {
         type: Schema.Types.ObjectId,
-        ref: "Cart",    
+        ref: "Cart",
+    },
+    addressId: {
+        type: Schema.Types.ObjectId,
+        ref: "Address",
     },
     cartTotal: Number,
     // deliveredBy: {
@@ -16,10 +20,10 @@ const OrderSchema = new Schema({
     orderId: String,
     paymentStatus: {
         type: String,
-        enum: ['success', 'failed', 'pending'],
-        default: 'pending'
+        enum: ["success", "failed", "pending", "abandoned"],
+        default: "pending",
     },
-    amountPaid: Number
+    amountPaid: Number,
 });
 
 const OrderModel = model("order", OrderSchema);

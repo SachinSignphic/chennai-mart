@@ -12,10 +12,6 @@ const CartSchema = new Schema({
             discount: Number,
         },
     ],
-    addressId: {
-        type: Schema.Types.ObjectId,
-        ref: "Address",
-    },
     status: {
         type: String,
         enum: ['new', 'paid'],

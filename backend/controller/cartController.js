@@ -5,12 +5,11 @@ import { verifyToken } from "../utils/token.js";
 import CartModel from "../models/Cart.js";
 import UserModel from "../models/User.js";
 
-// Route for user login
 router.post("/new", async (req, res) => {
-    console.log(req.headers);
+    // console.log(req.headers);
     const token = req.headers["auth"];
     const cart = req.body;
-    console.log("🚀 address: ", cart, token);
+    console.log("🚀 cart: ", cart);
 
     try {
         const userId = verifyToken(token);
@@ -19,42 +18,51 @@ router.post("/new", async (req, res) => {
         if (!userId) return res.status(403).json({ error: "Invalid Token!" });
 
         const userData = await UserModel.findById(userId);
-        console.log("🚀 ~ cart.post ~ userData:", userData.firstName);
+        console.log("🚀 ~ cart.post ~ userData:", userData.userName);
 
         if (!userData) {
             return res.status(403).json({ error: "Invalid User!" });
         }
 
-        const cartData = await CartModel.findOneAndUpdate(
-            { userId },
-            {
-                $setOnInsert: {
-                    userId: userId,
-                },
-                $push: {
-                    items: {
-                        productId: String,
-                        quantity: String,
-                        discount: Number,
-                    },
-                },
-            },
-            { new: true, upsert: true }
-        );
+        const cartData = await CartModel.create({ userId, items: cart.items.map(item => ({ productId: item.id, quantity: item.quantity })) });
         console.log("🚀 ~ cart.post ~ cart:", cartData);
+        
+        res.json(cartData);
 
-        res.json({
-            data: {
-                message: "Payment successful!",
-            },
-        });
     } catch (error) {
-        console.log(`Error in saving address for ${req.headers.auth}:`, error);
+        console.log(`Error in creating cart for ${req.headers.auth}:`, error);
         res.status(500).json({
-            error: { message: "Error in saving address" },
+            error: { message: "Server error in creating cart" },
         });
     }
 });
+
+router.post('/update', async (req, res) => {
+    const token = req.headers["auth"];
+    const cart = req.body;
+
+    try {        
+        const userId = verifyToken(token);
+        console.log("🚀 ~ cart.post ~ userId:", userId);
+
+        if (!userId) return res.status(403).json({ error: "Invalid Token!" });
+
+        const cartData = await CartModel.findById(cart.cartId);
+        
+        if (!cartData) return res.status(404).json({ error: 'Could not find your cart!' });
+        
+        cartData.items = cart.items.map(item => ({ productId: item.id, quantity: item.quantity }));
+        console.log("🚀 ~ router.post ~ cartData:", cartData);
+
+        await cartData.save({ validateBeforeSave: false });
+
+        res.status(200).json({ message: "Cart updated successfully!" });
+        
+    } catch (error) {
+        console.log(`Error in updating cart for ${req.headers.auth}:`, error);
+        res.status(500).json({ error: "Server error in updating cart items" });
+    }
+})
 
 router.get('/new', async (req, res) => {
     const token = req.headers["auth"];

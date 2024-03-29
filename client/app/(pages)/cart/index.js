@@ -8,6 +8,7 @@ import { router } from "expo-router";
 import { getStorageData, getToken } from "@/utils/fetch";
 import storage from "@/utils/storage";
 import { addCartId } from "@/context/cart";
+import { API_URL } from "@/constants";
 
 const CartItemCard = ({
     productId,
@@ -64,34 +65,74 @@ const index = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchCartData = async () => {
+        const createCart = async () => {
+            console.log(JSON.stringify(cartData));
             try {
-                const cartReq = await fetch("/cart/new", {
-                    method: "GET",
+                const cartCreateRequest = await fetch(API_URL + "/cart/new", {
+                    method: "POST",
                     headers: {
                         Auth: await getToken(),
+                        'Content-Type': 'application/json'
                     },
+                    body: JSON.stringify(cartData),
                 });
-                const cartRes = await cartReq.json();
+                const cartCreateResponse = await cartCreateRequest.json();
+                console.log("🚀 ~ createCart ~ cartCreateResponse:", cartCreateResponse)
 
-                if (cartReq.status == 403) {
+                if (cartCreateRequest.status == 403) {
                     await storage.remove({ key: "user" });
+                    await storage.save({ key: "user", expires: 10 });
                     router.replace("/login?showname=false");
                     return;
                 }
 
-                if (cartReq.status == 404) {
-                    // call endpoint to create a new cart and when cartId is obtained,
-                    // save in global state and localstorage
-                }
-
-                if (cartReq.status == 200) {
-                    dispatch(addCartId(cartRes._id));
-                    await storage.save({ key: "cartId", data: cartRes._id });
-                    console.log(cartRes._id + " added!");
+                if (cartCreateRequest.status == 200) {
+                    dispatch(addCartId(cartCreateResponse._id));
+                    await storage.save({
+                        key: "cartId",
+                        data: cartCreateResponse._id,
+                    });
+                    console.log(cartCreateResponse._id + " added!");
                 }
             } catch (error) {
-                console.log("🚀 ~ fetchCartData ~ error:", error);
+                console.log("🚀 ~ createCart ~ error:", error);
+                return;
+            }
+        }
+        const updateCartData = async () => {
+            try {
+                const cartUpdateRequest = await fetch(
+                    API_URL + "/cart/update",
+                    {
+                        method: "POST",
+                        headers: {
+                            Auth: await getToken(),
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(cartData),
+                    }
+                );
+                const cartUpdateResponse = await cartUpdateRequest.json();
+                console.log("🚀 ~ updateCartData ~ cartUpdateResponse:", cartUpdateResponse)
+
+                if (cartUpdateRequest.status == 403) {
+                    await storage.remove({ key: "user" });
+                    await storage.save({ key: "user", expires: 10 });
+                    router.replace("/login?showname=false");
+                    return;
+                }
+
+                if (cartUpdateRequest.status == 404) {
+                    await storage.remove({ key: 'cartId' });
+                    dispatch(addCartId(''));
+                }
+
+                if (cartUpdateRequest.status == 200) {
+                    // here cart is updated successfully means, maybe show an indication?
+                    console.log("Cart updated!");
+                }
+            } catch (error) {
+                console.log("🚀 ~ updateCartData ~ error:", error);
                 return;
             }
         };
@@ -100,9 +141,12 @@ const index = () => {
 
         if (cartData.cartId) {
             // POST request to send product data to endpoint
-            
+            console.log('updating cart...');
+            updateCartData();
         } else {
             // hit endpoint that create new cart for user and THEN send it
+            console.log('creating new cart...');
+            createCart();
         }
 
         // fetchCartData(); ---> iru paa nee
