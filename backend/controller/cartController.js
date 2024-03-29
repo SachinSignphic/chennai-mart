@@ -4,8 +4,9 @@ const router = express.Router();
 import { verifyToken } from "../utils/token.js";
 import CartModel from "../models/Cart.js";
 import UserModel from "../models/User.js";
+import { verifyTokenMiddleware } from "../utils/middleware.js";
 
-router.post("/new", async (req, res) => {
+router.post("/new", verifyTokenMiddleware, async (req, res) => {
     // console.log(req.headers);
     const token = req.headers["auth"];
     const cart = req.body;
@@ -37,7 +38,7 @@ router.post("/new", async (req, res) => {
     }
 });
 
-router.post('/update', async (req, res) => {
+router.post('/update', verifyTokenMiddleware, async (req, res) => {
     const token = req.headers["auth"];
     const cart = req.body;
 
