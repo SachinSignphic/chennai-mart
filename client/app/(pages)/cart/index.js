@@ -7,7 +7,7 @@ import {
     Alert,
     useWindowDimensions,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +55,35 @@ const CartItemCard = ({
 };
 
 const Modal = RBSheet;
+
+const ADDRESS_DATA = [
+    {
+        type: "shipping",
+        firstName: "For testing only",
+        lastName: "For testing only",
+        mobile: "824842730",
+        email: "mmhmm@mail.co",
+        streetLandmark: "For testing only",
+        city: "For testing only",
+        pincode: 600064,
+        state: "For testing only",
+        country: "India",
+        id: "65fee2c2821fa8489bc2afa4",
+    },
+    {
+        type: "shipping",
+        firstName: "",
+        lastName: "",
+        mobile: "",
+        email: "",
+        streetLandmark: "",
+        city: "",
+        pincode: null,
+        state: "",
+        country: "India",
+        id: "6606a80dce1ef8973af2d681",
+    },
+];
 
 const index = () => {
     const productData = useSelector((state) => state.products.products);
@@ -173,7 +202,7 @@ const index = () => {
         if (cartData.cartId) {
             // POST request to send product data to endpoint
             console.log("updating cart...");
-            updateCartData();
+            // updateCartData();
         } else {
             // hit endpoint that create new cart for user and THEN send it
             console.log("creating new cart...");
@@ -184,6 +213,7 @@ const index = () => {
     // here i removed a useffect that loads cart items from storage in _layout.js
     const modalRef = useRef();
     const { height } = useWindowDimensions();
+    const [selected, setSelected] = useState("");
 
     return (
         <>
@@ -269,17 +299,38 @@ const index = () => {
                     statusBarTranslucent: true,
                 }}
                 height={height * 0.8}>
-                <RadioButton
-                    title={"Sachin"}
-                    subtitle={"No.8, 10th street"}
-                    icon={() => (
-                        <Ionicons
-                            name='radio-button-off-sharp'
-                            size={30}
-                            color={"white"}
-                        />
-                    )}
-                />
+                <ScrollView className='px-4 bg-white'>
+                    <Text className='font-nunito-400 mb-6 text-lg modern:text-xl text-primary'>
+                        Choose from your addresses
+                    </Text>
+                    {ADDRESS_DATA.map((addr) => (
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            key={addr.id}
+                            className='mb-4 mx-1'
+                            onPress={() => setSelected(addr.id)}>
+                            <RadioButton
+                                title={addr.firstName}
+                                subtitle={addr.streetLandmark}
+                                selected={selected == addr.id}
+                                icon={() => (
+                                    <Ionicons
+                                        name='radio-button-off-sharp'
+                                        size={30}
+                                        color={"white"}
+                                    />
+                                )}
+                                selectedIcon={() => (
+                                    <Ionicons
+                                        name='radio-button-off-sharp'
+                                        size={30}
+                                        color={"black"}
+                                    />
+                                )}
+                            />
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
             </Modal>
         </>
     );
