@@ -1,14 +1,23 @@
-import { View, Text, Image, TouchableOpacity, ToastAndroid, Alert } from "react-native";
-import React, { useEffect } from "react";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    ToastAndroid,
+    Alert,
+    useWindowDimensions,
+} from "react-native";
+import React, { useEffect, useRef } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { ProductCartAction } from "@/components";
+import { ProductCartAction, RadioButton } from "@/components";
 import { router } from "expo-router";
 import { getToken } from "@/utils/fetch";
 import storage from "@/utils/storage";
 import { addCartId } from "@/context/cart";
 import { API_URL } from "@/constants";
+import RBSheet from "react-native-raw-bottom-sheet";
 
 const CartItemCard = ({
     productId,
@@ -45,6 +54,8 @@ const CartItemCard = ({
     );
 };
 
+const Modal = RBSheet;
+
 const index = () => {
     const productData = useSelector((state) => state.products.products);
     const cartData = useSelector((state) => state.cart);
@@ -72,17 +83,23 @@ const index = () => {
                     method: "POST",
                     headers: {
                         Auth: await getToken(),
-                        'Content-Type': 'application/json'
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify(cartData),
                 });
                 const cartCreateResponse = await cartCreateRequest.json();
-                console.log("🚀 ~ createCart ~ cartCreateResponse:", cartCreateResponse)
+                console.log(
+                    "🚀 ~ createCart ~ cartCreateResponse:",
+                    cartCreateResponse
+                );
 
                 if (cartCreateRequest.status == 403) {
                     await storage.remove({ key: "user" });
                     await storage.save({ key: "user", expires: 10 });
-                    ToastAndroid.show('User Session Expired. Please login again', ToastAndroid.LONG);
+                    ToastAndroid.show(
+                        "User Session Expired. Please login again",
+                        ToastAndroid.LONG
+                    );
                     router.replace("/login?showname=false");
                     return;
                 }
@@ -99,7 +116,7 @@ const index = () => {
                 console.log("🚀 ~ createCart ~ error:", error);
                 return;
             }
-        }
+        };
         const updateCartData = async () => {
             try {
                 const cartUpdateRequest = await fetch(
@@ -114,8 +131,11 @@ const index = () => {
                     }
                 );
                 const cartUpdateResponse = await cartUpdateRequest.json();
-                console.log("🚀 ~ updateCartData ~ cartUpdateResponse:", cartUpdateResponse)
-                
+                console.log(
+                    "🚀 ~ updateCartData ~ cartUpdateResponse:",
+                    cartUpdateResponse
+                );
+
                 if (cartUpdateRequest.status == 200) {
                     // here cart is updated successfully means, maybe show an indication?
                     console.log("Cart updated!");
@@ -133,14 +153,17 @@ const index = () => {
                 }
 
                 if (cartUpdateRequest.status == 404) {
-                    await storage.remove({ key: 'cartId' });
-                    dispatch(addCartId(''));
+                    await storage.remove({ key: "cartId" });
+                    dispatch(addCartId(""));
                 }
 
                 if (cartUpdateRequest.status == 500) {
-                    Alert.alert('Unexpected Server Error!', cartUpdateResponse.error, [{ text: 'OK', style: "cancel" }])
+                    Alert.alert(
+                        "Unexpected Server Error!",
+                        cartUpdateResponse.error,
+                        [{ text: "OK", style: "cancel" }]
+                    );
                 }
-
             } catch (error) {
                 console.log("🚀 ~ updateCartData ~ error:", error);
                 return;
@@ -149,19 +172,18 @@ const index = () => {
 
         if (cartData.cartId) {
             // POST request to send product data to endpoint
-            console.log('updating cart...');
+            console.log("updating cart...");
             updateCartData();
         } else {
             // hit endpoint that create new cart for user and THEN send it
-            console.log('creating new cart...');
+            console.log("creating new cart...");
             createCart();
         }
-
     }, []);
-    
 
     // here i removed a useffect that loads cart items from storage in _layout.js
-    
+    const modalRef = useRef();
+    const { height } = useWindowDimensions();
 
     return (
         <>
@@ -195,8 +217,7 @@ const index = () => {
             <View className='absolute shadow-xl shadow-black/40 bottom-0 left-0 w-full bg-teal gap-y-3 z-50 px-4 py-4 pt-0'>
                 <TouchableOpacity
                     className='flex flex-row justify-between flex-wrap'
-                    onPress={() => router.push("/cart/modal")}
-                >
+                    onPress={() => modalRef.current.open()}>
                     <Text className='text-secondary font-medium text-sm modern:text-base'>
                         No.8, 9th cross street, thirumudivakkam, Chennai
                     </Text>
@@ -237,6 +258,29 @@ const index = () => {
                     </TouchableOpacity>
                 </View>
             </View>
+
+            {/* Modal for addresses */}
+            <Modal
+                ref={modalRef}
+                closeOnPressBack
+                draggable
+                customModalProps={{
+                    animationType: "fade",
+                    statusBarTranslucent: true,
+                }}
+                height={height * 0.8}>
+                <RadioButton
+                    title={"Sachin"}
+                    subtitle={"No.8, 10th street"}
+                    icon={() => (
+                        <Ionicons
+                            name='radio-button-off-sharp'
+                            size={30}
+                            color={"white"}
+                        />
+                    )}
+                />
+            </Modal>
         </>
     );
 };

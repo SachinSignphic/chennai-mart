@@ -4,7 +4,6 @@ import OnboardingScreens from '@/components/OnboardingScreens'
 import { Ionicons } from '@expo/vector-icons';
 import RadioButton from '@/components/RadioButton';
 import ProceedButton from '@/components/ProceedButton';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const DAYOFF = [
     {
