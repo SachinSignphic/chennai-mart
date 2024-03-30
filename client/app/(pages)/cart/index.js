@@ -258,7 +258,9 @@ const index = () => {
                         className={`flex flex-1 py-3 bg-primary rounded-lg ${
                             isButtonDisabled && "opacity-60 bg-secondary"
                         }`}
-                        onPress={() => router.push("/cart/mockpay")}>
+                        onPress={() => {
+                            router.push("/cart/mockpay")    
+                        }}>
                         <Text className='text-white self-center font-nunito-800 text-md modern:text-lg'>
                             Proceed ▶
                         </Text>

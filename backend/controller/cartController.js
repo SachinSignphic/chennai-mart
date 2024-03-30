@@ -1,12 +1,11 @@
 
 import express from "express";
 const router = express.Router();
-import { verifyToken } from "../utils/token.js";
 import CartModel from "../models/Cart.js";
-import UserModel from "../models/User.js";
 import { verifyTokenMiddleware } from "../utils/middleware.js";
 
 router.post("/new", verifyTokenMiddleware, async (req, res) => {
+    const cart = req.body;
     try {
         const cartData = await CartModel.create({ userId: req.userId, items: cart.items.map(item => ({ productId: item.id, quantity: item.quantity })) });
         console.log("🚀 ~ cart.post ~ cart:", cartData);
