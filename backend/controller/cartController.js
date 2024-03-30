@@ -22,6 +22,7 @@ router.post("/new", verifyTokenMiddleware, async (req, res) => {
 });
 
 router.post('/update', verifyTokenMiddleware, async (req, res) => {
+    const cart = req.body;
     try {        
         const cartData = await CartModel.findById(cart.cartId);
         

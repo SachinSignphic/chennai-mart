@@ -16,6 +16,13 @@ export default Layout = () => {
                     ),
                 }}
             />
+            <Stack.Screen
+                name='modal'
+                options={{
+                    presentation: "card",
+                    title: "Choose Address",
+                }}
+            />
         </Stack>
     );
 };

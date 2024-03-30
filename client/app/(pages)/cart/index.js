@@ -195,7 +195,7 @@ const index = () => {
             <View className='absolute shadow-xl shadow-black/40 bottom-0 left-0 w-full bg-teal gap-y-3 z-50 px-4 py-4 pt-0'>
                 <TouchableOpacity
                     className='flex flex-row justify-between flex-wrap'
-                    // onPress={() => router.push("/cart/addresses")} drawer component
+                    onPress={() => router.push("/cart/modal")}
                 >
                     <Text className='text-secondary font-medium text-sm modern:text-base'>
                         No.8, 9th cross street, thirumudivakkam, Chennai

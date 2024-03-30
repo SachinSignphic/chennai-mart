@@ -3,6 +3,7 @@
 // something like that to modify the GROK query and send the query to sanity and return
 // the promise which should be cleared by awaiting at the component or page
 
+import { ToastAndroid } from "react-native";
 import storage from "./storage";
 
 const getToken = async () => {
@@ -33,4 +34,18 @@ const getStorageData = async (key) => {
     }
 }
 
-export { getToken, getStorageData };
+const modifyUserSessionStorage = async () => {
+    try {
+        await storage.remove({ key: "user" });
+        await storage.save({ key: "user", expires: 10 });
+        ToastAndroid.show(
+            "User Session Expired. Please login again",
+            ToastAndroid.LONG
+        );
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+export { getToken, getStorageData, modifyUserSessionStorage };

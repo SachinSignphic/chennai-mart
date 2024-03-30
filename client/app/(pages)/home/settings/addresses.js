@@ -5,11 +5,12 @@ import {
     TouchableOpacity,
     ToastAndroid,
     TextInput,
+    Alert,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { API_URL } from "@/constants";
-import { getToken } from "@/utils/fetch";
+import { getToken, modifyUserSessionStorage } from "@/utils/fetch";
 
 const AddressItemCard = ({ name, address }) => {
     return (
@@ -88,11 +89,29 @@ const addresses = () => {
             });
             const addressRes = await addressReq.json();
             console.log("🚀 ~ handleSubmit ~ addressRes:", addressRes);
-            ToastAndroid.show("Address added!", 2000);
-            // now handle save by dispatching event
+            
+            if (addressReq.status == 200) {
+                ToastAndroid.show("Address added!", ToastAndroid.LONG);
+            }
+
+            if (addressReq.status == 403) {
+                const hasUserSessionBeenModified = modifyUserSessionStorage();
+                hasUserSessionBeenModified && router.replace("/login?showname=false");
+                return;
+            }
+
+            if (addressReq.status == 500) {
+                Alert.alert(
+                    "Unexpected Server Error!",
+                    addressRes.error,
+                    [{ text: "OK", style: "cancel" }]
+                );
+            }
         } catch (error) {
             console.log("🚀 ~ handleSubmit ~ error:", error);
-            ToastAndroid.show("Something went wrong!", 2000);
+            Alert.alert("Something went wrong!", "Please report this error", [
+                { text: "OK", style: "cancel" },
+            ]);
         } finally {
             setCanEdit(false);
         }

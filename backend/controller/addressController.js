@@ -6,18 +6,19 @@ import AddressModel from "../models/Address.js";
 import { verifyTokenMiddleware  } from "../utils/middleware.js"
 
 router.post("/new", verifyTokenMiddleware, async (req, res) => {
+    const address = req.body;
     try {
         const addressData = await AddressModel.findOneAndUpdate(
             { userId: req.userId },
             {
                 $setOnInsert: {
-                    userId: userId,
+                    userId: req.userId,
                 },
                 $push: {
                     addresses: {
                         ...address,
-                        country: 'India'
-                    }
+                        country: "India",
+                    },
                 },
             },
             { new: true, upsert: true }
