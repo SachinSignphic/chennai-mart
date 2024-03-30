@@ -6,11 +6,15 @@ import {
     ToastAndroid,
     TextInput,
     Alert,
+    ActivityIndicator,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { API_URL } from "@/constants";
 import { getToken, modifyUserSessionStorage } from "@/utils/fetch";
+import { useDispatch, useSelector } from "react-redux";
+import storage from "@/utils/storage";
+import { addAddress, populateAddresses } from "@/context/address";
 
 const AddressItemCard = ({ name, address }) => {
     return (
@@ -64,8 +68,53 @@ const addresses = () => {
         state: "",
         streetLandmark: "",
     });
-    // on page load, read addresses for user from backend
-    // put them in global state, just like in ProductSectionSanity.js
+    const addressData = useSelector((state) => state.address);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchUserAddresses = async () => {
+            try {
+                const addressRequest = await fetch(API_URL + "/address", {
+                    method: "GET",
+                    headers: {
+                        Auth: await getToken(),
+                    },
+                });
+                const addressResponse = await addressRequest.json();
+                console.log(
+                    "🚀 ~ fetchUserAddresses ~ addressResponse:",
+                    addressResponse
+                );
+
+                if (addressRequest.status == 403) {
+                    await storage.remove({ key: "user" });
+                    await storage.save({ key: "user", expires: 10 });
+                    ToastAndroid.show(
+                        "User Session Expired. Please login again",
+                        ToastAndroid.LONG
+                    );
+                    router.replace("/login?showname=false");
+                    return;
+                }
+
+                if (addressRequest.status == 200) {
+                    dispatch(
+                        populateAddresses(
+                            addressResponse.data.map((addr) => ({
+                                ...addr,
+                                id: addr._id,
+                            }))
+                        )
+                    );
+                }
+            } catch (error) {
+                console.log("🚀 ~ fetchUserAddresses ~ error:", error);
+                return;
+            }
+        };
+
+        if (addressData.allAddresses.length == 0) fetchUserAddresses();
+    }, []);
 
     const handleSubmit = async () => {
         // get all refs,
@@ -89,23 +138,23 @@ const addresses = () => {
             });
             const addressRes = await addressReq.json();
             console.log("🚀 ~ handleSubmit ~ addressRes:", addressRes);
-            
+
             if (addressReq.status == 200) {
                 ToastAndroid.show("Address added!", ToastAndroid.LONG);
+                dispatch(addAddress(addressRes.data));
             }
 
             if (addressReq.status == 403) {
                 const hasUserSessionBeenModified = modifyUserSessionStorage();
-                hasUserSessionBeenModified && router.replace("/login?showname=false");
+                hasUserSessionBeenModified &&
+                    router.replace("/login?showname=false");
                 return;
             }
 
             if (addressReq.status == 500) {
-                Alert.alert(
-                    "Unexpected Server Error!",
-                    addressRes.error,
-                    [{ text: "OK", style: "cancel" }]
-                );
+                Alert.alert("Unexpected Server Error!", addressRes.error, [
+                    { text: "OK", style: "cancel" },
+                ]);
             }
         } catch (error) {
             console.log("🚀 ~ handleSubmit ~ error:", error);
@@ -282,18 +331,17 @@ const addresses = () => {
                 </>
             ) : (
                 <>
-                    <AddressItemCard
-                        name={"Z-Block house"}
-                        address={
-                            "1/129, Z-Block, AD Block, Anna Nagar, Kanakkampalayam, Chennai, TamilNadu 638505, India"
-                        }
-                    />
-                    <AddressItemCard
-                        name={"VB Nagar office"}
-                        address={
-                            "No. 69, 420th Street, VBS Mahal, Hasthinapuram, Chennai, TamilNadu"
-                        }
-                    />
+                    {addressData.allAddresses.map((addr) => (
+                        <AddressItemCard
+                            key={addr.id}
+                            name={addr.firstName}
+                            address={[
+                                addr.streetLandmark,
+                                addr.city,
+                                addr.state,
+                            ].join(", ")}
+                        />
+                    ))}
                     <TouchableOpacity
                         className='bg-primary px-3 py-3 rounded-xl mt-5'
                         onPress={() => {

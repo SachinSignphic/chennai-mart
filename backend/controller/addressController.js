@@ -26,9 +26,7 @@ router.post("/new", verifyTokenMiddleware, async (req, res) => {
         console.log("🚀 ~ router.post ~ address:", addressData)
 
         res.json({
-            data: {
-                addressData,
-            },
+            data: addressData.addresses.at(-1)
         });
     } catch (error) {
         console.log(`Error in saving address for ${req.headers.auth}:`, error);
