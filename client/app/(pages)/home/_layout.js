@@ -46,7 +46,7 @@ export default Layout = () => {
                     headerShown: false,
                 }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
                 name='product'
                 options={{
                     headerBackVisible: false,
@@ -60,7 +60,7 @@ export default Layout = () => {
                         );
                     },
                 }}
-            />
+            /> */}
             <Stack.Screen
                 name='settings'
                 options={{

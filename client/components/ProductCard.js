@@ -25,7 +25,7 @@ const ProductCard = ({
             <TouchableOpacity
                 activeOpacity={0.8}
                 className='flex justify-between'
-                onPress={() => router.push(`/home/product/${id}`)}>
+                onPress={() => router.push(`/product/${id}`)}>
                 <View className='w-full h-1/2 p-1 flex flex-grow-0'>
                     <Image
                         resizeMode='contain'
