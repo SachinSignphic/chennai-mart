@@ -16,6 +16,18 @@ export default Layout = () => {
                     ),
                 }}
             />
+            <Stack.Screen
+                name='mockpay/index'
+                options={{
+                    title: "Payment",
+                    header: () => (
+                        <StackHeader
+                            // routeAction='/home'
+                            headerTitle={"Payment"}
+                        />
+                    ),
+                }}
+            />
         </Stack>
     );
 };

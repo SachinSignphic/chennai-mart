@@ -57,6 +57,11 @@ const CartItemCard = ({
 const index = () => {
     const productData = useSelector((state) => state.products.products);
     const cartData = useSelector((state) => state.cart);
+    const addressData = useSelector(state => state.address);
+    const currentSelectedAddress = addressData.allAddresses.find(
+        (addr) => addr.id == addressData.selected
+    );
+    const isButtonDisabled = cartData.items.length < 1 || addressData.selected == ""
     let totalCartAmount = cartData.items
         .map((item) => {
             let currProduct = productData.find(
@@ -181,7 +186,7 @@ const index = () => {
 
     // here i removed a useffect that loads cart items from storage in _layout.js
     const modalRef = useRef();
-    
+
     return (
         <>
             <ScrollView className='px-4 bg-white'>
@@ -216,7 +221,12 @@ const index = () => {
                     className='flex flex-row justify-between flex-wrap'
                     onPress={() => modalRef.current.open()}>
                     <Text className='text-secondary font-medium text-sm modern:text-base'>
-                        No.8, 9th cross street, thirumudivakkam, Chennai
+                        {!currentSelectedAddress
+                            ? "Choose an address to proceed"
+                            : [
+                                  currentSelectedAddress.firstName,
+                                  currentSelectedAddress.streetLandmark,
+                              ].join(", ")}
                     </Text>
                     <View className='flex flex-row'>
                         <Ionicons
@@ -244,9 +254,9 @@ const index = () => {
                         </Text>
                     </View>
                     <TouchableOpacity
-                        disabled={cartData.length < 0}
+                        disabled={isButtonDisabled}
                         className={`flex flex-1 py-3 bg-primary rounded-lg ${
-                            cartData.length < 1 && "opacity-60"
+                            isButtonDisabled && "opacity-60 bg-secondary"
                         }`}
                         onPress={() => router.push("/cart/mockpay")}>
                         <Text className='text-white self-center font-nunito-800 text-md modern:text-lg'>

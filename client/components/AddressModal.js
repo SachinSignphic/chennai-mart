@@ -75,7 +75,10 @@ const AddressModal = forwardRef((props, ref) => {
                         activeOpacity={0.8}
                         key={addr.id}
                         className='mb-4 mx-1'
-                        onPress={() => dispatch(selectedAddress(addr.id))}>
+                        onPress={() => {
+                            ref.current.close();
+                            dispatch(selectedAddress(addr.id));
+                        }}>
                         <RadioButton
                             title={addr.firstName}
                             subtitle={addr.streetLandmark}
