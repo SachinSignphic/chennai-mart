@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { columns } from "@/utils/dummyOrderData";
 import { IoEyeSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "@/constants";
 import { loadOrders } from "@/context/orderSlice";
@@ -18,23 +18,11 @@ const Orders = () => {
     const apiRef = useGridApiRef(); // this hook provides DataGrid context and can be used to manipulate it!
     
     const orderData = useSelector((state) => state.orders);
-    const rows = useMemo(() => {
-        return orderData.length > 0? orderData.map(order => ({
-            id: order._id,
-            name: order.name,
-            address: order.address.streetLandmark,
-            date: order.placedOn,
-            products: order.items.length,
-            status: order.orderStatus,
-            driver: order.driver.firstName,
-            items: order.items
-        })): []
-    }, [orderData]);
 
     useEffect(() => {
         const fetchOrderData = async () => {
             try {
-                const orderRequest = await axios.get(API_URL + "/admin/orders");
+                const orderRequest = await axios.get(API_URL + "/admin/orders"); // for now no pagination, apro paathuklaam
                 console.log(
                     "🚀 ~ fetchOrderData ~ orderRequest:",
                     orderRequest
@@ -42,6 +30,9 @@ const Orders = () => {
                 dispatch(loadOrders(orderRequest.data));
             } catch (error) {
                 console.log("🚀 ~ fetchOrderData ~ error:", error);
+                if (error.response?.status === 404) {
+                    // handle shit here
+                }
             }
         };
         
@@ -94,8 +85,8 @@ const Orders = () => {
                 </div>
 
                 <DataGrid
-                    rows={rows}
-                    loading={rows.length == 0}
+                    rows={orderData}
+                    loading={orderData.length == 0}
                     columns={[
                         ...columns,
                         {
@@ -120,7 +111,7 @@ const Orders = () => {
                             },
                         },
                     }}
-                    pageSizeOptions={[5]}
+                    pageSizeOptions={[5, 10, 15, 25, 30]}
                     checkboxSelection
                     disableRowSelectionOnClick
                     onRowSelectionModelChange={(rowIds) => console.log(rowIds)}

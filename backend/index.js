@@ -6,7 +6,8 @@ import cors from 'cors';
 import authController from './controller/authController.js'; // Import the auth controller
 import addressController from './controller/addressController.js';
 import cartController from './controller/cartController.js';
-import orderController from  './controller/orderController.js';
+import orderController from './controller/orderController.js';
+import adminController from './controller/adminController.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,3 +32,4 @@ app.use('/auth', authController);
 app.use('/address/', addressController);
 app.use('/cart', cartController);
 app.use('/order', orderController);
+app.use('/admin', adminController);
