@@ -30,7 +30,6 @@ const index = () => {
             </Text>
             <Link
                 href={"/home"}
-                replace
                 className='px-4 py-2 mt-5 text-lg bg-secondary/20 rounded-md'>
                 Continue Shopping
             </Link>

@@ -3,9 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const orderSlice = createSlice({
     name: "orders",
-    initialState: [
-        
-    ],
+    initialState: [],
     reducers: {
         loadOrders: (state, action) => {
             return [...action.payload];
@@ -17,6 +15,7 @@ export const orderSlice = createSlice({
             if (orderDataToModify != -1) {
                 state[orderDataToModify] = action.payload;
             }
+            return state;
         },
         deleteOrder: (state, action) => {
             const orderIndexToDelete = state.findIndex(
@@ -25,9 +24,10 @@ export const orderSlice = createSlice({
             if (orderIndexToDelete != -1) {
                 state.splice(orderIndexToDelete, 1);
             }
+            return state;
         },
         clearOrders: (state) => {
-            state = [];
+            return [];
         },
     },
 });

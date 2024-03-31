@@ -46,7 +46,7 @@ const drivers = Array.from({ length: 10 }, (_, index) => ({
 export {drivers};
 
 export const columns = [
-    { field: "id", headerName: "Order ID", width: 90 },
+    { field: "id", headerName: "Order ID", width: 150 },
     {
         field: "name",
         headerName: "Name",
@@ -80,6 +80,7 @@ export const columns = [
         type: "string",
         width: 150,
         editable: false,
+        valueGetter: (params) => params.row.driver.name
     },
 ];
 
