@@ -8,8 +8,10 @@ const index = () => {
     useEffect(() => {
         const handleBack = (e) => {
             e.preventDefault();
-            router.replace("/home");
+            router.push("/home");
         };
+
+        navigation.addListener('beforeRemove', handleBack);
 
         return () => {
             navigation.removeListener("beforeRemove", handleBack);

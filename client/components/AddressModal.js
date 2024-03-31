@@ -16,6 +16,7 @@ const Modal = RBSheet;
 const AddressModal = forwardRef((props, ref) => {
     const { height } = useWindowDimensions();
     const addressData = useSelector(state => state.address);
+    console.log("🚀 ~ AddressModal ~ addressData:", addressData)
     
     const dispatch = useDispatch();
 
@@ -76,14 +77,14 @@ const AddressModal = forwardRef((props, ref) => {
                 <Text className='font-nunito-400 mb-6 text-lg modern:text-xl text-primary'>
                     Choose from your addresses
                 </Text>
-                {addressData.allAddresses.map((addr) => (
+                {addressData.allAddresses.map((addr, i) => (
                     <TouchableOpacity
                         activeOpacity={0.8}
-                        key={addr.id}
+                        key={i}
                         className='mb-4 mx-1'
                         onPress={() => {
-                            ref.current.close();
                             dispatch(selectedAddress(addr.id));
+                            ref.current.close();
                         }}>
                         <RadioButton
                             title={addr.firstName}

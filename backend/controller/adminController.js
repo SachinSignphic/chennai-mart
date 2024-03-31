@@ -24,11 +24,12 @@ router.get("/orders", async (req, res) => {
         const adminData = orderData.map(order => {
             const currentCart = cartData.find(cart => cart._id + '' === order.cartId + '');
             const currentUser = userData.find(user => user._id + '' === order.userId + '');
+            console.log('for ', order.userId, currentUser.userName);
             const currentAddress = addressData.find(addr => addr.userId + '' === order.userId + '')?.addresses.find(addr => addr._id + '' == order.addressId + '');
             return {
                 id: order.orderId,
                 name: currentUser.userName,
-                address: currentAddress.streetLandmark,
+                address: currentAddress?.streetLandmark,
                 date: order.placedOn,
                 products: currentCart.items.length,
                 status: order.orderStatus,

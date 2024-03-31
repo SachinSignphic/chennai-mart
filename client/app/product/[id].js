@@ -94,6 +94,7 @@ const index = () => {
                     </View>
                 </View>
                 <StatusBar backgroundColor='rgb(242 245 253)' />
+                <View className='mb-8'></View>
             </ScrollView>
             <TabBarCartAction id={id} />
         </>

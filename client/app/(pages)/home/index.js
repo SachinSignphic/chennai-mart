@@ -1,5 +1,5 @@
 // import { View, Text, Pressable, StatusBar } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 // import { router } from "expo-router";
 import {
     SafeArea,
@@ -7,14 +7,28 @@ import {
     HomeSearch,
     CategoryList,
     DealsBanner,
-    ProductsSection,
     ProductsSectionSanity,
 } from "@/components";
 // import { StatusBar } from "expo-status-bar";
-import { StatusBar } from "react-native";
+import { BackHandler, StatusBar, View } from "react-native";
+import { useNavigation } from "expo-router";
 
 const home = () => {
-    // console.log(searchKey)
+    const navigation = useNavigation();
+    
+    useEffect(() => {
+        const handleBack = (e) => {
+            e.preventDefault();
+            BackHandler.exitApp();
+        };
+
+        navigation.addListener("beforeRemove", handleBack);
+
+        return () => {
+            navigation.removeListener("beforeRemove", handleBack);
+        };
+    }, []);
+
     return (
         <SafeArea>
             <HomeHeader />
@@ -32,7 +46,7 @@ const home = () => {
             */}
             <ProductsSectionSanity sectionCategory={"someId"} sectionTitle='Exclusive Offers' sectionActionText='See all' />
             <ProductsSectionSanity sectionCategory={"someId2"} sectionTitle='Deals for you' sectionActionText='See more' randomize />
-
+            <View className='mb-6'></View>
             <StatusBar style="light" barStyle="dark-content" />
         </SafeArea>
     );

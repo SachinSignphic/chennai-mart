@@ -141,6 +141,8 @@ const addresses = () => {
 
             if (addressReq.status == 200) {
                 ToastAndroid.show("Address added!", ToastAndroid.LONG);
+                addressRes.data.id = addressRes.data._id;
+                delete addressRes.data._id
                 dispatch(addAddress(addressRes.data));
             }
 
@@ -331,9 +333,9 @@ const addresses = () => {
                 </>
             ) : (
                 <>
-                    {addressData.allAddresses.map((addr) => (
+                    {addressData.allAddresses.map((addr, i) => (
                         <AddressItemCard
-                            key={addr.id}
+                            key={i}
                             name={addr.firstName}
                             address={[
                                 addr.streetLandmark,
