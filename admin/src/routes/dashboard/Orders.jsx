@@ -18,6 +18,7 @@ const Orders = () => {
     const apiRef = useGridApiRef(); // this hook provides DataGrid context and can be used to manipulate it!
     
     const orderData = useSelector((state) => state.orders);
+    console.log("🚀 ~ Orders ~ orderData:", orderData)
 
     useEffect(() => {
         const fetchOrderData = async () => {
@@ -25,9 +26,12 @@ const Orders = () => {
                 const orderRequest = await axios.get(API_URL + "/admin/orders"); // for now no pagination, apro paathuklaam
                 console.log(
                     "🚀 ~ fetchOrderData ~ orderRequest:",
-                    orderRequest
+                    orderRequest?.data
                 );
-                dispatch(loadOrders(orderRequest.data));
+                dispatch(loadOrders(orderRequest?.data));
+                // setData(orderRequest.data);
+                console.log('can this re-render?');
+                return;
             } catch (error) {
                 console.log("🚀 ~ fetchOrderData ~ error:", error);
                 if (error.response?.status === 404) {

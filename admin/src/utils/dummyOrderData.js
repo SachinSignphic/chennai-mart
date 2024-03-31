@@ -64,7 +64,6 @@ export const columns = [
         headerName: "Products",
         width: 100,
         editable: false,
-        valueGetter: (params) => params.row.items.reduce((prev, curr) => prev + curr.quantity, 0)
     },
     {
         field: "date",

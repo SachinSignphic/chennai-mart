@@ -2,27 +2,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const orderSlice = createSlice({
-    name: "order",
-    initialState: [],
+    name: "orders",
+    initialState: [
+        
+    ],
     reducers: {
         loadOrders: (state, action) => {
-            state = action.payload;
+            return [...action.payload];
         },
         modifyOrder: (state, action) => {
-            const orderDataToModify = state.findIndex(order => order._id == action.payload._id);
+            const orderDataToModify = state.findIndex(
+                (order) => order._id == action.payload._id
+            );
             if (orderDataToModify != -1) {
                 state[orderDataToModify] = action.payload;
             }
         },
         deleteOrder: (state, action) => {
-            const orderIndexToDelete = state.findIndex(order => order._id == action.payload._id);
+            const orderIndexToDelete = state.findIndex(
+                (order) => order._id == action.payload._id
+            );
             if (orderIndexToDelete != -1) {
                 state.splice(orderIndexToDelete, 1);
             }
         },
         clearOrders: (state) => {
             state = [];
-        }
+        },
     },
 });
 
