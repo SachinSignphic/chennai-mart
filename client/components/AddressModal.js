@@ -16,7 +16,7 @@ const Modal = RBSheet;
 const AddressModal = forwardRef((props, ref) => {
     const { height } = useWindowDimensions();
     const addressData = useSelector(state => state.address);
-    // console.log("🚀 ~ AddressModal ~ addresses:", addressData);
+    
     const dispatch = useDispatch();
 
     useEffect(() => {

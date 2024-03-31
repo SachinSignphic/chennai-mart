@@ -28,6 +28,12 @@ export default Layout = () => {
                     ),
                 }}
             />
+            <Stack.Screen
+                name='success/index'
+                options={{
+                    headerShown: false
+                }}
+            />
         </Stack>
     );
 };

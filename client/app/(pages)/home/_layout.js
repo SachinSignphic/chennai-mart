@@ -13,7 +13,7 @@ export default Layout = () => {
     useEffect(() => {
         const getCartId = async () => {
             const cartId = await getStorageData("cartId");
-            console.log("🚀 ~ Home ~ cartId:", cartId);
+            console.log("🚀 ~ Home _layout ~ cartId:", cartId);
             if (cartId) {
                 console.log('cart id exists from storage?');
                 dispatch(addCartId(cartId));
@@ -23,7 +23,7 @@ export default Layout = () => {
         const getCartItemsFromStr = async () => {
             const cartItemsss = await getStorageData("cartItems");
             console.log(
-                "🚀 ~ _layout ~ useEffect ~ cartItemsss:",
+                "🚀 ~ Home _layout ~ useEffect ~ cartItemsss:",
                 cartItemsss
             );
             if (cartItemsss) {

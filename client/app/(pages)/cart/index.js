@@ -15,7 +15,7 @@ import { ProductCartAction } from "@/components";
 import { router } from "expo-router";
 import { getToken } from "@/utils/fetch";
 import storage from "@/utils/storage";
-import { addCartId } from "@/context/cart";
+import cart, { addCartId } from "@/context/cart";
 import { API_URL } from "@/constants";
 import AddressModal from "@/components/AddressModal";
 
@@ -187,9 +187,11 @@ const index = () => {
             console.log("updating cart...");
             updateCartData();
         } else {
-            // hit endpoint that create new cart for user and THEN send it
-            console.log("creating new cart...");
-            createCart();
+            // hit endpoint that create new cart IF there are any products and THEN send it
+            if (cartData.items.length != 0) {
+                console.log("creating new cart...");
+                createCart();
+            }
         }
     }, []);
 

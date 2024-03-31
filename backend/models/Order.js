@@ -25,6 +25,13 @@ const OrderSchema = new Schema({
         default: "pending",
     },
     amountPaid: Number,
+    placedOn: {
+        type: Schema.Types.Date,
+        default: Date.now
+    },
+    deliveredOn: {
+        type: Schema.Types.Date,
+    }
 });
 
 const OrderModel = model("order", OrderSchema);

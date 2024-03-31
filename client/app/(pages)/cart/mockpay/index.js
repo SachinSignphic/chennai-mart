@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity, ToastAndroid, Alert } from "react-native";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "@/constants";
 import { getToken } from "@/utils/fetch";
 import { router } from "expo-router";
 import storage from "@/utils/storage";
+import { addCartId, deleteCart } from "@/context/cart";
 
 const index = () => {
     const productData = useSelector((state) => state.products.products);
@@ -23,6 +24,8 @@ const index = () => {
         })
         .reduce((prev, curr) => prev + curr, 0)
         .toFixed(2);
+
+    const dispatch = useDispatch();
 
     const handlePayment = async () => {
         try {
@@ -45,7 +48,11 @@ const index = () => {
                     "Order Placement successful!",
                     ToastAndroid.LONG
                 );
-                console.log("Cart updated!");
+                console.log("Order has been placed successfully!");
+                await storage.remove({ key: "cartId" });
+                await storage.remove({ key: 'cartItems' });
+                dispatch(addCartId(""));
+                dispatch(deleteCart());
                 router.push("/cart/success");
             }
 
