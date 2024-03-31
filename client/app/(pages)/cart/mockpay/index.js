@@ -1,14 +1,16 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ToastAndroid, Alert } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 import { API_URL } from "@/constants";
 import { getToken } from "@/utils/fetch";
+import { router } from "expo-router";
+import storage from "@/utils/storage";
 
 const index = () => {
     const productData = useSelector((state) => state.products.products);
     const cartData = useSelector((state) => state.cart);
     const addressData = useSelector((state) => state.address);
-    let totalCartAmount = cartData.items
+    const totalCartAmount = cartData.items
         .map((item) => {
             let currProduct = productData.find(
                 (product) => product._id == item.id
@@ -24,26 +26,30 @@ const index = () => {
 
     const handlePayment = async () => {
         try {
-            const cartUpdateRequest = await fetch(API_URL + "/cart/update", {
+            const orderRequest = await fetch(API_URL + "/order/new", {
                 method: "POST",
                 headers: {
                     Auth: await getToken(),
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(cartData),
+                body: JSON.stringify({ cart: cartData, address: addressData.selected }),
             });
-            const cartUpdateResponse = await cartUpdateRequest.json();
+            const orderResponse = await orderRequest.json();
             console.log(
-                "🚀 ~ updateCartData ~ cartUpdateResponse:",
-                cartUpdateResponse
+                "🚀 ~ updateCartData ~ orderResponse:",
+                orderResponse
             );
 
-            if (cartUpdateRequest.status == 200) {
-                // here cart is updated successfully means, maybe show an indication?
+            if (orderRequest.status == 200) {
+                ToastAndroid.show(
+                    "Order Placement successful!",
+                    ToastAndroid.LONG
+                );
                 console.log("Cart updated!");
+                router.push("/cart/success");
             }
 
-            if (cartUpdateRequest.status == 403) {
+            if (orderRequest.status == 403) {
                 await storage.remove({ key: "user" });
                 await storage.save({ key: "user", expires: 10 });
                 ToastAndroid.show(
@@ -54,20 +60,29 @@ const index = () => {
                 return;
             }
 
-            if (cartUpdateRequest.status == 404) {
+            if (orderRequest.status == 404) {
                 await storage.remove({ key: "cartId" });
+                ToastAndroid.show(
+                    "Cart ID was not found!",
+                    ToastAndroid.LONG
+                );
                 dispatch(addCartId(""));
             }
 
-            if (cartUpdateRequest.status == 500) {
+            if (orderRequest.status == 500) {
                 Alert.alert(
                     "Unexpected Server Error!",
-                    cartUpdateResponse.error,
+                    orderResponse.error,
                     [{ text: "OK", style: "cancel" }]
                 );
             }
         } catch (error) {
             console.log("🚀 ~ updateCartData ~ error:", error);
+            Alert.alert(
+                "Unexpected Error!",
+                "Please report this error",
+                [{ text: "OK", style: "cancel" }]
+            );
             return;
         }
     };

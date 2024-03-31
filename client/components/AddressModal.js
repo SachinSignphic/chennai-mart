@@ -1,4 +1,4 @@
-import { View, Text, useWindowDimensions, TouchableOpacity, ToastAndroid } from "react-native";
+import { View, Text, useWindowDimensions, TouchableOpacity, ToastAndroid, Alert } from "react-native";
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { ScrollView } from "react-native-gesture-handler";
@@ -9,6 +9,7 @@ import { populateAddresses, selectedAddress } from "@/context/address";
 import { router } from "expo-router";
 import { API_URL } from "@/constants";
 import { getToken } from "@/utils/fetch";
+import storage from "@/utils/storage";
 
 const Modal = RBSheet;
 
@@ -46,6 +47,11 @@ const AddressModal = forwardRef((props, ref) => {
               }
           } catch (error) {
               console.log("🚀 ~ fetchUserAddresses ~ error:", error)
+              Alert.alert(
+                  "Unexpected Error!",
+                  error + '',
+                  [{ text: "OK", style: "cancel" }]
+              );
               return;
           }
       };

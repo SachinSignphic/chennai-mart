@@ -14,9 +14,10 @@ const OrderSchema = new Schema({
         ref: "Address",
     },
     cartTotal: Number,
-    // deliveredBy: {
-    //     // here create a ref for driver id
-    // }
+    deliveredBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
     orderId: String,
     paymentStatus: {
         type: String,

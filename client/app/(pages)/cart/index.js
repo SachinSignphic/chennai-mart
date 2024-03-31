@@ -157,6 +157,10 @@ const index = () => {
 
                 if (cartUpdateRequest.status == 404) {
                     await storage.remove({ key: "cartId" });
+                    ToastAndroid.show(
+                        "Cart ID was not found!",
+                        ToastAndroid.LONG
+                    );
                     dispatch(addCartId(""));
                 }
 
@@ -169,6 +173,11 @@ const index = () => {
                 }
             } catch (error) {
                 console.log("🚀 ~ updateCartData ~ error:", error);
+                Alert.alert(
+                    "Unexpected Error!",
+                    error,
+                    [{ text: "OK", style: "cancel" }]
+                );
                 return;
             }
         };
@@ -176,7 +185,7 @@ const index = () => {
         if (cartData.cartId) {
             // POST request to send product data to endpoint
             console.log("updating cart...");
-            // updateCartData();
+            updateCartData();
         } else {
             // hit endpoint that create new cart for user and THEN send it
             console.log("creating new cart...");

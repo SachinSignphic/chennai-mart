@@ -7,6 +7,11 @@ const UserSchema = new Schema({
     phone: String,
     age: Number,
     otp: String,
+    role: {
+        type: String,
+        enum: ['CUSTOMER', 'DRIVER', 'ADMIN'],
+        default: 'CUSTOMER'
+    }
 });
 
 const UserModel = model('user', UserSchema);

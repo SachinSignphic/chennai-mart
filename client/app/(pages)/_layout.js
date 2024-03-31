@@ -103,7 +103,7 @@ export default function Layout() {
                     options={{
                         title: "",
                         headerShown: false,
-                        unmountOnBlur: true,
+                        // unmountOnBlur: true,
                         tabBarIcon: (tabBarIconProps) => (
                             <TabIconWrapper tabBarIconProps={tabBarIconProps}>
                                 <FeatherIcon
