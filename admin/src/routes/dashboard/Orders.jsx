@@ -5,11 +5,48 @@ import SearchBar from "@/components/SearchBar";
 import { IoMdMore, IoMdClose } from "react-icons/io";
 import * as Popover from "@radix-ui/react-popover";
 import { Link } from "react-router-dom";
-import { columns, rows } from "@/utils/dummyOrderData";
+import { columns } from "@/utils/dummyOrderData";
 import { IoEyeSharp } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useMemo } from "react";
+import axios from "axios";
+import { API_URL } from "@/constants";
+import { loadOrders } from "@/context/orderSlice";
 
 const Orders = () => {
+    const dispatch = useDispatch();
     const apiRef = useGridApiRef(); // this hook provides DataGrid context and can be used to manipulate it!
+    
+    const orderData = useSelector((state) => state.orders);
+    const rows = useMemo(() => {
+        return orderData.length > 0? orderData.map(order => ({
+            id: order._id,
+            name: order.name,
+            address: order.address.streetLandmark,
+            date: order.placedOn,
+            products: order.items.length,
+            status: order.orderStatus,
+            driver: order.driver.firstName,
+            items: order.items
+        })): []
+    }, [orderData]);
+
+    useEffect(() => {
+        const fetchOrderData = async () => {
+            try {
+                const orderRequest = await axios.get(API_URL + "/admin/orders");
+                console.log(
+                    "🚀 ~ fetchOrderData ~ orderRequest:",
+                    orderRequest
+                );
+                dispatch(loadOrders(orderRequest.data));
+            } catch (error) {
+                console.log("🚀 ~ fetchOrderData ~ error:", error);
+            }
+        };
+        
+        if (orderData.length === 0) fetchOrderData();
+    }, []);
 
     return (
         <Layout>
@@ -58,6 +95,7 @@ const Orders = () => {
 
                 <DataGrid
                     rows={rows}
+                    loading={rows.length == 0}
                     columns={[
                         ...columns,
                         {

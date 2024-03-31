@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 import { connect } from 'mongoose';
-
+import cors from 'cors';
 import authController from './controller/authController.js'; // Import the auth controller
 import addressController from './controller/addressController.js';
 import cartController from './controller/cartController.js';
@@ -12,6 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors());
 
 // MongoDB connection URL
 const mongoURI = process.env.MONGO_URI;

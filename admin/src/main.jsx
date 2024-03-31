@@ -12,6 +12,8 @@ import OrderPage from './routes/dashboard/orders/OrderPage.jsx'
 import DriverPage from './routes/dashboard/drivers/DriverPage.jsx'
 import DriverRequest from './routes/dashboard/requests/DriverRequest.jsx'
 import ProductRequest from './routes/dashboard/requests/ProductRequest.jsx'
+import { Provider } from 'react-redux'
+import context from './context/index.js'
 
 const router = createBrowserRouter([
     {
@@ -93,8 +95,10 @@ const router = createBrowserRouter([
     },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <Provider store={context}>
+            <RouterProvider router={router} />
+        </Provider>
+    </React.StrictMode>
+);

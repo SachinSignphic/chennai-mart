@@ -29,6 +29,11 @@ const OrderSchema = new Schema({
         type: Schema.Types.Date,
         default: Date.now
     },
+    orderStatus: {
+        type: String,
+        enum: ['placed', 'picked-up', 'on-the-way', 'delivered', 'failed'],
+        default: 'placed'
+    },
     deliveredOn: {
         type: Schema.Types.Date,
     }
