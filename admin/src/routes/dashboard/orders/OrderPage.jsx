@@ -17,10 +17,9 @@ const OrderPage = () => {
     const orderDetails = orderData.find((order) => order.id == id);
 
     const productData = useSelector((state) => state.products);
-    const productDetails = productData.filter((product) =>
-        orderDetails.items.map((item) => item.productId).includes(product._id)
-    );
-    // const productDetails = orderDetails?.items?.map(item => productData.find(product => product._id == item.productId))
+    const productIDsinOrder = orderDetails? orderDetails.items.map((item) => item.productId) : [];
+    const productDetails = productData.filter((product) => productIDsinOrder.includes(product._id));
+    
     console.log("🚀 ~ OrderPage ~ orderData:", orderData);
     console.log("🚀 ~ OrderPage ~ orderDetails:", orderDetails);
     console.log("🚀 ~ OrderPage ~ productData:", productData);
@@ -65,11 +64,9 @@ const OrderPage = () => {
             fetchOrderData();
         }
 
-        if (orderDetails && productDetails.length == 0) {
+        if (orderDetails && productDetails.length != orderDetails.items.length) {
             console.log("idhu yen fire aavala");
-            fetchProductsData(
-                orderDetails.items.map((order) => order.productId)
-            );
+            fetchProductsData(productIDsinOrder);
         }
     }, [orderDetails, productDetails]);
 
