@@ -114,8 +114,8 @@ const OrderPage = () => {
                                             <div
                                                 key={i}
                                                 className='flex items-center p-1 gap-2 w-full'>
-                                                <div className='grid place-items-center h-12 w-12 bg-tertiary/10'>
-                                                    <img src={item.main_image.asset.url} alt={item.name} />
+                                                <div className='grid place-items-center h-16 w-16 bg-tertiary/10'>
+                                                    <img src={item.main_image.asset.url} alt={item.name} className="w-16 h-16 object-contain" />
                                                 </div>
                                                 <div className='flex flex-col'>
                                                     <h4 className='font-poppins-400 text-tertiary'>
@@ -127,8 +127,8 @@ const OrderPage = () => {
                                                 </div>
                                                 <h3 className='font-poppins-500 ml-auto'>
                                                     ₹
-                                                    {currItemInCart.quantity *
-                                                        (item.discounted_price == 0? item.price - (item.discount/100 * item.price): item.discounted_price)}
+                                                    {(currItemInCart.quantity *
+                                                        (item.discounted_price == 0? item.price - (item.discount/100 * item.price): item.discounted_price)).toFixed(2)}
                                                 </h3>
                                             </div>
                                         );
@@ -139,6 +139,7 @@ const OrderPage = () => {
                                     <h3 className='text-black/80 font-poppins-500 text-lg'>
                                         Total:
                                     </h3>
+                                    <h3 className='text-black/80 font-poppins-500 text-lg'>
                                     ₹ {
                                         productDetails ? productDetails.map(prod => {
                                             let currItemInCart =
@@ -155,6 +156,7 @@ const OrderPage = () => {
                                                     : prod.discounted_price);
                                         }).reduce((total, curr) => total + curr, 0).toFixed(2): 0
                                     }
+                                    </h3>
                                 </div>
                                 <div className='flex justify-between w-full'>
                                     <h3 className='text-black/80 font-poppins-500 text-lg'>

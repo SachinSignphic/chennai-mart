@@ -67,7 +67,7 @@ export default function App() {
             {
                 !photo?
                 <>
-                    <Camera ref={cameraRef} style={{flex:1, width: "100%"}} type={type} onCameraReady={() => setIsCameraReady(true)}>
+                    <Camera ref={cameraRef} style={{ flex: 1 }} type={type} onCameraReady={() => setIsCameraReady(true)}>
                     </Camera>
                     <View className='absolute bottom-3 flex flex-row w-full gap-x-6 items-center justify-center bg-transparent mb-6'>
                         <TouchableOpacity className='items-center' onPress={toggleCameraType}>

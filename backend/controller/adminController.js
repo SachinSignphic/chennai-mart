@@ -5,6 +5,7 @@ import UserModel from '../models/User.js';
 import AddressModel from '../models/Address.js'
 import OrderModel from '../models/Order.js'
 import sanity from "../utils/sanity.js";
+import DriverModel from "../models/Driver.js";
 
 router.get("/orders", async (req, res) => {
     try {
@@ -13,12 +14,16 @@ router.get("/orders", async (req, res) => {
         const cartData = await CartModel.find();
         const orderData = await OrderModel.find();
         const addressData = await AddressModel.find();
-        const productIDs = cartData.flatMap(cart => cart.items.map(item => item.productId));
+        const driverData = await DriverModel.find();
+       // const productIDs = cartData.flatMap(cart => cart.items.map(item => item.productId));
 
         const adminData = orderData.map(order => {
             const currentCart = cartData.find(cart => cart._id + '' === order.cartId + '');
             const currentUser = userData.find(user => user._id + '' === order.userId + '');
             const currentAddress = addressData.find(addr => addr.userId + '' === order.userId + '')?.addresses.find(addr => addr._id + '' == order.addressId + '');
+            const currentDriver = order.deliveredBy ? driverData.find(driver => driver._id + '' === order.deliveredBy + ''): { firstName: 'N/A', lastName: '', id: '0'};
+            console.log("🚀 ~ adminData ~ order.deliveredBy:", order.deliveredBy)
+
             return {
                 id: order.orderId,
                 name: currentUser.userName,
@@ -26,13 +31,14 @@ router.get("/orders", async (req, res) => {
                 date: new Date(order.placedOn).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' }),
                 products: currentCart.items.length,
                 status: order.orderStatus,
-                driver: { name: order.deliveredBy || 'N/A', id: order.deliveredBy }, // here check for drivers in drivers collctn with ROLE and use that name
+                driver: { name: currentDriver.firstName + ' ' + currentDriver.lastName, id: order.deliveredBy }, // here check for drivers in drivers collctn with ROLE and use that name
                 items: currentCart.items,
                 total: order.cartTotal
             }
         });
         return res.json(adminData);
     } catch (error) {
+        console.log("🚀 ~ router.get ~ error:", error)
         res.status(500).json({
             error: "Server error in fetching admin order data",
         });
