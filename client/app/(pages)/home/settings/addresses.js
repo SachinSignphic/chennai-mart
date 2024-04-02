@@ -14,11 +14,19 @@ import { API_URL } from "@/constants";
 import { getToken, modifyUserSessionStorage } from "@/utils/fetch";
 import { useDispatch, useSelector } from "react-redux";
 import storage from "@/utils/storage";
-import { addAddress, deleteAddress, populateAddresses } from "@/context/address";
+import {
+    addAddress,
+    deleteAddress,
+    populateAddresses,
+} from "@/context/address";
+import { router } from "expo-router";
 
 const AddressItemCard = ({ name, address, action, isDeleting }) => {
     return (
-        <View className={`flex p-3.5 modern:p-6 modern:gap-y-2 mt-2 justify-center border border-primary/10 rounded-xl ${isDeleting && 'opacity-70'}`}>
+        <View
+            className={`flex p-3.5 modern:p-6 modern:gap-y-2 mt-2 justify-center border border-primary/10 rounded-xl ${
+                isDeleting && "opacity-70"
+            }`}>
             <Text className='text-primary font-nunito-400 text-lg modern:text-xl'>
                 {name}
             </Text>
@@ -26,7 +34,12 @@ const AddressItemCard = ({ name, address, action, isDeleting }) => {
                 {address}
             </Text>
             <View className='flex flex-row justify-end items-center'>
-                <TouchableOpacity onPress={action} disabled={isDeleting} className={`${isDeleting && 'opacity-60'} px-4 py-2 rounded-xl`}>
+                <TouchableOpacity
+                    onPress={action}
+                    disabled={isDeleting}
+                    className={`${
+                        isDeleting && "opacity-60"
+                    } px-4 py-2 rounded-xl`}>
                     <Feather
                         name='trash-2'
                         size={24}
@@ -73,7 +86,7 @@ const addresses = () => {
     const [isLoading, setIsLoading] = useState(
         addressData.allAddresses.length < 1
     );
-    const [isDeleting, setIsDeleting] = useState('');
+    const [isDeleting, setIsDeleting] = useState("");
 
     useEffect(() => {
         const fetchUserAddresses = async () => {
@@ -102,7 +115,6 @@ const addresses = () => {
                 }
 
                 if (addressRequest.status == 200) {
-                    setIsLoading(false);
                     dispatch(
                         populateAddresses(
                             addressResponse.data.map((addr) => ({
@@ -114,7 +126,10 @@ const addresses = () => {
                 }
             } catch (error) {
                 console.log("🚀 ~ fetchUserAddresses ~ error:", error);
+                Alert.alert('Unexpected error', 'We did not expect that', [{ style: "cancel", text: "OK" }])
                 return;
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -195,7 +210,7 @@ const addresses = () => {
                 ToastAndroid.show("Address deleted!", 3);
                 dispatch(deleteAddress(addressId));
             }
-            
+
             if (addressReq.status == 404) {
                 ToastAndroid.show("Could not find address!", 3);
             }
@@ -215,10 +230,10 @@ const addresses = () => {
         } catch (error) {
             console.log("🚀 ~ handleDelete ~ error:", error);
         } finally {
-            setIsDeleting('');
+            setIsDeleting("");
         }
-    }
-    
+    };
+
     return (
         <ScrollView className='bg-white px-4 modern:px-8 py-2 gap-y-2 pb-12'>
             {isLoading && <ActivityIndicator size={40} />}

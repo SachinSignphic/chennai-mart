@@ -15,31 +15,19 @@ const TabBarCartAction = ({ id }) => {
     // const currentProduct = productsData.find((item) => item._id == id);
     
     // I Think i am unnecessarily memoizing these states, anyway lets see
-    const cartItemIDs = useMemo(
-        () => cartItems.map((item) => item.id),
-        [cartItems]
-    );
-    const currentCartItemsData = useMemo(
-        () =>
-            productsData.filter((product) => cartItemIDs.includes(product._id)),
-        [productsData, cartItemIDs]
-    );
-    const priceRightNow = useMemo(
-        () =>
-            currentCartItemsData
-                .reduce(
-                    (prev, curr) =>
-                        prev +
-                        (curr.discounted_price === 0
-                            ? curr.price * (1 - curr.discount / 100)
-                            : curr.discounted_price) *
-                            cartItems.find((item) => item.id == curr._id)
-                                .quantity,
-                    0
-                )
-                .toFixed(2),
-        [currentCartItemsData]
-    );
+    const cartItemIDs = cartItems.map((item) => item.id);
+    const currentCartItemsData = productsData.filter((product) => cartItemIDs.includes(product._id))
+    const priceRightNow = currentCartItemsData
+        .reduce(
+            (prev, curr) =>
+                prev +
+                (curr.discounted_price === 0
+                    ? curr.price * (1 - curr.discount / 100)
+                    : curr.discounted_price) *
+                    cartItems.find((item) => item.id == curr._id).quantity,
+            0
+        )
+        .toFixed(2);
 
     return (
         <View className='flex self-center flex-row items-center justify-between w-[90%] bg-primary px-4 rounded-xl min-h-[80px] absolute bottom-[2%]'>
@@ -51,7 +39,7 @@ const TabBarCartAction = ({ id }) => {
                 <Pressable
                     hitSlop={10}
                     onPress={async () =>{ 
-                        await storage.save({ key: 'cartItems', data: cartItems.map(item => item.id == productId? {...item, quantity: ++item.quantity }: item) })
+                        await storage.save({ key: 'cartItems', data: cartItems.map(item => (item.id == id)? ({...item, quantity: ++item.quantity }): item) })
                         dispatch(addToCart({ id }))}}>
                     <View className='flex flex-row gap-x-2 items-center justify-center px-6 py-4 rounded-xl bg-[#100F18]'>
                         <MaterialCommunityIcons

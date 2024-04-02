@@ -52,6 +52,7 @@ router.post('/delete', verifyTokenMiddleware, async (req, res) => {
         const addressData = await AddressModel.findOne({ userId: req.userId });
         if (!addressData) return res.status(404).json({ message: "No addresses saved!" });
         addressData.addresses = addressData.addresses.filter(address => address._id + '' !== req.body.addressId);
+        // dont delete, but just disable
         await addressData.save();
         return res.json({ message: "Deleted successfully!" });
     } catch (error) {

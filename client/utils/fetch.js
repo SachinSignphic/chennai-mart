@@ -47,4 +47,13 @@ const modifyUserSessionStorage = async () => {
     }
 }
 
-export { getToken, getStorageData, modifyUserSessionStorage };
+const clearStorage = async (keys = []) => {
+    try {
+        const promises = keys.map(async key => await storage.remove({ key }));
+        Promise.all(promises).then(results => console.log(results));
+    } catch (error) {
+        console.log("🚀 ~ clearStorage ~ error:", error)
+    }
+}
+
+export { getToken, getStorageData, modifyUserSessionStorage, clearStorage };

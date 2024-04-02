@@ -3,10 +3,9 @@ import React from "react";
 import { useGlobalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
-    SimpleLineIcons,
     AntDesign,
     Ionicons,
-    MaterialIcons
+    MaterialCommunityIcons
 } from "@expo/vector-icons";
 import { TabBarCartAction } from "@components";
 import { useSelector } from "react-redux";
@@ -60,7 +59,7 @@ const index = () => {
                     </View>
                     <View className='flex flex-row justify-around py-4 border-b border-[#F0F3FB]'>
                         <View className='flex items-center flex-row gap-2'>
-                            <MaterialIcons
+                            <MaterialCommunityIcons
                                 name='scale'
                                 size={24}
                                 color='black'

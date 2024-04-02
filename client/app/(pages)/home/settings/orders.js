@@ -116,7 +116,6 @@ const orders = () => {
             }
             
             if (ordersRequest.status == 200) {
-                setIsLoading(false);
                 dispatch(loadOrders(ordersResponse));
             }
 
@@ -125,6 +124,8 @@ const orders = () => {
             Alert.alert("Unexpected Error", error, [
                 { style: "cancel", text: "OK" },
             ]);
+        } finally {
+            setIsLoading(false);
         }
       }
 

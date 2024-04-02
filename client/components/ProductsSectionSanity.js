@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
 import sanity from "@/utils/sanity";
-import { addProduct, addProductsArray } from "@/context/productData";
+import { addProductsArray } from "@/context/productData";
 
 const productQuery = `
     *[_type=='products'] {
@@ -23,7 +23,7 @@ const productQuery = `
             }
         },
         images{asset -> {url}}[]
-    }[1..20]
+    }[20..40]
 `
 
 const ProductsSectionSanity = ({
@@ -67,14 +67,14 @@ const ProductsSectionSanity = ({
                     {sectionTitle}
                 </Text>
                 <Text className='text-sm modern:text-base font-nunito-400 text-primary'>
-                    {sectionActionText}
+                    {/* {sectionActionText} */}
+                    {''}
                 </Text>
             </View>
             {productData.length !== 0 ? (
                 <FlatList
-                    data={
-                        productData
-                    }
+                    data={productData}
+                    // onEndReached={() => console.log('yeah end reached')}  --> create a function to check if there are more products in global store if not fetch more prods
                     renderItem={({ item }) => (
                         <ProductCard
                             key={item._id}
@@ -108,10 +108,10 @@ const ProductsSectionSanity = ({
                     className='flex-grow-0'
                 />
             ) : (
-                <>
-                    <ActivityIndicator size={29} />
+                <View className='flex w-full items-center justify-center flex-row'>
+                    <ActivityIndicator size={35} />
                     <Text>Loading...</Text>
-                </>
+                </View>
             )}
         </View>
     );

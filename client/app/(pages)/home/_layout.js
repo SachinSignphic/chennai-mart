@@ -2,13 +2,15 @@ import { Stack, useLocalSearchParams } from "expo-router";
 // import { Image } from "react-native";
 import { StackHeader } from "@components";
 import { useEffect } from "react";
-import { getStorageData } from "@/utils/fetch";
+import { clearStorage, getStorageData } from "@/utils/fetch";
 import { useDispatch } from "react-redux";
 import { addCartId, addToCartFromLS } from "@/context/cart";
 
 export default Layout = () => {
     const x = useLocalSearchParams();
     const dispatch = useDispatch();
+
+    // clearStorage(['cartId', 'cartItems', 'user'])
 
     useEffect(() => {
         const getCartId = async () => {

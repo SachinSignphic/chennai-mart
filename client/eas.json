@@ -13,7 +13,7 @@
             "env": {
                 "EXPO_PUBLIC_API_URL":"http://localhost:3333",
                 "EXPO_PUBLIC_MODE":"dev",
-                "EXPO_PUBLIC_SERVER_URL":"https://16gf53qw-6969.inc1.devtunnels.ms",
+                "EXPO_PUBLIC_SERVER_URL":"https://rich-red-ladybug-slip.cyclic.app",
                 "EXPO_PUBLIC_ENV":"dev",
                 "EXPO_PUBLIC_PROJECT_ID":"wgdjs7xs",
                 "EXPO_PUBLIC_DATASET":"production"
