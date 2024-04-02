@@ -31,7 +31,7 @@ const OrderSchema = new Schema({
     },
     orderStatus: {
         type: String,
-        enum: ['placed', 'picked-up', 'on-the-way', 'delivered', 'failed'],
+        enum: ['placed', 'dispatched', 'cancelled', 'delivered', 'failed'],
         default: 'placed'
     },
     deliveredOn: {

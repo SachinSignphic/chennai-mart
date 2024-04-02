@@ -45,6 +45,19 @@ router.get('/', verifyTokenMiddleware, async (req, res) => {
         console.log("🚀 ~ address.get ~ error:", error);
         return res.status(500).json({ message: "Server error in fetching addresses!" });
     }
+});
+
+router.post('/delete', verifyTokenMiddleware, async (req, res) => {
+    try {
+        const addressData = await AddressModel.findOne({ userId: req.userId });
+        if (!addressData) return res.status(404).json({ message: "No addresses saved!" });
+        addressData.addresses = addressData.addresses.filter(address => address._id + '' !== req.body.addressId);
+        await addressData.save();
+        return res.json({ message: "Deleted successfully!" });
+    } catch (error) {
+        console.log("🚀 ~ address.get ~ error:", error);
+        return res.status(500).json({ message: "Server error in deleting address!" });
+    }
 })
 
 export default router;

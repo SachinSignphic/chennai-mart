@@ -94,14 +94,14 @@ const AddressModal = forwardRef((props, ref) => {
                                 <Ionicons
                                     name='radio-button-off-sharp'
                                     size={30}
-                                    color={"white"}
+                                    color={"black"}
                                 />
                             )}
                             selectedIcon={() => (
                                 <Ionicons
-                                    name='radio-button-off-sharp'
+                                    name='checkmark-circle-outline'
                                     size={30}
-                                    color={"black"}
+                                    color={"white"}
                                 />
                             )}
                         />

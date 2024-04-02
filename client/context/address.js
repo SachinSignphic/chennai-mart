@@ -15,10 +15,13 @@ export const addressSlice = createSlice({
         },
         selectedAddress: (state, action) => {
             state.selected = action.payload;
+        },
+        deleteAddress: (state, action) => {
+            state.allAddresses = state.allAddresses.filter(addr => addr._id != action.payload);
         }
     },
 });
 
-export const { addAddress, populateAddresses, selectedAddress } = addressSlice.actions;
+export const { addAddress, populateAddresses, selectedAddress, deleteAddress } = addressSlice.actions;
 
 export default addressSlice.reducer;

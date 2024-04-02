@@ -5,6 +5,8 @@ import { verifyTokenMiddleware } from "../utils/middleware.js";
 import OrderModel from "../models/Order.js";
 import sanity from "../utils/sanity.js";
 import { generate as OTPGenerator } from 'otp-generator';
+import AddressModel from "../models/Address.js";
+import DriverModel from "../models/Driver.js";
 
 // This endpoint is called from frontend when user finalizes order jsut before payment page
 // so probably generate payment link here
@@ -95,5 +97,45 @@ router.post("/new", verifyTokenMiddleware, async (req, res) => {
         });
     }
 });
+
+router.get("/", verifyTokenMiddleware, async (req, res) => {
+    try {
+        const orderData = await OrderModel.find({ userId: req.userId });
+        const cartData = await CartModel.find({ userId: req.userId });
+        const addressData = await AddressModel.findOne({ userId: req.userId });
+        const driverData = await DriverModel.find();
+
+        if (!orderData) return res.status(404).json({ error: "No orders found!" });
+        if (!addressData) return res.status(404).json({ error: "No addresses found!" });
+        if (!cartData) return res.status(404).json({ error: "No carts found!" });
+        if (!driverData) return res.status(404).json({ error: "No drivers found!" });
+        
+        const orders = orderData.map(order => {
+            const currentAddress = addressData.addresses.find(address => address._id + '' === order.addressId + '');
+            const currentCart = cartData.find(cart => cart._id + '' === order.cartId + '');
+            const currentDriver = order.deliveredBy ? driverData.find(driver => driver._id + '' === order.deliveredBy + ''): null;
+
+            return {
+                id: order.orderId,
+                date: order.placedOn ? new Date(order.placedOn).toLocaleDateString("en-IN", {
+                    timeZone: "Asia/Kolkata",
+                }): 'N/A',
+                time: order.placedOn? new Date(order.placedOn).toLocaleTimeString("en-IN", {
+                    timeZone: "Asia/Kolkata",
+                }): 'N/A',
+                name: currentAddress.firstName + ' ' + currentAddress.lastName,
+                status: order.orderStatus,
+                total: order.cartTotal,
+                itemsCount: currentCart.items.length,
+                deliveredBy: currentDriver ?currentDriver.firstName + ' ' + currentDriver.lastName: 'N/A' 
+            };
+        })
+
+        res.json(orders);
+    } catch (error) {
+        console.log("🚀 ~ order.get ~ error:", error);
+        return res.status(500).json({ error: "Server error in fetching orders" });
+    }
+})
 
 export default router;

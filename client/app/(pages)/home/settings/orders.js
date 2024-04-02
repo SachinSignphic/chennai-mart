@@ -4,37 +4,39 @@ import {
     ScrollView,
     TextInput,
     TouchableOpacity,
+    ToastAndroid,
+    Alert,
+    ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { API_URL } from "@/constants";
+import { getToken } from "@/utils/fetch";
+import { loadOrders } from "@/context/orders";
 
-// orderStatus 1 --> placed
-// orderStatus 2 --> dispatched
-// orderStatus 3 --> delivered
-// orderStatus 4 --> cancelled
-// orderStatus 5 --> failed
 const orderStatusMap = {
-    1: {
+    "placed": {
         status: "placed",
         badge: "bg-badge-regular",
         "badge-text": "text-white",
     },
-    2: {
+    "dispatched": {
         status: "dispatched",
         badge: "bg-badge-regular",
         "badge-text": "text-regular",
     },
-    3: {
+    "delivered": {
         status: "delivered",
         badge: "bg-badge-success",
         "badge-text": "text-success",
     },
-    4: {
+    "cancelled": {
         status: "cancelled",
         badge: "bg-badge-critical",
         "badge-text": "text-critical",
     },
-    5: {
+    "failed": {
         status: "failed",
         badge: "bg-badge-critical",
         "badge-text": "text-critical",
@@ -51,9 +53,7 @@ const OrderItemCard = ({
     buttonText,
 }) => {
     return (
-        <View
-            className='flex p-3.5 modern:p-6 modern:gap-y-2 border border-primary/10 mt-4 modern:mt-2 justify-center rounded-xl'
-        >
+        <View className='flex p-3.5 modern:p-6 modern:gap-y-2 border border-primary/10 mt-4 modern:mt-2 justify-center rounded-xl'>
             <View className='flex flex-row justify-between items-center'>
                 <Text className='text-primary font-nunito-400 text-lg modern:text-xl'>
                     {orderName}
@@ -73,16 +73,16 @@ const OrderItemCard = ({
             <View className='flex flex-row justify-between items-center'>
                 <Text
                     className={`${
-                        orderStatusMap[orderStatus].badge ?? "bg-badge-regular"
+                        orderStatusMap[orderStatus]?.badge ?? "bg-badge-regular"
                     } ${
-                        orderStatusMap[orderStatus]["badge-text"] ??
+                        (orderStatusMap[orderStatus] && orderStatusMap[orderStatus]["badge-text"]) ??
                         "text-regular"
                     } rounded-xl text-sm px-3 py-1`}>
-                    {orderStatusMap[orderStatus].status}
+                    {orderStatus}
                 </Text>
                 <TouchableOpacity className='flex rounded-md bg-primary px-3 modern:px-5 py-2 flex-row items-center justify-center'>
                     <Text className='text-white text-md modern:text-lg font-nunito-400'>
-                        Reorder
+                        Details
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -91,6 +91,48 @@ const OrderItemCard = ({
 };
 
 const orders = () => {
+    const orderData = useSelector((state) => state.orders);
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(orderData.orders.length < 1);
+
+    useEffect(() => {
+      const fetchOrderData = async () => {
+        try {
+            const ordersRequest = await fetch(
+                process.env.EXPO_PUBLIC_API_URL + "/order/",
+                {
+                    method: "GET",
+                    headers: {
+                        Auth: await getToken(),
+                    },
+                }
+            );
+            const ordersResponse = await ordersRequest.json();
+            console.log("🚀 ~ fetchOrderData ~ ordersResponse:", ordersResponse)
+            
+            if (ordersRequest.status == 404) {
+                Alert.alert('Error', ordersResponse.error, [{ style: "cancel", text: "OK" }]);
+                return;
+            }
+            
+            if (ordersRequest.status == 200) {
+                setIsLoading(false);
+                dispatch(loadOrders(ordersResponse));
+            }
+
+        } catch (error) {
+            console.log("🚀 ~ fetchOrderData ~ error:", error);
+            Alert.alert("Unexpected Error", error, [
+                { style: "cancel", text: "OK" },
+            ]);
+        }
+      }
+
+      if (orderData.orders.length < 1) fetchOrderData(); 
+
+    }, [])
+    
+
     return (
         <ScrollView className='bg-white px-4 modern:px-8'>
             <View className='flex flex-row justify-center gap-6 items-center mb-6'>
@@ -106,22 +148,23 @@ const orders = () => {
                     // onChangeText={(e) => dispatch(inputText(e))}
                 />
             </View>
-            <OrderItemCard
-                orderId={"#BSD347IO8"}
-                orderDate={"30/12/2023"}
-                orderTime={"9:48 AM"}
-                orderName={"Bell Pepper Red"}
-                orderStatus={1}
-                price={320}
-            />
-            <OrderItemCard
-                orderId={"#HOI3489OP2"}
-                orderDate={"30/12/2023"}
-                orderTime={"10:23 AM"}
-                orderName={"Carrots"}
-                price={300}
-                orderStatus={3}
-            />
+            {
+                isLoading && <ActivityIndicator size={46} />
+            }
+            {
+                orderData.orders.map(order => (
+                    <OrderItemCard
+                        key={order.id}
+                        orderId={order.id}
+                        orderDate={order.date}
+                        orderTime={order.time}
+                        orderName={order.name}
+                        price={order.total}
+                        orderStatus={order.status}
+                    />
+
+                ))
+            }
         </ScrollView>
     );
 };

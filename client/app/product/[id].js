@@ -6,6 +6,7 @@ import {
     SimpleLineIcons,
     AntDesign,
     Ionicons,
+    MaterialIcons
 } from "@expo/vector-icons";
 import { TabBarCartAction } from "@components";
 import { useSelector } from "react-redux";
@@ -48,18 +49,26 @@ const index = () => {
                             {currentProduct?.name}
                         </Text>
                         <Text className='text-xl font-nunito-400 text-primary'>
-                            ₹{currentProduct?.discounted_price === 0 ? (currentProduct?.price * (1 - (currentProduct?.discount / 100))).toFixed(2) : currentProduct?.discounted_price}
+                            ₹
+                            {currentProduct?.discounted_price === 0
+                                ? (
+                                      currentProduct?.price *
+                                      (1 - currentProduct?.discount / 100)
+                                  ).toFixed(2)
+                                : currentProduct?.discounted_price}
                         </Text>
                     </View>
                     <View className='flex flex-row justify-around py-4 border-b border-[#F0F3FB]'>
                         <View className='flex items-center flex-row gap-2'>
-                            <SimpleLineIcons
-                                name='fire'
+                            <MaterialIcons
+                                name='scale'
                                 size={24}
                                 color='black'
                             />
                             <Text className='text-primary font-nunito-400 text-base'>
-                                {(currentProduct?.quantity_no ?? '500') + " " + (currentProduct?.quantity_count ?? 'gm')}
+                                {(currentProduct?.quantity_no ?? "500") +
+                                    " " +
+                                    (currentProduct?.quantity_count ?? "gm")}
                             </Text>
                         </View>
                         <View className='flex items-center flex-row gap-2'>
@@ -69,7 +78,7 @@ const index = () => {
                                 color='black'
                             />
                             <Text className='text-primary font-nunito-400 text-base'>
-                                4.8
+                                No ratings yet!
                             </Text>
                         </View>
                         <View className='flex items-center flex-row gap-2'>
@@ -79,17 +88,19 @@ const index = () => {
                                 color='black'
                             />
                             <Text className='text-primary font-nunito-400 text-base'>
-                                201 reviews
+                                No reviews yet!
                             </Text>
                         </View>
                     </View>
                     {/* the mb-10 is temporary and should be appended to the last element in the page and not to this description */}
-                    <View className='flex gap-2 py-6 mb-10'> 
+                    <View className='flex gap-2 py-6 mb-10'>
                         <Text className='text-xl text-primary font-nunito-800'>
                             Description
                         </Text>
                         <Text className='text-base text-secondary font-nunito-400'>
-                            {currentProduct?.description.map(desc => desc.children[0]?.text).join('\n\n')}
+                            {currentProduct?.description
+                                .map((desc) => desc.children[0]?.text)
+                                .join("\n\n")}
                         </Text>
                     </View>
                 </View>

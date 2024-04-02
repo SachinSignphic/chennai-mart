@@ -14,11 +14,11 @@ import { API_URL } from "@/constants";
 import { getToken, modifyUserSessionStorage } from "@/utils/fetch";
 import { useDispatch, useSelector } from "react-redux";
 import storage from "@/utils/storage";
-import { addAddress, populateAddresses } from "@/context/address";
+import { addAddress, deleteAddress, populateAddresses } from "@/context/address";
 
-const AddressItemCard = ({ name, address }) => {
+const AddressItemCard = ({ name, address, action, isDeleting }) => {
     return (
-        <View className='flex p-3.5 modern:p-6 modern:gap-y-2 mt-2 justify-center border border-primary/10 rounded-xl'>
+        <View className={`flex p-3.5 modern:p-6 modern:gap-y-2 mt-2 justify-center border border-primary/10 rounded-xl ${isDeleting && 'opacity-70'}`}>
             <Text className='text-primary font-nunito-400 text-lg modern:text-xl'>
                 {name}
             </Text>
@@ -26,20 +26,20 @@ const AddressItemCard = ({ name, address }) => {
                 {address}
             </Text>
             <View className='flex flex-row justify-end items-center'>
-                <TouchableOpacity className='px-4 py-2 rounded-xl'>
+                <TouchableOpacity onPress={action} disabled={isDeleting} className={`${isDeleting && 'opacity-60'} px-4 py-2 rounded-xl`}>
                     <Feather
                         name='trash-2'
                         size={24}
                         color='red'
                     />
                 </TouchableOpacity>
-                <TouchableOpacity className='px-4 py-2 rounded-xl'>
+                {/* <TouchableOpacity className='px-4 py-2 rounded-xl'>
                     <Feather
                         name='edit'
                         size={24}
                         color='black'
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </View>
     );
@@ -70,6 +70,10 @@ const addresses = () => {
     });
     const addressData = useSelector((state) => state.address);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(
+        addressData.allAddresses.length < 1
+    );
+    const [isDeleting, setIsDeleting] = useState('');
 
     useEffect(() => {
         const fetchUserAddresses = async () => {
@@ -98,6 +102,7 @@ const addresses = () => {
                 }
 
                 if (addressRequest.status == 200) {
+                    setIsLoading(false);
                     dispatch(
                         populateAddresses(
                             addressResponse.data.map((addr) => ({
@@ -142,7 +147,7 @@ const addresses = () => {
             if (addressReq.status == 200) {
                 ToastAndroid.show("Address added!", ToastAndroid.LONG);
                 addressRes.data.id = addressRes.data._id;
-                delete addressRes.data._id
+                delete addressRes.data._id;
                 dispatch(addAddress(addressRes.data));
             }
 
@@ -172,8 +177,51 @@ const addresses = () => {
         setCanEdit(false);
     };
 
+    const handleDelete = async (addressId) => {
+        try {
+            setIsDeleting(addressId);
+            const addressReq = await fetch(API_URL + "/address/delete", {
+                method: "POST",
+                body: JSON.stringify({ addressId }),
+                headers: {
+                    "Content-Type": "application/json",
+                    Auth: await getToken(),
+                },
+            });
+            const addressRes = await addressReq.json();
+            console.log("🚀 ~ handleSubmit ~ addressRes:", addressRes);
+
+            if (addressReq.status == 200) {
+                ToastAndroid.show("Address deleted!", 3);
+                dispatch(deleteAddress(addressId));
+            }
+            
+            if (addressReq.status == 404) {
+                ToastAndroid.show("Could not find address!", 3);
+            }
+
+            if (addressReq.status == 403) {
+                const hasUserSessionBeenModified = modifyUserSessionStorage();
+                hasUserSessionBeenModified &&
+                    router.replace("/login?showname=false");
+                return;
+            }
+
+            if (addressReq.status == 500) {
+                Alert.alert("Unexpected Server Error!", addressRes.error, [
+                    { text: "OK", style: "cancel" },
+                ]);
+            }
+        } catch (error) {
+            console.log("🚀 ~ handleDelete ~ error:", error);
+        } finally {
+            setIsDeleting('');
+        }
+    }
+    
     return (
-        <ScrollView className='bg-white px-4 modern:px-8 py-2 gap-y-2'>
+        <ScrollView className='bg-white px-4 modern:px-8 py-2 gap-y-2 pb-12'>
+            {isLoading && <ActivityIndicator size={40} />}
             {canEdit ? (
                 <>
                     {/* Names */}
@@ -183,7 +231,7 @@ const addresses = () => {
                                 First Name:
                             </Text>
                             <TextInput
-                                defaultValue='For testing only!'
+                                // defaultValue='For testing only!'
                                 placeholder=''
                                 // ref={formRef}
                                 onChangeText={(text) =>
@@ -197,7 +245,7 @@ const addresses = () => {
                                 Last Name:
                             </Text>
                             <TextInput
-                                defaultValue='For testing only!'
+                                // defaultValue='For testing only!'
                                 placeholder=''
                                 // ref={formRef}
                                 onChangeText={(text) =>
@@ -214,7 +262,7 @@ const addresses = () => {
                             Mobile:
                         </Text>
                         <TextInput
-                            defaultValue='82484273'
+                            // defaultValue='82484273'
                             inputMode='numeric'
                             placeholder=''
                             // ref={formRef}
@@ -232,7 +280,7 @@ const addresses = () => {
                             Email:
                         </Text>
                         <TextInput
-                            defaultValue='mmhmm@mail.com'
+                            // defaultValue='mmhmm@mail.com'
                             inputMode='email'
                             placeholder=''
                             // ref={formRef}
@@ -250,7 +298,7 @@ const addresses = () => {
                             Street/Landmark:
                         </Text>
                         <TextInput
-                            defaultValue='For testing only!'
+                            // defaultValue='For testing only!'
                             inputMode='text'
                             placeholder=''
                             // ref={formRef}
@@ -267,7 +315,7 @@ const addresses = () => {
                             City:
                         </Text>
                         <TextInput
-                            defaultValue='For testing only!'
+                            // defaultValue='For testing only!'
                             inputMode='text'
                             placeholder=''
                             // ref={formRef}
@@ -284,7 +332,7 @@ const addresses = () => {
                             Pincode:
                         </Text>
                         <TextInput
-                            defaultValue='600063'
+                            // defaultValue='600063'
                             inputMode='numeric'
                             keyboardType='phone-pad'
                             placeholder=''
@@ -302,7 +350,7 @@ const addresses = () => {
                             State:
                         </Text>
                         <TextInput
-                            defaultValue='For testing only!'
+                            // defaultValue='For testing only!'
                             inputMode='text'
                             placeholder=''
                             // ref={formRef}
@@ -332,28 +380,30 @@ const addresses = () => {
                     </View>
                 </>
             ) : (
-                <>
-                    {addressData.allAddresses.map((addr, i) => (
-                        <AddressItemCard
-                            key={i}
-                            name={addr.firstName}
-                            address={[
-                                addr.streetLandmark,
-                                addr.city,
-                                addr.state,
-                            ].join(", ")}
-                        />
-                    ))}
-                    <TouchableOpacity
-                        className='bg-primary px-3 py-3 rounded-xl mt-5'
-                        onPress={() => {
-                            setCanEdit(true);
-                        }}>
-                        <Text className='text-white text-md modern:text-lg font-nunito-400 self-center'>
-                            + Add New
-                        </Text>
-                    </TouchableOpacity>
-                </>
+                addressData.allAddresses.map((addr, i) => (
+                    <AddressItemCard
+                        key={i}
+                        name={addr.firstName}
+                        isDeleting={addr._id == isDeleting}
+                        action={() => handleDelete(addr._id)}
+                        address={[
+                            addr.streetLandmark,
+                            addr.city,
+                            addr.state,
+                        ].join(", ")}
+                    />
+                ))
+            )}
+            {!canEdit && (
+                <TouchableOpacity
+                    className='bg-primary px-3 py-3 rounded-xl mt-5'
+                    onPress={() => {
+                        setCanEdit(true);
+                    }}>
+                    <Text className='text-white text-md modern:text-lg font-nunito-400 self-center'>
+                        + Add New
+                    </Text>
+                </TouchableOpacity>
             )}
         </ScrollView>
     );

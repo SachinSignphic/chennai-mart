@@ -9,6 +9,7 @@ import cartController from './controller/cartController.js';
 import orderController from './controller/orderController.js';
 import adminController from './controller/adminController.js';
 import driverController from './controller/driverController.js';
+import feedbackController from './controller/feedbackController.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,3 +36,4 @@ app.use('/cart', cartController);
 app.use('/order', orderController);
 app.use('/admin', adminController);
 app.use('/driver', driverController);
+app.use('/feedback', feedbackController);

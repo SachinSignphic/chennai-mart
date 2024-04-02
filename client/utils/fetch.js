@@ -22,7 +22,6 @@ const getStorageData = async (key) => {
         // console.log("🚀 ~ getStorageData ~ data:", data)
         return data;
     } catch (error) {
-        console.log("🚀 ~ getStorageData ~ error:", error);
         switch (error.name) {
             case "NotFoundError":
                 return null;

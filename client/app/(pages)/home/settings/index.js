@@ -53,17 +53,17 @@ const SETTINGS_MENU_TEXT = [
         ),
         to: "addresses",
     },
-    {
-        name: "Refunds",
-        icon: () => (
-            <MaterialCommunityIcons
-                name='arrow-top-left-thin-circle-outline'
-                size={24}
-                color='black'
-            />
-        ),
-        to: "refunds",
-    },
+    // {
+    //     name: "Refunds",
+    //     icon: () => (
+    //         <MaterialCommunityIcons
+    //             name='arrow-top-left-thin-circle-outline'
+    //             size={24}
+    //             color='black'
+    //         />
+    //     ),
+    //     to: "refunds",
+    // },
     {
         name: "Profile",
         icon: () => (
